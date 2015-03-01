@@ -1,0 +1,80 @@
+<script type="text/x-red" data-template-name="locks out">
+    <div class="form-row node-input-lockId">
+        <label for="node-input-lockId"><i class="fa fa-bookmark"></i> Lock</label>
+        <input class="input-append-left" type="text" id="node-input-lockId" placeholder="frontDoor" style="width: 40%;" ><button id="node-input-lockId-lookup" class="btn input-append-right"><span class="caret"></span></button>
+    </div>
+    <div class="form-row">
+        <label for="node-input-lock"><i class="fa fa-key"></i> Lock</label>
+        <input type="text" id="node-input-lock" placeholder="lock">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="locks out">
+    <p>Activate locks.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('locks out',{
+        category: 'system',
+        color:"#ffffaa",
+        defaults: {
+            name: { },
+            lockId: { required:true },
+            lock: {}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "light.png",
+        align: "right",
+        label: function() {
+            return this.name || this.lockId ?
+                this.lockId+ ((typeof this.lock === 'boolean') ? " ("+this.lock+")" : '') :
+                'Lock';
+        },
+        oneditprepare: function() {
+
+            // TODO: load from server
+            var locks = {ids:[]}; // RED.settings.functionGlobalContext.locks;
+
+            // var availableServers = [];
+            // var matchedServers = {};
+            // RED.nodes.eachNode(function(node) {
+            //     if (node.type == "lights" && node.lightId) {
+            //         var label = node.lightId+":"+node.value;
+            //     }
+            // });
+
+            $( "#node-input-lockId" ).autocomplete({
+                minLength: 0,
+                source: locks.ids,
+                // select: function( event, ui ) {
+                //     $("#node-input-port").val(ui.item.port);
+                // }
+            });
+            
+            var tt = this;
+            tt._acOpen = false;
+
+            $( "#node-input-lockId" )
+            .on( "autocompleteclose", function( event, ui ) { tt._acOpen = false;} );
+            
+            $( "#node-input-lockId-lookup" )
+            .click(function(e) {
+                if (tt._acOpen) {
+                    $( "#node-input-lockId" ).autocomplete( "close");
+                } else {
+                    $( "#node-input-lockId" ).autocomplete( "search", "" );
+                }
+                tt._acOpen = !tt._acOpen;
+                e.preventDefault();
+            });
+        }
+    });
+</script>

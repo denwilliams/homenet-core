@@ -1,0 +1,85 @@
+<script type="text/x-red" data-template-name="sensor out">
+    <div class="form-row node-input-sensorId">
+        <label for="node-input-sensorId"><i class="fa fa-bookmark"></i> Lock</label>
+        <input class="input-append-left" type="text" id="node-input-sensorId" placeholder="frontDoor" style="width: 40%;" ><button id="node-input-sensorId-lookup" class="btn input-append-right"><span class="caret"></span></button>
+    </div>
+    <div class="form-row">
+        <label for="node-input-value"><i class="fa fa-key"></i> Value</label>
+        <input type="text" id="node-input-value" placeholder="value">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="sensor out">
+    <p>Activate sensor out.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('sensor out',{
+        category: 'system',
+        color:"#ffffaa",
+        defaults: {
+            name: {},
+            sensorId: { required:true },
+            value: {}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "light.png",
+        align: "right",
+        label: function() {
+            return this.name || this.sensorId || 'Trigger Sensor';
+        },
+        oneditprepare: function() {
+        }
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-red" data-template-name="sensor in">
+    <div class="form-row node-input-sensorId">
+        <label for="node-input-sensorId"><i class="fa fa-bookmark"></i> Lock</label>
+        <input class="input-append-left" type="text" id="node-input-sensorId" placeholder="frontDoor" style="width: 40%;" ><button id="node-input-sensorId-lookup" class="btn input-append-right"><span class="caret"></span></button>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="sensor in">
+    <p>Activate sensor in.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('sensor in',{
+        category: 'system',
+        color:"#ffffaa",
+        defaults: {
+            name: { },
+            sensorId: { required:true }
+        },
+        inputs:0,
+        outputs:1,
+        icon: "light.png",
+        align: "right",
+        label: function() {
+            return this.name || this.sensorId || 'Sensor Triggered';
+        },
+        oneditprepare: function() {
+        }
+    });
+</script>

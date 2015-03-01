@@ -1,0 +1,35 @@
+<script type="text/x-red" data-template-name="bump-presence">
+    <div class="form-row node-input-pid">
+        <label for="node-input-pid"><i class="fa fa-bookmark"></i> ID</label>
+        <input class="input-append-left" type="text" id="node-input-pid" placeholder="default" style="width: 40%;" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="bump-presence">
+    <p>bump presence.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('bump-presence',{
+        category: 'system',
+        color:"#ccaadd",
+        defaults: {
+            name: {},
+            pid: {}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "hash.png",
+        align: "right",
+        label: function() {
+            return this.name || this.pid || 'bump presence';
+        }
+    });
+</script>
