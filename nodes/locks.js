@@ -16,7 +16,7 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
 
-            console.log('Setting lock ' + lockId, lock);
+            // console.log('Setting lock ' + lockId, lock);
             locks[lockId](lock ? lock === 'true' ? true : false : msg.payload);
 
         });
