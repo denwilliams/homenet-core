@@ -12,6 +12,7 @@
     "async-ioc": "^0.2.0",
     "error-builder": "^1.1.0",
     "express": "^4.11.2",
+    "net-ping": "^1.1.11",
     "node-red": "^0.10.1",
     "q": "^1.1.2",
     "redis": "~0.12.1",
