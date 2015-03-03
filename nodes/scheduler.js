@@ -1,8 +1,8 @@
-var name = 'scheduler'
+var name = 'scheduler';
 
 module.exports = function(RED) {
     var global = RED.settings.functionGlobalContext;
-    var logger = global.logger;
+    var logger = global.logger.getLogger('node-scheduler');
 
     function Node(config) {
         RED.nodes.createNode(this, config);
@@ -24,6 +24,7 @@ module.exports = function(RED) {
         var wait = mins * 60000;
         logger.info('Setting scheduler for ' + node.hour + ':' + node.minute + ' in ' + wait + 'ms');
 
+        // should try and be more intelligent than this :-/
         var timer = setTimeout(tick, wait);
 
         node.on("close", function() {
@@ -37,4 +38,5 @@ module.exports = function(RED) {
         }
     }
     RED.nodes.registerType(name,Node);
-}
+};
+
