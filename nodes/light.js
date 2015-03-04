@@ -16,10 +16,11 @@ module.exports = function(RED) {
     });
 
     function check(data) {
-      if (data.value !== name) return;
+      var isTrue = (data.value === name);
 
-      msg = { payload: {}, topic:name };
-      node.send(msg);
+      msg = { payload: isTrue, topic:name };
+      if (isTrue) node.send([msg,null]);
+      else node.send([null,msg]);
     }
   }
   RED.nodes.registerType(name,Node);
