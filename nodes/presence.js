@@ -24,7 +24,11 @@ module.exports = function(RED) {
                 topic: 'presence/'+id,
                 payload: data
             };
-            node.send(msg);
+            if (data) {
+                node.send([msg,null]);
+            } else {
+                node.send([null,msg]);
+            }
         }
     }
 
