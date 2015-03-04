@@ -1,6 +1,6 @@
 Scene #5882FA (blue)
 Lights #F4FA58 (yellow)
-Locks #F4FA58 (red)
+Locks #FF9999 (red)
 Presence #D358F7 (purple)
 Time #58FAF4 (cyan)
 Environment #81F781 (green)

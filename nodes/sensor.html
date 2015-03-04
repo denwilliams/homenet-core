@@ -1,11 +1,7 @@
 <script type="text/x-red" data-template-name="sensor out">
     <div class="form-row node-input-sensorId">
-        <label for="node-input-sensorId"><i class="fa fa-bookmark"></i> Lock</label>
+        <label for="node-input-sensorId"><i class="fa fa-bookmark"></i> Sensor ID</label>
         <input class="input-append-left" type="text" id="node-input-sensorId" placeholder="frontDoor" style="width: 40%;" ><button id="node-input-sensorId-lookup" class="btn input-append-right"><span class="caret"></span></button>
-    </div>
-    <div class="form-row">
-        <label for="node-input-value"><i class="fa fa-key"></i> Value</label>
-        <input type="text" id="node-input-value" placeholder="value">
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
@@ -26,8 +22,7 @@
         color:"#D8CEF6",
         defaults: {
             name: {},
-            sensorId: { required:true },
-            value: {}
+            sensorId: { required:true }
         },
         inputs:1,
         outputs:0,
@@ -67,7 +62,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sensor in',{
         category: 'homenet-input',
-        color:"#ffffaa",
+        color:"#D8CEF6",
         defaults: {
             name: { },
             sensorId: { required:true }
