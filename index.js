@@ -61,10 +61,9 @@ function readPlugins(pluginPath, depth) {
     if (depth > 0 && stats.isDirectory()) {
       plugins = plugins.concat(readPlugins(subpluginPath, depth-1));
     } else if (item === 'index.js') {
-      console.log('Found plugin: ' + pluginPath);
       var plugin = require(subpluginPath);
       if (plugin.$name) {
-        console.log('It\'s a real plugin!');
+        console.log('Found plugin: ' + pluginPath);
         plugin.nodes = readNodes( path.join(pluginPath, 'nodes') );
         plugins.push(plugin);
       }
