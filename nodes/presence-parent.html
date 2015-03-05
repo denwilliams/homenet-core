@@ -1,0 +1,87 @@
+<script type="text/x-red" data-template-name="add presence parent">
+    <div class="form-row node-input-childId">
+        <label for="node-input-childId"><i class="fa fa-bookmark"></i> Child ID</label>
+        <input class="input-append-left" type="text" id="node-input-childId" placeholder="default" style="width: 40%;" >
+    </div>
+    <div class="form-row node-input-parentId">
+        <label for="node-input-parentId"><i class="fa fa-bookmark"></i> Parent ID</label>
+        <input class="input-append-left" type="text" id="node-input-parentId" placeholder="default" style="width: 40%;" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="add presence parent">
+    <p>TODO.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('add presence parent',{
+        category: 'homenet-output',
+        color:"#D358F7",
+        defaults: {
+            name: {},
+            childId: {},
+            parentId: {}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "hash.png",
+        align: "right",
+        label: function() {
+            return this.name || 'Add Presence Parent';
+        }
+    });
+</script>
+
+
+
+
+
+
+
+<script type="text/x-red" data-template-name="remove presence parent">
+    <div class="form-row node-input-childId">
+        <label for="node-input-childId"><i class="fa fa-bookmark"></i> Child ID</label>
+        <input class="input-append-left" type="text" id="node-input-childId" placeholder="default" style="width: 40%;" >
+    </div>
+    <div class="form-row node-input-parentId">
+        <label for="node-input-parentId"><i class="fa fa-bookmark"></i> Parent ID</label>
+        <input class="input-append-left" type="text" id="node-input-parentId" placeholder="default" style="width: 40%;" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="remove presence parent">
+    <p>TODO.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('remove presence parent',{
+        category: 'homenet-output',
+        color:"#D358F7",
+        defaults: {
+            name: {},
+            childId: {},
+            parentId: {}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "hash.png",
+        align: "right",
+        label: function() {
+            return this.name || 'Remove Presence Parent';
+        }
+    });
+</script>
