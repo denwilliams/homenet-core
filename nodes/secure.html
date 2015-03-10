@@ -1,0 +1,31 @@
+<script type="text/x-red" data-template-name="secure in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="secure in">
+    <p>1st pin = yes, 2nd = no.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('secure in',{
+        category: 'homenet-input',
+        color:"#D358F7",
+        defaults: {
+            name: {}
+        },
+        inputs:0,
+        outputs:2,
+        icon: "hash.png",
+        align: "right",
+        label: function() {
+            return this.name || 'Secure';
+        }
+    });
+</script>
+
