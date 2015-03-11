@@ -19,9 +19,9 @@ module.exports = function(RED) {
     function check(data) {
       if (deviceId && data.id !== deviceId) return;
 
-      msg = { payload: state, topic:'media/'+state.id };
+      msg = { payload: data, topic:'media/'+data.id };
 
-      if (state.activePlayer) node.send([msg,null]);
+      if (data.activePlayer) node.send([msg,null]);
       else node.send([null,msg]);
     }
   }
