@@ -1,5 +1,5 @@
 module.exports = function(RED) {
-    function RememberNode(config) {
+    function Node(config) {
         RED.nodes.createNode(this,config);
         var node = this;
         this.on('input', function(msg) {
@@ -14,5 +14,5 @@ module.exports = function(RED) {
             node.send(msg);
         });
     }
-    RED.nodes.registerType("remember",RememberNode);
+    RED.nodes.registerType("remember", Node);
 }
