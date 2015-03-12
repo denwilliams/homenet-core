@@ -9,22 +9,20 @@ module.exports = function(RED) {
 
         RED.nodes.createNode(this,config);
 
-        var id = config.pid;
-        
         var node = this;
 
-        presence.on(id, handlePresence);
+        security.on('changed', handleEvent);
 
         this.on('close', function() {
-            presence.removeListener(id, handlePresence);
+            security.removeListener('changed', handleEvent);
         });
 
-        function handlePresence(data) {
+        function handleEvent(isSecure) {
             var msg = {
-                topic: 'presence/'+id,
-                payload: data
+                topic: 'secure',
+                payload: isSecure
             };
-            if (data) {
+            if (isSecure) {
                 node.send([msg,null]);
             } else {
                 node.send([null,msg]);
