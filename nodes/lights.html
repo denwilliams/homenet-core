@@ -31,7 +31,7 @@
         defaults: {
             name: { },
             lightId: { required:true },
-            duration: { value:'', validate:RED.validators.number() },
+            duration: { value:'', required:false, validate:RED.validators.number() },
             state: {}
         },
         inputs:1,
