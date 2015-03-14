@@ -12,11 +12,13 @@ module.exports = function(RED) {
         this.lightId = config.lightId;
         this.state = config.state;
 
+        var opts = (config.duration) ? undefined : {duration:config.duration};
+
         var node = this;
 
         this.on("input", function(msg) {
 
-            lights[node.lightId](node.state || msg.payload);
+            lights[node.lightId](node.state || msg.payload, opts);
 
         });
     }
