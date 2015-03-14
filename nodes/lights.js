@@ -12,7 +12,7 @@ module.exports = function(RED) {
         this.lightId = config.lightId;
         this.state = config.state;
 
-        var opts = (config.duration) ? undefined : {duration:config.duration};
+        var opts = (config.duration) ? {duration:config.duration} : undefined;
 
         var node = this;
 
