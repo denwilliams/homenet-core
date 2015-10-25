@@ -1,6 +1,6 @@
 {
   "name": "homenet-core",
-  "version": "3.0.0-alpha",
+  "version": "4.0.0-alpha",
   "description": "Homenet home automation - core system",
   "main": "index.js",
   "scripts": {
