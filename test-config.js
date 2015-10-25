@@ -21,6 +21,7 @@ module.exports = exports = {
   ],
   instances: [
     {class: 'sensor',   id: 'livingroom',   type: 'virtual',   options: {}},
+    {class: 'sensor',   id: 'hallway',      type: 'ninja',     options: {bridge:'main', deviceName:'hallway'}},
     {class: 'light',    id: 'livingroom',   type: 'virtual',   options: {id:5, hub:'main'}},
     {class: 'light',    id: 'lounge',       type: 'hue',       options: {id:8, hub:'main'}},
     {class: 'power',    id: 'livingroom',   type: 'virtual',   options: {id:5, hub:'main'}},
@@ -36,7 +37,12 @@ module.exports = exports = {
   },
   hue: {
     hubs: [
-      { id:'main', name:'Name', host:'192.168.0.20', key:'6ebef891575fc774819ecdcdbb39b' }
+      { id:'main', name:'Main', host:'hue-main', key:'6ebef891575fc774819ecdcdbb39b' }
+    ]
+  },
+  ninjaBlocks: {
+    bridges: [
+      { id:'main', name:'Main', host:'ninjablock-main' }
     ]
   }
 };
