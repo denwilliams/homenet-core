@@ -2,14 +2,13 @@ module.exports = function(RED) {
     "use strict";
 
     var global = RED.settings.functionGlobalContext;
+    var scene = global.scene;
+    var eventBus = global.eventBus;
     
     function Node(config) {
         RED.nodes.createNode(this,config);
 
         var node = this;
-
-        var scene = global.scene;
-        var eventBus = global.eventBus;
 
         var origScene = scene.currentId;
 

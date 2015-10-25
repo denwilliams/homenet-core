@@ -4,7 +4,9 @@
   "description": "Homenet home automation - core system",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "jsdoc": "jsdoc -c .jsdoc",
+    "generate-docs": "jsdoc -r -R README.md -u docs/tutorials -P package.json -t node_modules/minami lib/"
   },
   "author": "Den Williams",
   "license": "MIT",
@@ -12,7 +14,9 @@
     "async-ioc": "^0.2.0",
     "body-parser": "^1.12.0",
     "error-builder": "^1.1.0",
+    "eventemitter2": "^0.4.14",
     "express": "^4.11.2",
+    "lodash": "^3.10.1",
     "net-ping": "^1.1.11",
     "node-red": "^0.10.1",
     "q": "^1.1.2",
@@ -23,5 +27,11 @@
     "when": "^3.7.2",
     "winston": "^0.9.0",
     "winston-papertrail": "^1.0.1"
+  },
+  "devDependencies": {
+    "ink-docstrap": "^0.5.2",
+    "jsdoc": "^3.3.3",
+    "minami": "^1.1.1",
+    "node-hue-api": "^1.2.0"
   }
 }

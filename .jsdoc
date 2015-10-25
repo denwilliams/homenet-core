@@ -1,0 +1,28 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc"]
+    },
+    "source": {
+        "include": ["interfaces", "lib", "package.json", "README.md"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "plugins": [
+        "./node_modules/jsdoc/plugins/markdown"
+    ],
+    "markdown": {
+        "tags": ["description", "param"]
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": true
+    },
+    "opts": {
+        "destination": "./out/",
+        "encoding": "utf8",
+        "private": false,
+        "recurse": true,
+        "template": "./node_modules/minami"
+    }
+}
