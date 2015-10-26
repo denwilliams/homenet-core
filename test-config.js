@@ -35,6 +35,11 @@ module.exports = exports = {
       port: 3344
     }
   },
+  zway: {
+    controllers: [
+      { id:'main', name:'Main', host:'zway-main' }
+    ]
+  },
   hue: {
     hubs: [
       { id:'main', name:'Main', host:'hue-main', key:'6ebef891575fc774819ecdcdbb39b' }
