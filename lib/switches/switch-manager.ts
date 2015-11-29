@@ -129,7 +129,7 @@ class SwitchManagerImpl implements SwitchManager {
   };
   
   emitValue(typeId: string, instanceId: string, value: boolean|string|number) {
-    var instance = this.getInstance(typeId, instanceId);
+    var instance: Switch = this.getInstance(typeId, instanceId);
     return instance.emitValue(value);
   };
   

@@ -9,7 +9,7 @@ interface Logger {
 
 interface Switch {
   emitOnSet: boolean
-  
+  emitValue(value: boolean|string|number) : void
   get() : any // : Q.Promise<any>
   set(value: any) : void // : Q.Promise<void>
 }
