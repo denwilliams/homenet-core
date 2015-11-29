@@ -1,5 +1,5 @@
 /// <reference path="../../typings/node/node.d.ts" />
-/// <reference path="../../typings/q/q.d.ts" />
+/// <reference path="../../typings/q/Q.d.ts" />
 
 /// <reference path="../../interfaces/interfaces.d.ts" />
 
