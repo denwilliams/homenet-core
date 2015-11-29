@@ -19,7 +19,7 @@ module.exports = function(RED) {
 
         function updateStatus(data) {
           var color = (sunlight.isLight()) ? 'yellow' : 'gray';
-          node.status({fill:color,shape:"dot",text:sunlight.current});
+          node.status({fill:color,shape:"dot",text:sunlight.current.primaryState});
         }
     }
 
