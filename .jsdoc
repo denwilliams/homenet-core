@@ -9,7 +9,11 @@
         "excludePattern": "(node_modules/|docs)"
     },
     "plugins": [
-        "./node_modules/jsdoc/plugins/markdown"
+        "./node_modules/jsdoc/plugins/markdown",
+        "./node_modules/loke-jsdoc-theme/plugins/async",
+        "./node_modules/loke-jsdoc-theme/plugins/rpc",
+        "./node_modules/loke-jsdoc-theme/plugins/api",
+        "./node_modules/loke-jsdoc-theme/plugins/timeout"
     ],
     "markdown": {
         "tags": ["description", "param"]
@@ -23,6 +27,7 @@
         "encoding": "utf8",
         "private": false,
         "recurse": true,
-        "template": "./node_modules/minami"
+        "template": "./node_modules/loke-jsdoc-theme",
+        "tutorials": "./docs/tutorials"
     }
 }
