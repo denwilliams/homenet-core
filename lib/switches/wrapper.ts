@@ -27,7 +27,7 @@ class SwitchWrapper implements Switch {
     var instance : any = this._instance();
     this._logger.info('Setting switch ' + this.id + ' : ' + value);
     var result = instance.set.apply(instance, arguments);
-    this._eventBus.emit(EVENT_PREFIX+this.id, null, value);
+    this.emitValue(value);
     return result;
   };
 
@@ -37,6 +37,11 @@ class SwitchWrapper implements Switch {
     var result = instance.get.apply(instance, arguments);
     return result;
   };
+  
+  emitValue(value: boolean|string|number) : void {
+    this._eventBus.emit(EVENT_PREFIX+this.id, null, value);    
+  }
+
 }
 
 export = SwitchWrapper;
