@@ -2,23 +2,18 @@ module.exports = function(RED) {
     'use strict';
 
     var global = RED.settings.functionGlobalContext;
-    var locks = global.locks;
+    var switches = global.switches;
 
     function Node(config) {
-        var self = this;
-
         RED.nodes.createNode(this,config);
 
         var lockId = config.lockId;
-        var lock = config.lock;
-
-        var node = this;
+        var defaultState = config.lock;
 
         this.on('input', function(msg) {
-
-            // console.log('Setting lock ' + lockId, lock);
-            locks[lockId](lock ? lock === 'true' ? true : false : msg.payload);
-
+            var state = defaultState || msg.payload;
+            state = state === 'true' ? true : false;
+            switches.set('lock', lockId, state);
         });
     }
 

@@ -1,3 +1,4 @@
+require('typescript-require');
 var ioc = require('async-ioc');
 var Q = require('q');
 var fs = require('fs');

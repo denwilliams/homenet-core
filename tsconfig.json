@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "moduleResolution": "node",
+        "target": "ES5",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "out": "./built/local/tsc.js",
+        "sourceMap": true,
+        "declaration": true,
+        "listFiles": true
+    },
+    "files": [
+      "src/main.ts",
+      "src/lights/module.ts",
+      "src/lights/models.ts"
+    ],
+    "XAAAexclude": [
+        "node_modules",
+        "wwwroot",
+        "build",
+        "built"
+    ]
+}
