@@ -1,10 +1,18 @@
 /// <reference path="node/node.d.ts" />
 /// <reference path="q/Q.d.ts" />
 /// <reference path="lodash/lodash.d.ts" />
-/// <reference path="inversify/inversify.d.ts" />
+/// <reference path="../node_modules/inversify/type_definitions/inversify.d.ts" />
 /// <reference path="redis/redis.d.ts" />
-
-
-declare module "inversify" {
-    export = inversify;
-}
+/// <reference path="express/express.d.ts" />
+/// <reference path="mime/mime.d.ts" />
+/// <reference path="serve-static/serve-static.d.ts" />
+/// <reference path="chalk/chalk.d.ts" />
+/// <reference path="moment/moment-node.d.ts" />
+/// <reference path="moment/moment.d.ts" />
+/// <reference path="socket.io/socket.io.d.ts" />
+/// <reference path="winston/winston.d.ts" />
+/// <reference path="es6-promise/es6-promise.d.ts" />
+/// <reference path="when/when.d.ts" />
+/// <reference path="body-parser/body-parser.d.ts" />
+/// <reference path="mocha/mocha.d.ts" />
+/// <reference path="assert/assert.d.ts" />

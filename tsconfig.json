@@ -1,25 +1,41 @@
 {
     "compilerOptions": {
-        "module": "system",
+        "module": "commonjs",
         "moduleResolution": "node",
-        "target": "ES5",
-        "noImplicitAny": true,
+        "target": "es5",
         "removeComments": true,
         "preserveConstEnums": true,
-        "out": "./built/local/tsc.js",
         "sourceMap": true,
         "declaration": true,
-        "listFiles": true
+        "listFiles": false,
+        "outDir": "./build"
     },
-    "files": [
-      "src/main.ts",
-      "src/lights/module.ts",
-      "src/lights/models.ts"
+    "compilerOptionsXX": {
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "outFile": "./build/tsc.js",
+        "out": "./built/local/tsc.js"
+    },
+    "filesXX": [
+      "main.ts"
     ],
-    "XAAAexclude": [
-        "node_modules",
-        "wwwroot",
-        "build",
-        "built"
+    "exclude": [
+      "typedoc",
+      "old_lib",
+      "old_src",
+      "old_test",
+      "node_modules",
+      "wwwroot",
+      "build",
+      "built",
+      "data",
+      "docs",
+      "logs",
+      "nodes",
+      "out",
+      "plugins",
+      "sample",
+      "src",
+      "tmp"
     ]
 }

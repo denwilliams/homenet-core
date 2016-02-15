@@ -1,6 +1,6 @@
 /// <reference path="../../interfaces/interfaces.d.ts" />
 
-import lazySingleton = require('./lazy-singleton');
+import {lazySingleton} from './lifecycle';
 
 /**
   * Manages instances of a specific class
@@ -11,20 +11,20 @@ import lazySingleton = require('./lazy-singleton');
   * @param {Logger} logger
   */
 class ClassTypeManager<T> {
-  
-  private _logger: Logger;
-  private _addInstance: ClassFactory<T>;
+
+  private _logger: ILogger;
+  private _addInstance: IClassFactory<T>;
   private BaseType: Function;
-  
+
   classId: string;
   instances: Dict<Func<T>>;
-  types: Dict<ClassTypeFactory<T>>;
-  
-  constructor(classId: string, BaseType: Function, onAddInstance: OnAddInstanceCallback<T>, logger: Logger) {
-        
+  types: Dict<IClassTypeFactory<T>>;
+
+  constructor(classId: string, BaseType: Function, onAddInstance: IOnAddInstanceCallback<T>, logger: ILogger) {
+
     var instances: Dict<Func<T>> = {};
     var types: Dict<any> = {};
-    
+
     this.classId = classId;
     this.types = types;
     this.instances = instances;
@@ -45,7 +45,7 @@ class ClassTypeManager<T> {
 
     function createInstance(typeId: string, instanceId: string, opts: any) : T {
       logger.info('Creating '+classId+' instance of type ' + typeId);
-      var typeFactory: ClassTypeFactory<T> = types[typeId];
+      var typeFactory: IClassTypeFactory<T> = types[typeId];
       return typeFactory(instanceId, opts);
     }
   }
@@ -54,16 +54,16 @@ class ClassTypeManager<T> {
    * Adds this type manager instance to the classes module
    * @param {ClassesManager} classes - classes module
    */
-  addToClasses(classes: ClassesManager) {
+  addToClasses(classes: IClassesManager) {
     classes.addClass(this.classId, this._addInstance);
   }
 
   /**
    * Adds a new light type
    * @param {string} typeId  - ID of the type
-   * @param {function} factory - 
+   * @param {function} factory -
    */
-  addType(typeId: string, factory: ClassTypeFactory<T>) {
+  addType(typeId: string, factory: IClassTypeFactory<T>) {
     this._logger.info('Adding '+this.classId+' type ' + typeId);
     this.types[typeId] = factory;
   }
