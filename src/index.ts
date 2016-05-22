@@ -6,7 +6,7 @@ import { kernel } from './inversify.kernel';
 
 import DefaultPlugins = require('./plugins/default');
 
-export {inject, injectable as plugin} from 'inversify';
+export {inject as service, injectable as plugin} from 'inversify';
 
 export function init(RED: any) : IRuntime {
 

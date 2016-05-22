@@ -1,4 +1,6 @@
 /// <reference path="api/interfaces.d.ts"/>
+/// <reference path="./ext.q.d.ts"/>
+/// <reference path="./ext.when.d.ts"/>
 
 /**
  * Interfaces
@@ -51,7 +53,7 @@ interface ICommon {
 }
 
 interface IAuthorizer {
-  authorize(token: string) : Q.Promise<string>;
+  authorize(token: string) : QPromise<string>;
 }
 
 interface ILoggerFactory {
@@ -461,7 +463,7 @@ interface INodeREDContext {
 }
 
 interface INodeREDLauncher {
-  start() : When.Promise<any>;
+  start() : WhenPromise<any>;
   reload() : void;
 }
 
