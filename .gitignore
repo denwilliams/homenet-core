@@ -32,3 +32,6 @@ data/
 old_*/*
 typedoc/
 doc/
+lib/**/*.d.ts
+lib/**/*.js
+lib/**/*.js.map

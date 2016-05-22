@@ -1,7 +1,5 @@
 const DEFAULT_TIMEOUT = 60000;
 
-enum SensorMode { 'toggle', 'trigger' };
-
 /**
   * @class Sensor
   * @abstract
@@ -30,22 +28,19 @@ class BaseSensor implements ISensor {
   private _values: IValueStore;
   private _presence: IPresence;
 
-  constructor(instanceId: string, opts: any, triggers: ITriggerManager, presence: IPresenceManager, values: IValuesManager) {
+  constructor(instanceId: string, opts: any, triggers: ITriggerManager, presence : IPresenceManager, values: IValuesManager) {
     opts = opts || {};
     this.id = instanceId;
     var mode = this.mode = opts.mode || 'toggle';
 
     if (mode === 'trigger' || mode === 'toggle') {
-      var timeout : number = opts.timeout || DEFAULT_TIMEOUT;
-      var parentId : string = opts.zone ? 'zone.'+opts.zone : null;
-      var sensorPresence = this._presence = presence.add(
-        'sensor.'+instanceId,
-        {timeout:timeout, category:'sensor', parent:parentId, name: 'sensor.'+instanceId}
-      );
+      var timeout = opts.timeout || DEFAULT_TIMEOUT;
+      var parentId = opts.zone ? 'zone.'+opts.zone : null;
+      var sensorPresence = this._presence = presence.add('sensor.'+instanceId, {timeout:timeout, category:'sensor', parent:parentId});
     }
 
     if (mode === 'trigger') {
-      var trigger = this._trigger = triggers.add('sensor', instanceId, null);
+      var trigger = this._trigger = triggers.add('sensor', instanceId);
       trigger.onTrigger(function() {
         sensorPresence.bump();
       });
@@ -96,3 +91,5 @@ class BaseSensor implements ISensor {
   }
 
 }
+
+export = BaseSensor;

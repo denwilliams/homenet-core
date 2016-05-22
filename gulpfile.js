@@ -13,7 +13,14 @@ gulp.task('default', function () {
 
 gulp.task("doc", function() {
     return gulp
-        .src(["./lib/**/*.ts", "./typings/**/*.ts", "./interfaces/**/*.ts"])
+        .src([
+          "./lib/interfaces.d.ts",
+          "./main.ts",
+          "./lib/**/*.ts",
+          "./typings/main.d.ts",
+          "./typings/custom.d.ts",
+          "./interfaces/**/*.ts"
+        ])
         .pipe(typedoc({
             // TypeScript options (see typescript docs)
             module: "commonjs",
@@ -23,13 +30,15 @@ gulp.task("doc", function() {
 
             // Output options (see typedoc docs)
             out: "./doc",
-            mode: "module",
+            mode: "file",
 
             // TypeDoc options (see typedoc docs)
             name: "Homenet",
+            // theme: "minimal",
             ignoreCompilerErrors: false,
-            excludeExternals:true,
-            externalPattern: "typings/*",
-            version: true,
+            externalPattern: "typings/**/*.d.ts",
+            exclude: "typings/**/*.d.ts",
+            excludeExternals: true,
+            version: true
         }));
 });

@@ -1,6 +1,3 @@
-/// <reference path="./interfaces.d.ts" />
-/// <reference path="./base-sensor.ts" />
-
 class TriggerSensor extends BaseSensor {
   constructor(instanceId: string, opts: any, triggers: ITriggerManager, presence : IPresenceManager, values: IValuesManager) {
     super(instanceId, {
