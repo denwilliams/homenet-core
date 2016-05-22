@@ -2,6 +2,8 @@
 
 ## How to Use
 
+> THIS IS NOW WRONG... NEED TO UPDATE DOCS
+
 ...
 
 ```js
