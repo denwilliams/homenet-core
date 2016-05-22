@@ -19,7 +19,8 @@
       "out": "./built/local/tsc.js"
     },
     "files": [
-      "node_modules/inversify/type_definitions/inversify/inversify.d.ts",
+      "node_modules/node-red-contrib-scenes/node-red-contrib-scenes.d.ts",
+      "node_modules/inversify-dts/inversify/inversify.d.ts",
       "typings/main.d.ts",
       "src/node-red.d.ts",
       "src/interfaces.d.ts",

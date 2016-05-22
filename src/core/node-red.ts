@@ -7,7 +7,7 @@ import {createServer} from 'http';
 import * as express from 'express';
 
 // import NodeRedScenes = require('node-red-contrib-scenes');
-const nrScenes = require('node-red-contrib-scenes');
+import nrScenes = require('node-red-contrib-scenes');
 
 const config = {
   nodesDir: null, // join(__dirname, '../nodes/'),
