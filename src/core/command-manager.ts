@@ -1,5 +1,6 @@
 import _ = require('lodash');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 /**
  * @constructor
@@ -10,19 +11,19 @@ import {inject, injectable} from 'inversify';
  * commandManager.run('loungeroom:music', 'play', {playlist:'1234'});
  */
 @injectable()
-class CommandManagerImpl implements ICommandManager {
+class CommandManagerImpl implements Homenet.ICommandManager {
 
-  types: Dict<ICommanderFactory>;
-  typeMeta: Dict<ICommandTypeMeta>;
-  instanceTypes: Dict<string>;
-  instances: Dict<Func<ICommander>>;
+  types: Homenet.Dict<Homenet.ICommanderFactory>;
+  typeMeta: Homenet.Dict<Homenet.ICommandTypeMeta>;
+  instanceTypes: Homenet.Dict<string>;
+  instances: Homenet.Dict<Homenet.Func<Homenet.ICommander>>;
 
-  private _logger: ILogger;
-  private _eventBus: IEventBus;
+  private _logger: Homenet.ILogger;
+  private _eventBus: Homenet.IEventBus;
 
   constructor(
-        @inject('IEventBus') eventBus: IEventBus,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IEventBus') eventBus: Homenet.IEventBus,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this.types = {};
     this.typeMeta = {};
     this.instanceTypes = {};
@@ -36,7 +37,7 @@ class CommandManagerImpl implements ICommandManager {
   * @param {string} typeId - identifier for the type
   * @param {function} factory - factory for this type
   */
-  addType(typeId: string, factory: ICommanderFactory, meta: ICommandTypeMeta) : void {
+  addType(typeId: string, factory: Homenet.ICommanderFactory, meta: Homenet.ICommandTypeMeta) : void {
     this._logger.info('Adding command type ' + typeId);
     this.types[typeId] = factory;
     this.typeMeta[typeId] = meta || {};
@@ -55,14 +56,14 @@ class CommandManagerImpl implements ICommandManager {
     this.instanceTypes[id] = typeId;
   };
 
-  getInstance(typeId: string, instanceId: string) : ICommander {
+  getInstance(typeId: string, instanceId: string) : Homenet.ICommander {
     var id:string = getId(typeId, instanceId);
     this._logger.debug('Getting command instance ' + id);
-    var factory : Func<ICommander> = this.instances[id];
+    var factory : Homenet.Func<Homenet.ICommander> = this.instances[id];
     return factory();
   };
 
-  getAll(): Dict<ICommander> {
+  getAll(): Homenet.Dict<Homenet.ICommander> {
     return _.mapValues(this.instances, getCommander);
   };
 
@@ -77,7 +78,7 @@ class CommandManagerImpl implements ICommandManager {
     var id: string = getId(typeId, instanceId);
     this._logger.debug('Running command on instance ' + instanceId + ' - cmd:' + command);
 
-    var instance: ICommander = this.instances[id]();
+    var instance: Homenet.ICommander = this.instances[id]();
     if (!instance) return null;
 
     var cmdFn: Function = instance[command];
@@ -89,7 +90,7 @@ class CommandManagerImpl implements ICommandManager {
     return result;
   };
 
-  getMeta(typeId: string, instanceId: string): ICommandTypeMeta {
+  getMeta(typeId: string, instanceId: string): Homenet.ICommandTypeMeta {
     var id: string = getId(typeId, instanceId);
     this._logger.debug('Getting meta for ' + id);
     var tid: string = this.instanceTypes[id];
@@ -98,23 +99,23 @@ class CommandManagerImpl implements ICommandManager {
     return this.typeMeta[tid];
   };
 
-  getTypeMeta(typeId) : ICommandTypeMeta {
+  getTypeMeta(typeId) : Homenet.ICommandTypeMeta {
     return this.typeMeta[typeId];
   };
 
-  getType(typeId: string) : ICommanderFactory {
+  getType(typeId: string) : Homenet.ICommanderFactory {
     return this.types[typeId];
   };
 
-  _createSingletonInstance(typeId: string, opts: any) : Func<ICommander> {
-    var factory: ICommanderFactory = this.getType(typeId);
+  _createSingletonInstance(typeId: string, opts: any) : Homenet.Func<Homenet.ICommander> {
+    var factory: Homenet.ICommanderFactory = this.getType(typeId);
     return singleton(factory, opts);
   };
 }
 
 
-function singleton(factory: ICommanderFactory, opts: any) : Func<ICommander> {
-  var instance: ICommander;
+function singleton(factory: Homenet.ICommanderFactory, opts: any) : Homenet.Func<Homenet.ICommander> {
+  var instance: Homenet.ICommander;
   return function() {
     if (!instance) instance = factory(opts);
     return instance;
@@ -126,7 +127,7 @@ function getId(typeId:string, instanceId:string) : string {
   return typeId;
 }
 
-function getCommander(commanderFn: Func<ICommander>) : ICommander {
+function getCommander(commanderFn: Homenet.Func<Homenet.ICommander>) : Homenet.ICommander {
   return commanderFn();
 }
 

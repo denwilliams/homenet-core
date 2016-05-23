@@ -1,4 +1,7 @@
+/// <reference path="../interfaces.d.ts"/>
+
 import { injectable, inject } from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 import chalk = require('chalk');
 
 import ClassTypeManager = require('../utils/class-type-manager');
@@ -6,11 +9,11 @@ import ClassTypeManager = require('../utils/class-type-manager');
 const CLASS_ID = 'lock';
 
 @injectable()
-class LockManager extends ClassTypeManager<ILock> implements ILockManager {
+class LockManager extends ClassTypeManager<Homenet.ILock> implements Homenet.ILockManager {
 
-  private _switches: ISwitchManager;
-  private _commands: ICommandManager;
-  private _instances: Dict<ILock> = {};
+  private _switches: Homenet.ISwitchManager;
+  private _commands: Homenet.ICommandManager;
+  private _instances: Homenet.Dict<Homenet.ILock> = {};
 
   // /**
   //  * All lock IDs registered
@@ -27,11 +30,11 @@ class LockManager extends ClassTypeManager<ILock> implements ILockManager {
   // locks: Dict<ILock> = {};
 
   constructor(
-      @inject('IClassesManager') classes: IClassesManager,
-      @inject('ISwitchManager') switches: ISwitchManager,
-      @inject('ICommandManager') commands: ICommandManager,
-      @inject('IConfig') config: IConfig,
-      @inject('ILogger') logger: ILogger
+      @inject('IClassesManager') classes: Homenet.IClassesManager,
+      @inject('ISwitchManager') switches: Homenet.ISwitchManager,
+      @inject('ICommandManager') commands: Homenet.ICommandManager,
+      @inject('IConfig') config: Homenet.IConfig,
+      @inject('ILogger') logger: Homenet.ILogger
     ) {
     super(CLASS_ID, logger);
 
@@ -48,22 +51,22 @@ class LockManager extends ClassTypeManager<ILock> implements ILockManager {
     this.getInstance(lockId).set(value);
   }
 
-  protected onAddInstance(instance: Func<ILock>, instanceId: string, typeId: string, opts: any) : void {
+  protected onAddInstance(instance: Homenet.Func<Homenet.ILock>, instanceId: string, typeId: string, opts: any) : void {
     this._switches.addInstance(CLASS_ID, instanceId, {id: instanceId});
     this._commands.addInstance(CLASS_ID, instanceId, {id: instanceId});
   }
 
-  private _bindSwitches(switches: ISwitchManager) {
+  private _bindSwitches(switches: Homenet.ISwitchManager) {
     const self: LockManager = this;
-    switches.addType(CLASS_ID, function(opts: {id: string}) : ISwitch {
+    switches.addType(CLASS_ID, function(opts: {id: string}) : Homenet.ISwitch {
       return self.getInstance(opts.id);
     });
   }
 
-  private _bindCommands(commands: ICommandManager) {
+  private _bindCommands(commands: Homenet.ICommandManager) {
     const self: LockManager = this;
     commands.addType(CLASS_ID, function(opts) {
-      var instance : ILock = self.getInstance(opts.id);
+      var instance : Homenet.ILock = self.getInstance(opts.id);
       return {
         lock: function() {
           instance.set(true);

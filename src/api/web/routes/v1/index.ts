@@ -1,8 +1,11 @@
+// import { Homenet } from '../../../../interfaces.d.ts';
+
 import express  = require('express');
 import WebApiDependencies = require('../../dependencies');
 import triggers = require('./triggers');
 import zones = require('./zones');
 import states = require('./states');
+
 
 // var sceneApi    = require('./scene');
 // var lightsApi   = require('./lights');
@@ -10,7 +13,7 @@ import states = require('./states');
 // var peopleApi   = require('./people');
 import sunlight = require('./sunlight');
 
-export function createRouter(services: Homenet.Api.IWebDependencies) {
+export function createRouter(services: Homenet.IWebDependencies) {
   const app = express();
 
   var authorization = services.authorization;

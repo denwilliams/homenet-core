@@ -1,4 +1,5 @@
 import { injectable, inject } from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 var Person = require('./person');
 var ROOT_PRESNCE = 'person.any';
@@ -8,17 +9,17 @@ var PRESENCE_PREFIX = PRESENCE_CATEGORY + '.';
 @injectable()
 class PersonManager {
 
-  private _presence : IPresenceManager;
-  private _switches : ISwitchManager;
-  private _commands : ICommandManager;
-  private _logger : ILogger;
-  private _people : Dict<any>;
+  private _presence : Homenet.IPresenceManager;
+  private _switches : Homenet.ISwitchManager;
+  private _commands : Homenet.ICommandManager;
+  private _logger : Homenet.ILogger;
+  private _people : Homenet.Dict<any>;
 
   constructor(
-        @inject('IPresenceManager') presence: IPresenceManager,
-        @inject('ISwitchManager') switches: ISwitchManager,
-        @inject('ICommandManager') commands: ICommandManager,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IPresenceManager') presence: Homenet.IPresenceManager,
+        @inject('ISwitchManager') switches: Homenet.ISwitchManager,
+        @inject('ICommandManager') commands: Homenet.ICommandManager,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._presence = presence;
     this._switches = switches;
     this._commands = commands;

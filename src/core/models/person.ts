@@ -1,3 +1,5 @@
+// import { Homenet } from '../../interfaces.d.ts';
+
 /**
  * Person
  * @class
@@ -8,7 +10,7 @@ class Person {
   public name : string;
   private _presence: IPresence;
 
-  constructor(id:string, name:string, presence:IPresence) {
+  constructor(id:string, name:string, presence:Homenet.IPresence) {
     this.id = id;
     this.name = name;
     this._presence = presence;

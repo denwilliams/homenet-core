@@ -1,24 +1,25 @@
 import { injectable, inject } from 'inversify';
 import chalk = require('chalk');
+// import {Homenet} from '../interfaces.d.ts';
 
 const CLASS_ID = 'light';
 
 @injectable()
-class LightsManager implements ILightsManager {
+class LightsManager implements Homenet.ILightsManager {
 
-  private _logger: ILogger;
-  private _classes: IClassesManager;
-  private _switches: ISwitchManager;
-  private _commands: ICommandManager;
-  private _types: Dict<ILightFactory>;
-  private _instances: Dict<Func<ILight>>;
+  private _logger: Homenet.ILogger;
+  private _classes: Homenet.IClassesManager;
+  private _switches: Homenet.ISwitchManager;
+  private _commands: Homenet.ICommandManager;
+  private _types: Homenet.Dict<Homenet.ILightFactory>;
+  private _instances: Homenet.Dict<Homenet.Func<Homenet.ILight>>;
 
   constructor(
-    @inject('IClassesManager') classes: IClassesManager,
-    @inject('ISwitchManager') switches: ISwitchManager,
-    @inject('ICommandManager') commands: ICommandManager,
-    @inject('IConfig') config: IConfig,
-    @inject('ILogger') logger: ILogger) {
+    @inject('IClassesManager') classes: Homenet.IClassesManager,
+    @inject('ISwitchManager') switches: Homenet.ISwitchManager,
+    @inject('ICommandManager') commands: Homenet.ICommandManager,
+    @inject('IConfig') config: Homenet.IConfig,
+    @inject('ILogger') logger: Homenet.ILogger) {
 
     if (!classes) throw new Error('classes cannot be null');
     if (!switches) throw new Error('switches cannot be null');
@@ -42,25 +43,25 @@ class LightsManager implements ILightsManager {
     this._addCommandType(commands);
   }
 
-  _addClassType(classes: IClassesManager) {
+  _addClassType(classes: Homenet.IClassesManager) {
     this._logger.info('Adding class type ' + CLASS_ID);
-    classes.addClass<ILight>(CLASS_ID, this._addInstance.bind(this));
+    classes.addClass<Homenet.ILight>(CLASS_ID, this._addInstance.bind(this));
   }
 
-  _addSwitchType(switches: ISwitchManager) : void {
+  _addSwitchType(switches: Homenet.ISwitchManager) : void {
     this._logger.info('Adding switch type ' + CLASS_ID);
     const self = this;
-    switches.addType(CLASS_ID, function(opts: {id:string}) : ILight {
+    switches.addType(CLASS_ID, function(opts: {id:string}) : Homenet.ILight {
       return self._instances[opts.id]();
     });
   }
 
-  _addCommandType(commands: ICommandManager) : void {
+  _addCommandType(commands: Homenet.ICommandManager) : void {
     this._logger.info('Adding command type ' + CLASS_ID);
     const self = this;
     commands.addType(CLASS_ID, function(opts: any) {
       var id: string = opts.id;
-      var instance: ILight = self._instances[id]();
+      var instance: Homenet.ILight = self._instances[id]();
       return {
         turnOn: function() {
           instance.set(true);
@@ -77,12 +78,12 @@ class LightsManager implements ILightsManager {
    * @param {string} typeId  - ID of the type
    * @param {function} factory -
    */
-  addType(typeId: string, factory: ILightFactory): void {
+  addType(typeId: string, factory: Homenet.ILightFactory): void {
     this._logger.info('Adding light type ' + chalk.cyan(typeId));
     this._types[typeId] = factory;
   }
 
-  getInstance(instanceId: string): ILight {
+  getInstance(instanceId: string): Homenet.ILight {
     return this._instances[instanceId]();
   }
 
@@ -93,17 +94,17 @@ class LightsManager implements ILightsManager {
     this._commands.addInstance(CLASS_ID, instanceId, {id: instanceId});
   }
 
-  _createInstance(id: string, typeId: string, opts: any) : ILight {
+  _createInstance(id: string, typeId: string, opts: any) : Homenet.ILight {
     this._logger.info('Creating lights instance of type ' + typeId);
-    var factory: ILightFactory = this._types[typeId];
+    var factory: Homenet.ILightFactory = this._types[typeId];
     if (factory) return factory(id, opts);
 
     this._logger.warn('No factory found for light type ' + typeId);
   }
 
-  _singleton(id: string, typeId: string, opts: any) : Func<ILight> {
+  _singleton(id: string, typeId: string, opts: any) : Homenet.Func<Homenet.ILight> {
     var self = this;
-    var instance : ILight;
+    var instance : Homenet.ILight;
 
     return function() {
       if (!instance) instance = self._createInstance(id, typeId, opts);

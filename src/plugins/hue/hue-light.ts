@@ -1,4 +1,5 @@
 /// <reference path="./hue-api.d.ts"/>
+// import {Homenet} from '../../interfaces.d.ts';
 
 const hue = require('node-hue-api');
 const HueApi = hue.HueApi;
@@ -8,7 +9,7 @@ import HueController = require('./hue-controller');
 import STATES = require('./hue-states');
 import {EventEmitter} from 'events';
 
-class HueLight extends EventEmitter implements ILight {
+class HueLight extends EventEmitter implements Homenet.ILight {
   // hub: any;
   // id: string;
   state: string;
@@ -16,9 +17,9 @@ class HueLight extends EventEmitter implements ILight {
 
   private _setLightState : Function;
   private _controller: HueController;
-  private _logger: ILogger;
+  private _logger: Homenet.ILogger;
 
-  constructor(id : string, opts : any, controller: HueController, logger: ILogger) {
+  constructor(id : string, opts : any, controller: HueController, logger: Homenet.ILogger) {
     super();
 
     this._logger = logger;

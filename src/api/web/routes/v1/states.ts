@@ -1,9 +1,11 @@
+// import { Homenet } from '../../../../interfaces.d.ts';
+
 import express = require('express');
 import _ = require('lodash');
 
-export function create(services: Homenet.Api.IWebDependencies) : express.Router {
+export function create(services: Homenet.IWebDependencies) : express.Router {
 
-  const states: IStateManager = services.states;
+  const states: Homenet.IStateManager = services.states;
   const app: express.Express = express();
 
   app.get('/', function(req, res) {

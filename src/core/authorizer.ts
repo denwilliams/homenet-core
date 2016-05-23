@@ -1,15 +1,16 @@
 import Q = require('q');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 /**
  * @class Authorizer
  */
 @injectable()
-export class Authorizer implements IAuthorizer {
+export class Authorizer implements Homenet.IAuthorizer {
 
-  private _tokens : Dict<string>;
+  private _tokens : Homenet.Dict<string>;
 
-  constructor(@inject('IConfig') config: IConfig) {
+  constructor(@inject('IConfig') config: Homenet.IConfig) {
     let tokens = this._tokens = {};
 
     if (config.people) {

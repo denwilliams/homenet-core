@@ -1,3 +1,5 @@
+/// <reference path="../interfaces.d.ts"/>
+
 ///// <reference path="../../node_modules/node-red-contrib-scenes/scenes.d.ts"/>
 
 // const RED = require('node-red');
@@ -5,6 +7,8 @@ import {join} from 'path';
 import {inject, injectable} from 'inversify';
 import {createServer} from 'http';
 import * as express from 'express';
+
+// import { Homenet } from '../interfaces.d.ts';
 
 // import NodeRedScenes = require('node-red-contrib-scenes');
 import nrScenes = require('node-red-contrib-scenes');
@@ -18,13 +22,13 @@ const config = {
 };
 
 @injectable()
-export class NodeRed implements INodeRed {
+export class NodeRed implements Homenet.INodeRed {
 
-  private _logger: ILogger;
+  private _logger: Homenet.ILogger;
   private _sceneManager: any;
   private _RED: any;
 
-  constructor(@inject('ILogger') logger: ILogger, @inject('RED') RED: any) {
+  constructor(@inject('ILogger') logger: Homenet.ILogger, @inject('RED') RED: any) {
   // constructor(logger: ILogger, RED: any) {
     this._logger = logger;
     this._RED = RED;

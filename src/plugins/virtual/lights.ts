@@ -1,11 +1,14 @@
+/// <reference path="../../interfaces.d.ts"/>
+
 import chalk = require('chalk');
 import BaseSwitch = require('../../core/models/base-switch');
+// import {Homenet} from '../../interfaces.d.ts';
 
-function factory(id: string, opts: any) : ILight {
+function factory(id: string, opts: any) : Homenet.ILight {
   return new VirtualLight(id, opts);
 }
 
-class VirtualLight extends BaseSwitch<string> implements ILight {
+class VirtualLight extends BaseSwitch<string> implements Homenet.ILight {
   public id: string;
   public state: string;
   public emitOnSet: boolean;

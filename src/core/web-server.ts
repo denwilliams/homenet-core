@@ -1,21 +1,22 @@
 import * as express from 'express';
 import * as http from 'http';
 import { inject, injectable } from "inversify";
+// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class WebServer implements IWebServer {
+class WebServer implements Homenet.IWebServer {
 
   public server: any;
   public app: any;
 
   // private _logger: ILogger;
   private _port: number;
-  private _config: IConfig;
+  private _config: Homenet.IConfig;
 
   constructor(
         // @inject('ILogger') logger: ILogger,
-        @inject('IConfig') config: IConfig,
-        @inject('IWebApi') webApi: IWebApi) {
+        @inject('IConfig') config: Homenet.IConfig,
+        @inject('IWebApi') webApi: Homenet.IWebApi) {
     // if (!logger) throw new Error('Logger required');
     if (!config) throw new Error('Config required');
     if (!webApi) throw new Error('Web API required');
@@ -46,7 +47,7 @@ class WebServer implements IWebServer {
     this.server.listen(this._port);
   }
 
-  get config(): IConfig {
+  get config(): Homenet.IConfig {
       return this._config;
   }
 }

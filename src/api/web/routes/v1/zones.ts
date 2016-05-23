@@ -1,7 +1,8 @@
 import express = require('express');
 import _ = require('lodash');
+// import { Homenet } from '../../../../interfaces.d.ts';
 
-export function create(services: Homenet.Api.IWebDependencies) : express.Router {
+export function create(services: Homenet.IWebDependencies) : express.Router {
   const zone = services.zones;
 
   var app : express.Router = express();

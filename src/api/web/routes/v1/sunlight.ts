@@ -1,6 +1,7 @@
 import express = require('express');
+// import { Homenet } from '../../../../interfaces.d.ts';
 
-export function create(services: Homenet.Api.IWebDependencies) : express.Router {
+export function create(services: Homenet.IWebDependencies) : express.Router {
 
   const sunlight = services.sunlight;
   const app = express();

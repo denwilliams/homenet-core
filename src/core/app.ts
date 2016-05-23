@@ -1,19 +1,20 @@
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class App implements IApp {
+class App implements Homenet.IApp {
 
-  private _logger: ILogger;
-  private _webServer: IWebServer;
-  private _nodeRed: INodeRed;
+  private _logger: Homenet.ILogger;
+  private _webServer: Homenet.IWebServer;
+  private _nodeRed: Homenet.INodeRed;
 
   constructor(
-        @inject('IConfig') config: IConfig,
-        @inject('ILogger') logger: ILogger,
-        @inject('IWebServer') webServer: IWebServer,
-        @inject('INodeRed') nodeRed: INodeRed,
-        @inject('IPlugins') plugins: IPlugins,
-        @inject('IInstanceLoader') instLdr: IInstanceLoader) {
+        @inject('IConfig') config: Homenet.IConfig,
+        @inject('ILogger') logger: Homenet.ILogger,
+        @inject('IWebServer') webServer: Homenet.IWebServer,
+        @inject('INodeRed') nodeRed: Homenet.INodeRed,
+        @inject('IPlugins') plugins: Homenet.IPlugins,
+        @inject('IInstanceLoader') instLdr: Homenet.IInstanceLoader) {
     if (!config) throw new Error('Config must be provided');
     if (!logger) throw new Error('Logger must be provided');
     if (!webServer) throw new Error('WebServer must be provided');

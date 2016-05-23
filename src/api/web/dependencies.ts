@@ -1,40 +1,43 @@
+/// <reference path="../../interfaces.d.ts"/>
+
 import {injectable, inject} from 'inversify';
+// import {Homenet} from '../../interfaces.d.ts';
 
 @injectable()
-export class WebDependencies implements Homenet.Api.IWebDependencies {
+export class WebDependencies implements Homenet.IWebDependencies {
 
-  logger: ILogger;
-  config: IConfig;
-  triggers: ITriggerManager;
-  switches: ISwitchManager;
-  commands: ICommandManager;
-  states: IStateManager;
-  sunlight: ISunlight;
-  sensors: ISensorManager;
-  presence: IPresenceManager;
-  locks: ILockManager;
-  lights: ILightsManager;
-  scene: ISceneManager;
-  zones: IZoneManager;
-  authorization: IAuthorizer;
+  logger: Homenet.ILogger;
+  config: Homenet.IConfig;
+  triggers: Homenet.ITriggerManager;
+  switches: Homenet.ISwitchManager;
+  commands: Homenet.ICommandManager;
+  states: Homenet.IStateManager;
+  sunlight: Homenet.ISunlight;
+  sensors: Homenet.ISensorManager;
+  presence: Homenet.IPresenceManager;
+  locks: Homenet.ILockManager;
+  lights: Homenet.ILightsManager;
+  scene: Homenet.ISceneManager;
+  zones: Homenet.IZoneManager;
+  authorization: Homenet.IAuthorizer;
   // utils: Utils;
 
 
   constructor(
-    @inject('ILogger') logger: ILogger,
-    @inject('IConfig') config: IConfig,
-    @inject('ITriggerManager') triggers: ITriggerManager,
-    @inject('ISwitchManager') switches: ISwitchManager,
-    @inject('ICommandManager') commands: ICommandManager,
-    @inject('IStateManager') states: IStateManager,
-    @inject('ISunlight') sunlight: ISunlight,
-    @inject('ISensorManager') sensors: ISensorManager,
-    @inject('IPresenceManager') presence: IPresenceManager,
-    @inject('ILockManager') locks: ILockManager,
-    @inject('ILightsManager') lights: ILightsManager,
-    @inject('ISceneManager') scene: ISceneManager,
-    @inject('IZoneManager') zones: IZoneManager,
-    @inject('IAuthorizer') authorization: IAuthorizer
+    @inject('ILogger') logger: Homenet.ILogger,
+    @inject('IConfig') config: Homenet.IConfig,
+    @inject('ITriggerManager') triggers: Homenet.ITriggerManager,
+    @inject('ISwitchManager') switches: Homenet.ISwitchManager,
+    @inject('ICommandManager') commands: Homenet.ICommandManager,
+    @inject('IStateManager') states: Homenet.IStateManager,
+    @inject('ISunlight') sunlight: Homenet.ISunlight,
+    @inject('ISensorManager') sensors: Homenet.ISensorManager,
+    @inject('IPresenceManager') presence: Homenet.IPresenceManager,
+    @inject('ILockManager') locks: Homenet.ILockManager,
+    @inject('ILightsManager') lights: Homenet.ILightsManager,
+    @inject('ISceneManager') scene: Homenet.ISceneManager,
+    @inject('IZoneManager') zones: Homenet.IZoneManager,
+    @inject('IAuthorizer') authorization: Homenet.IAuthorizer
     // utils: Utils
   ) {
     this.logger = logger;

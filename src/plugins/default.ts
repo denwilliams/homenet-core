@@ -1,4 +1,5 @@
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 import VirtualPluginLoader = require('./virtual/index');
 import HuePluginLoader = require('./hue/index');
@@ -6,16 +7,16 @@ import HuePluginLoader = require('./hue/index');
 @injectable()
 class DefaultPlugins {
 
-  private _plugins : IPlugins;
-  private _toLoad : IPluginLoader[];
+  private _plugins : Homenet.IPlugins;
+  private _toLoad : Homenet.IPluginLoader[];
 
   constructor(
-        @inject('IPlugins') plugins: IPlugins,
-        @inject('ILightsManager') lights: ILightsManager,
-        @inject('ILockManager') locks: ILockManager,
-        @inject('IEventBus') eventBus: IEventBus,
-        @inject('IConfig') config: IConfig,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IPlugins') plugins: Homenet.IPlugins,
+        @inject('ILightsManager') lights: Homenet.ILightsManager,
+        @inject('ILockManager') locks: Homenet.ILockManager,
+        @inject('IEventBus') eventBus: Homenet.IEventBus,
+        @inject('IConfig') config: Homenet.IConfig,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._plugins = plugins;
     this._toLoad = [
       // new HuePluginLoader(config, lights, logger),

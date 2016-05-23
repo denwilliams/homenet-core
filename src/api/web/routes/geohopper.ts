@@ -1,13 +1,17 @@
+/// <reference path="../../../interfaces.d.ts"/>
+
 import WebApiDependencies = require('../dependencies');
+
+// import { Homenet } from '../../../interfaces.d.ts';
 
 import * as express from 'express';
 import _ = require('lodash');
 
-export function createRouter(services: Homenet.Api.IWebDependencies) : express.Router {
+export function createRouter(services: Homenet.IWebDependencies) : express.Router {
 
-  const presence: IPresenceManager = services.presence;
-  const config: IConfig = services.config;
-  const logger: ILogger = services.logger;
+  const presence: Homenet.IPresenceManager = services.presence;
+  const config: Homenet.IConfig = services.config;
+  const logger: Homenet.ILogger = services.logger;
 
   const app = express();
   let peopleWithTokens = {};

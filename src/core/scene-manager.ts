@@ -1,19 +1,20 @@
 import { injectable, inject } from "inversify";
+// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-export class SceneManager implements ISceneManager {
+export class SceneManager implements Homenet.ISceneManager {
   private _scene : any;
 
-  constructor(@inject('INodeRed') nodeRed: INodeRed) {
+  constructor(@inject('INodeRed') nodeRed: Homenet.INodeRed) {
     this._scene = nodeRed.getSceneManager();
   }
 
-  private _getScene(id: string) : IScene {
+  private _getScene(id: string) : Homenet.IScene {
     if (!id) return null;
     return {id, name: id};
   }
 
-  get current() : IScene {
+  get current() : Homenet.IScene {
     return this._getScene(this.getCurrentId());
   }
 

@@ -1,6 +1,9 @@
+/// <reference path="../interfaces.d.ts"/>
+
 import PresenceState = require('./models/presence-state');
 import {EventEmitter} from 'events';
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 /**
  * Manages and maintains presence state for devices, zones (rooms), people, and other entities.
@@ -18,12 +21,12 @@ class PresenceManagerImpl extends EventEmitter {
   private _items = {};
   private _parents = {};
   private _children = {};
-  private _logger: ILogger;
-  private _eventBus: IEventBus;
+  private _logger: Homenet.ILogger;
+  private _eventBus: Homenet.IEventBus;
 
   constructor(
-            @inject('IEventBus') eventBus: IEventBus,
-            @inject('ILogger') logger: ILogger) {
+            @inject('IEventBus') eventBus: Homenet.IEventBus,
+            @inject('ILogger') logger: Homenet.ILogger) {
     super();
     this._eventBus = eventBus;
     this._logger = logger;

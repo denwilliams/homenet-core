@@ -1,6 +1,7 @@
 import redis = require('redis');
 import Q = require('q');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 interface RedisGet {
   (key: string) : Q.Promise<string>
@@ -15,16 +16,16 @@ interface RedisSet {
  * @param {Logger} logger - logger instance
  */
 @injectable()
-class StorageManagerImpl implements IStorageManager {
+class StorageManagerImpl implements Homenet.IStorageManager {
 
-  private _logger: ILogger;
-  private _config: IConfig;
+  private _logger: Homenet.ILogger;
+  private _config: Homenet.IConfig;
   private _redisGet: RedisGet;
   private _redisSet: RedisSet;
 
   constructor(
-          @inject('IConfig') config: IConfig,
-          @inject('ILogger') logger: ILogger) {
+          @inject('IConfig') config: Homenet.IConfig,
+          @inject('ILogger') logger: Homenet.ILogger) {
     var options = {};
     this._config = config;
     this._logger = logger;

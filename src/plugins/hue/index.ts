@@ -1,6 +1,7 @@
 /// <reference path="./hue-api.d.ts"/>
 
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../../interfaces.d.ts';
 
 // var hue = require('node-hue-api');
 // var lightState = hue.lightState;
@@ -14,23 +15,23 @@ import HueLight = require('./hue-light');
 // import createLockFactory = require('./lock');
 
 @injectable()
-class HuePluginLoader implements IPluginLoader {
+class HuePluginLoader implements Homenet.IPluginLoader {
 
-  private _logger : ILogger;
-  private _config : IConfig;
-  private _lights : ILightsManager;
+  private _logger : Homenet.ILogger;
+  private _config : Homenet.IConfig;
+  private _lights : Homenet.ILightsManager;
   private _controller : HueController;
 
   constructor(
-          @inject('IConfig') config: IConfig,
-          @inject('ILightsManager') lights: ILightsManager,
-          @inject('ILogger') logger: ILogger) {
+          @inject('IConfig') config: Homenet.IConfig,
+          @inject('ILightsManager') lights: Homenet.ILightsManager,
+          @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._lights = lights;
     this._logger = logger;
     this._controller = new HueController(config, logger);
 
-    let lightFactory: ILightFactory;
+    let lightFactory: Homenet.ILightFactory;
     lightFactory = this._hueLightFactory.bind(this);
     lights.addType('hue', lightFactory);
   }
@@ -39,7 +40,7 @@ class HuePluginLoader implements IPluginLoader {
     this._logger.info('Loading hue lights');
   }
 
-  _hueLightFactory(id : string, opts : any) : ILight {
+  _hueLightFactory(id : string, opts : any) : Homenet.ILight {
     this._logger.info('Adding Hue light: ' + id);
     return new HueLight(id, opts, this._controller, this._logger);
   }

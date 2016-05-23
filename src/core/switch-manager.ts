@@ -4,6 +4,7 @@ import chalk = require('chalk');
 import _ = require('lodash');
 import SwitchWrapper = require('./models/wrapper');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 /**
  * @constructor
@@ -14,18 +15,18 @@ import {inject, injectable} from 'inversify';
  * var lights = switchManager.get('loungeroom:lights');
  */
 @injectable()
-class SwitchManager implements ISwitchManager {
+class SwitchManager implements Homenet.ISwitchManager {
 
-  types: Dict<ISwitchFactory>
-  instances: Dict<ISwitch>
-  categories: Dict<any>
+  types: Homenet.Dict<Homenet.ISwitchFactory>
+  instances: Homenet.Dict<Homenet.ISwitch>
+  categories: Homenet.Dict<any>
 
-  private _logger: ILogger;
-  private _eventBus: IEventBus;
+  private _logger: Homenet.ILogger;
+  private _eventBus: Homenet.IEventBus;
 
   constructor(
-        @inject('IEventBus') eventBus: IEventBus,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IEventBus') eventBus: Homenet.IEventBus,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._eventBus = eventBus;
 
@@ -34,7 +35,7 @@ class SwitchManager implements ISwitchManager {
     this.categories = {};
   }
 
-  _wrap(id: string, instance: ISwitchInstanceProvider) : SwitchWrapper {
+  _wrap(id: string, instance: Homenet.ISwitchInstanceProvider) : SwitchWrapper {
     return new SwitchWrapper(id, instance, this._eventBus, this._logger);
   }
 
@@ -70,7 +71,7 @@ class SwitchManager implements ISwitchManager {
   * @param {string} typeId - identifier for the type
   * @param {SwitchManager~switchFactory} switchFactory - get and set implementations, and optional categories
   */
-  addType(typeId: string, switchFactory: ISwitchFactory): void {
+  addType(typeId: string, switchFactory: Homenet.ISwitchFactory): void {
     this._logger.info('Adding switch type ' + typeId);
     this.types[typeId] = switchFactory;
   };
@@ -89,7 +90,7 @@ class SwitchManager implements ISwitchManager {
   /**
   * Gets all instances
   */
-  getAllInstances(): Dict<ISwitch> {
+  getAllInstances(): Homenet.Dict<Homenet.ISwitch> {
     return this.instances;
   };
 
@@ -97,7 +98,7 @@ class SwitchManager implements ISwitchManager {
   * Gets switch instance
   * @returns {SwitchWrapper}
   */
-  getInstance(typeId: string, instanceId: string): ISwitch {
+  getInstance(typeId: string, instanceId: string): Homenet.ISwitch {
     var id = getId(typeId, instanceId);
     var switchWrapper = this.instances[id];
     if (switchWrapper) return switchWrapper;
@@ -111,7 +112,7 @@ class SwitchManager implements ISwitchManager {
   * @param  {*} value  - the new value
   */
   set(typeId: string, instanceId: string, value: boolean|string|number): any {
-    var instance: ISwitch = this.getInstance(typeId, instanceId);
+    var instance: Homenet.ISwitch = this.getInstance(typeId, instanceId);
     var result = instance.set(value);
     // if (instance.emitOnSet) {
     //   this.emitValue(typeId, instanceId, value);
@@ -139,13 +140,13 @@ class SwitchManager implements ISwitchManager {
   // };
 
 
-  _getType(typeId: string): ISwitchFactory {
+  _getType(typeId: string): Homenet.ISwitchFactory {
     return this.types[typeId];
   };
 
   _createInterfaceWrapper(typeId: string, id: string, opts: any) : SwitchWrapper {
-    var factory: ISwitchFactory = this._getType(typeId);
-    var lazyInstance: ISwitchInstanceProvider = lazy(factory, id, opts);
+    var factory: Homenet.ISwitchFactory = this._getType(typeId);
+    var lazyInstance: Homenet.ISwitchInstanceProvider = lazy(factory, id, opts);
     var wrapper = this._wrap(getId(typeId, id), lazyInstance);
     // todo: add to categories based on type
     return wrapper;
@@ -157,8 +158,8 @@ function getId(typeId: string, instanceId: string) : any {
   return typeId;
 }
 
-function lazy(factory: ISwitchFactory, id: string, opts: any): ISwitchInstanceProvider {
-  var instance: ISwitch;
+function lazy(factory: Homenet.ISwitchFactory, id: string, opts: any): Homenet.ISwitchInstanceProvider {
+  var instance: Homenet.ISwitch;
   return function() {
     if (!instance) instance = factory(opts);
     return instance;

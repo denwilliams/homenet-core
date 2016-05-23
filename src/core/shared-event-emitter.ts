@@ -1,6 +1,7 @@
 var EventEmitter2 = require('eventemitter2').EventEmitter2;
-var chalk = require('chalk');
+import chalk = require('chalk');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 function eventName(source:string, event:string) : string {
   if (!event) return source;
@@ -11,11 +12,11 @@ function eventName(source:string, event:string) : string {
  * @class SharedEventEmitter
  */
 @injectable()
-class SharedEventEmitter implements IEventBus {
+class SharedEventEmitter implements Homenet.IEventBus {
   private _e : any;
-  private _logger : ILogger;
+  private _logger : Homenet.ILogger;
 
-  constructor(@inject('ILogger') logger: ILogger) {
+  constructor(@inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._e = new EventEmitter2({
       wildcard:true,
@@ -37,7 +38,7 @@ class SharedEventEmitter implements IEventBus {
       data: data
     };
     this._e.emit(name, evt);
-    this._logger.info(chalk.magenta('Event emitted: ') + chalk.cyan(name) + ' -> ' + JSON.stringify(data));
+    this._logger.info(chalk.magenta('Event emitted:') + ' ' + chalk.cyan(name) + ' -> ' + JSON.stringify(data));
   }
 
   /**

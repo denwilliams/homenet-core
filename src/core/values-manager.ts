@@ -1,5 +1,7 @@
 import ValueStore = require('./value-store');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
+
 
 /**
  * @constructor
@@ -12,14 +14,14 @@ import {inject, injectable} from 'inversify';
 @injectable()
 class ValuesManagerImpl {
 
-  private _logger: ILogger;
-  private _eventBus: IEventBus;
+  private _logger: Homenet.ILogger;
+  private _eventBus: Homenet.IEventBus;
   // private _types: any;
-  private _instances: Dict<ValueStore>
+  private _instances: Homenet.Dict<ValueStore>
 
   constructor(
-        @inject('IEventBus') eventBus: IEventBus, 
-        @inject('ILogger') logger: ILogger) {
+        @inject('IEventBus') eventBus: Homenet.IEventBus,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._eventBus = eventBus;
     // this._types = {};

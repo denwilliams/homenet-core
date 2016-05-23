@@ -2,6 +2,7 @@ const SunCalc = require('suncalc');
 import {EventEmitter} from 'events';
 import domain = require('domain');
 import {injectable, inject} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 const TEN_MINS = 600000;
 const ONE_MIN = 60000;
@@ -17,20 +18,20 @@ const STATE_TYPE = 'sunlight';
  * @see module:sunlight.SunlightMonitor
  */
 @injectable()
-export class Sunlight extends EventEmitter implements ISunlight {
+export class Sunlight extends EventEmitter implements Homenet.ISunlight {
 
-  private _logger: ILogger;
+  private _logger: Homenet.ILogger;
   private _latitude: number;
   private _longitude: number;
   private _state: boolean;
 
   constructor(
-        @inject('ILogger') logger:ILogger,
-        @inject('IConfig') config:IConfig,
-        @inject('IStateManager') states:IStateManager) {
+        @inject('ILogger') logger: Homenet.ILogger,
+        @inject('IConfig') config: Homenet.IConfig,
+        @inject('IStateManager') states: Homenet.IStateManager) {
     super();
 
-    var location: IConfigCoords = config.location || {};
+    var location: Homenet.IConfigCoords = config.location || {};
 
     this._logger = logger;
     this._latitude = location.latitude;
@@ -45,7 +46,7 @@ export class Sunlight extends EventEmitter implements ISunlight {
     this._addStateType(states);
   }
 
-  private _addStateType(states: IStateManager) : void {
+  private _addStateType(states: Homenet.IStateManager) : void {
     const self = this;
     states.addType(STATE_TYPE, {
 

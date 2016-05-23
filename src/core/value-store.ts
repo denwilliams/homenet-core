@@ -1,3 +1,5 @@
+// import {Homenet} from '../interfaces.d.ts';
+
 /**
  * @classdesc Key value store
  * @class
@@ -6,12 +8,12 @@
  */
 class ValueStore {
 
-  private _eventBus: IEventBus;
-  private _values: Dict<any>;
+  private _eventBus: Homenet.IEventBus;
+  private _values: Homenet.Dict<any>;
 
   id: string;
 
-  constructor(id: string, eventBus: IEventBus) {
+  constructor(id: string, eventBus: Homenet.IEventBus) {
     this.id = id;
     this._eventBus = eventBus;
     this._values = {};
@@ -37,7 +39,7 @@ class ValueStore {
   }
 
 
-  getAll() : Dict<any> {
+  getAll() : Homenet.Dict<any> {
     return this._values;
   }
 }

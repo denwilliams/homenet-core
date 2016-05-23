@@ -1,16 +1,19 @@
+/// <reference path="../interfaces.d.ts"/>
+
 import {keyBy} from 'lodash';
 import Zone = require('./models/zone');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class ZoneManagerImpl implements IZoneManager {
+class ZoneManagerImpl implements Homenet.IZoneManager {
   private _zoneHeirarchy : any;
   private _zonesArr : Zone[];
 
   constructor(
-        @inject('IPresenceManager') presence: IPresenceManager,
-        @inject('IConfig') config: IConfig,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IPresenceManager') presence: Homenet.IPresenceManager,
+        @inject('IConfig') config: Homenet.IConfig,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._zonesArr = (config.zones || []).map(function(zoneConf) {
       return new Zone(presence, zoneConf);
     });
@@ -18,7 +21,7 @@ class ZoneManagerImpl implements IZoneManager {
     //zones.api = buildApi(zones);
   }
 
-  _buildHeirarchy(zones: Array<Zone>) : Dict<Zone> {
+  _buildHeirarchy(zones: Array<Zone>) : Homenet.Dict<Zone> {
     var zoneMap = keyBy<string, Zone>(zones, 'id');
     zones.forEach(function(zone: Zone) {
 
@@ -52,15 +55,15 @@ class ZoneManagerImpl implements IZoneManager {
   //   });
   // }
 
-  getMap() : Dict<IZone> {
+  getMap() : Homenet.Dict<Homenet.IZone> {
     return this._zoneHeirarchy;
   }
 
-  getAll() : IZone[] {
+  getAll() : Homenet.IZone[] {
     return this._zonesArr;
   }
 
-  get(id: string) : IZone {
+  get(id: string) : Homenet.IZone {
     return this._zoneHeirarchy[id];
   }
 

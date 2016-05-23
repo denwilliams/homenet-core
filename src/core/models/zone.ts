@@ -1,9 +1,11 @@
+// import { Homenet } from '../../interfaces.d.ts';
+
 /**
  * @module i
  */
 
-class Zone implements IZone {
-  private _presence: IPresence;
+class Zone implements Homenet.IZone {
+  private _presence: Homenet.IPresence;
 
   id: string;
   name: string;
@@ -16,7 +18,7 @@ class Zone implements IZone {
     return this._presence.isPresent;
   }
 
-  constructor(presence: IPresenceManager, zoneConf: IZoneConfig) {
+  constructor(presence: Homenet.IPresenceManager, zoneConf: Homenet.IZoneConfig) {
     var c = zoneConf;
 
     this.id = c.id;

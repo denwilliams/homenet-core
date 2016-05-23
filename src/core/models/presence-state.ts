@@ -1,5 +1,6 @@
 import util = require('util');
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
+// import { Homenet } from '../../interfaces.d.ts';
 
 /**
  * Creates a new presence state manager using the supplied options
@@ -33,7 +34,7 @@ import {EventEmitter} from 'events';
  *
  * @memberOf module:presence
  */
-class PresenceState extends EventEmitter implements IPresence {
+class PresenceState extends EventEmitter implements Homenet.IPresence {
 
   /**
    * unique identifier
@@ -63,7 +64,7 @@ class PresenceState extends EventEmitter implements IPresence {
    */
   public disabled : boolean;
 
-  private _logger : ILogger;
+  private _logger : Homenet.ILogger;
   private _persistence: any;
   private _timeout : number;
 
@@ -190,7 +191,7 @@ class PresenceState extends EventEmitter implements IPresence {
     }
   }
 
-  add(id: string, opts: IPresenceOpts) {
+  add(id: string, opts: Homenet.IPresenceOpts) {
     // ???
   }
 

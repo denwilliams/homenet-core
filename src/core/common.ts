@@ -1,20 +1,21 @@
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class CommonImpl implements ICommon {
+class CommonImpl implements Homenet.ICommon {
 
-  public logger: ILogger;
-  public config: IConfig;
-  public eventBus: IEventBus;
-  public notifications: INotificationsManager;
-  public storage: IStorageManager;
+  public logger: Homenet.ILogger;
+  public config: Homenet.IConfig;
+  public eventBus: Homenet.IEventBus;
+  public notifications: Homenet.INotificationsManager;
+  public storage: Homenet.IStorageManager;
 
   constructor(
-          @inject('ILogger') logger: ILogger,
-          @inject('IConfig') config: IConfig,
-          @inject('IEventBus') eventBus: IEventBus,
-          @inject('INotificationsManager') notifications: INotificationsManager,
-          @inject('IStorageManager') storage: IStorageManager) {
+          @inject('ILogger') logger: Homenet.ILogger,
+          @inject('IConfig') config: Homenet.IConfig,
+          @inject('IEventBus') eventBus: Homenet.IEventBus,
+          @inject('INotificationsManager') notifications: Homenet.INotificationsManager,
+          @inject('IStorageManager') storage: Homenet.IStorageManager) {
     this.logger = logger;
     this.config = config;
     this.eventBus = eventBus;

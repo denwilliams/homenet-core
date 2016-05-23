@@ -1,16 +1,18 @@
+// import { Homenet } from '../../interfaces.d.ts';
+
 /**
  * @classdesc Emits events when triggered
  * @constructor
  * @param {EventEmitter} eventEmitter - the event emitter to use to emit events
  */
-class TriggerImpl implements ITrigger {
+class TriggerImpl implements Homenet.ITrigger {
 
   public lastTriggered: Date;
   public id: string;
 
-  private _eventEmitter: IEventEmitter;
+  private _eventEmitter: Homenet.IEventEmitter;
 
-  constructor(id: string, eventEmitter: IEventEmitter) {
+  constructor(id: string, eventEmitter: Homenet.IEventEmitter) {
     this.id = id;
     this.lastTriggered = null;
     this._eventEmitter = eventEmitter;

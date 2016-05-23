@@ -1,15 +1,17 @@
+/// <reference path="../interfaces.d.ts"/>
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-export class StateManager implements IStateManager {
+export class StateManager implements Homenet.IStateManager {
 
   private _types : any;
-  private _eventBus : IEventBus;
-  private _logger : ILogger;
+  private _eventBus : Homenet.IEventBus;
+  private _logger : Homenet.ILogger;
 
   constructor(
-        @inject('IEventBus') eventBus: IEventBus,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IEventBus') eventBus: Homenet.IEventBus,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._types = {};
     this._eventBus = eventBus;
     this._logger = logger;
@@ -20,16 +22,16 @@ export class StateManager implements IStateManager {
    * @param {string} typeId - unique id for type
    * @param {StateProvider} provider - provide state information for this type
    */
-  addType(typeId: string, provider: IStateProvider) : void {
+  addType(typeId: string, provider: Homenet.IStateProvider) : void {
     this._types[typeId] = provider;
     this._logger.debug('Defined state type: '+typeId);
   }
 
-  getType(typeId: string) : IStateProvider {
+  getType(typeId: string) : Homenet.IStateProvider {
     return this._types[typeId];
   }
 
-  getTypes() : Dict<IStateProvider> {
+  getTypes() : Homenet.Dict<Homenet.IStateProvider> {
     return this._types;
   }
 

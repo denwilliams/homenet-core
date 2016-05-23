@@ -1,17 +1,18 @@
 const EVENT_TYPE: string = 'switch';
 const EVENT_PREFIX: string = EVENT_TYPE+'.';
 import {EventEmitter} from 'events';
+// import {Homenet} from '../../interfaces.d.ts';
 
-class SwitchWrapper extends EventEmitter implements ISwitch {
+class SwitchWrapper extends EventEmitter implements Homenet.ISwitch {
 
   id: string;
   emitOnSet: boolean;
 
-  private _logger : ILogger;
-  private _eventBus: IEventBus;
-  private _instance: ISwitchInstanceProvider;
+  private _logger : Homenet.ILogger;
+  private _eventBus: Homenet.IEventBus;
+  private _instance: Homenet.ISwitchInstanceProvider;
 
-  constructor(id: string, instanceProvider: ISwitchInstanceProvider, eventBus: IEventBus, logger: ILogger) {
+  constructor(id: string, instanceProvider: Homenet.ISwitchInstanceProvider, eventBus: Homenet.IEventBus, logger: Homenet.ILogger) {
     super();
 
     this._logger = logger;
@@ -26,12 +27,12 @@ class SwitchWrapper extends EventEmitter implements ISwitch {
     this._getInstance().on('updated', this.emitValue.bind(this));
   }
 
-  private _getInstance() : ISwitch {
+  private _getInstance() : Homenet.ISwitch {
     return this._instance();
   }
 
   set(value) : any {
-    var instance : ISwitch = this._getInstance();
+    var instance : Homenet.ISwitch = this._getInstance();
     this._logger.info('Setting switch ' + this.id + ' : ' + value);
     var result = instance.set.apply(instance, arguments);
     this.emitValue(value);

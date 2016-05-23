@@ -1,21 +1,22 @@
 import {injectable, inject} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 import chalk = require('chalk');
 
 
 @injectable()
-class InstanceLoader implements IInstanceLoader {
+class InstanceLoader implements Homenet.IInstanceLoader {
 
-  private _classes : IClassesManager;
-  private _logger: ILogger;
+  private _classes : Homenet.IClassesManager;
+  private _logger: Homenet.ILogger;
 
   constructor(
-        @inject('IClassesManager') classes: IClassesManager,
-        @inject('ILogger') logger: ILogger) {
+        @inject('IClassesManager') classes: Homenet.IClassesManager,
+        @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._classes = classes;
   }
 
-  loadInstances(config: IConfig) : void {
+  loadInstances(config: Homenet.IConfig) : void {
     this._logger.info('Loading instances from config...');
     const classes = this._classes;
     config.instances.forEach(instance => {

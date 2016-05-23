@@ -1,7 +1,10 @@
+/// <reference path="../interfaces.d.ts"/>
+
 var EventEmitter = require('events').EventEmitter;
 import _ = require('lodash');
 import TriggerImpl = require('./models/trigger');
 import {inject, injectable} from 'inversify';
+// import {Homenet} from '../interfaces.d.ts';
 
 /**
  * @constructor
@@ -15,16 +18,16 @@ import {inject, injectable} from 'inversify';
  * triggerManager.trigger('sensors', 'loungeroom');
  */
 @injectable()
-export class TriggerManager implements ITriggerManager {
+export class TriggerManager implements Homenet.ITriggerManager {
 
-  private _logger : ILogger;
-  private _eventBus : IEventBus;
+  private _logger : Homenet.ILogger;
+  private _eventBus : Homenet.IEventBus;
 
-  public instances : Dict<ITrigger>;
+  public instances : Homenet.Dict<Homenet.ITrigger>;
 
   constructor(
-      @inject('IEventBus') eventBus: IEventBus,
-      @inject('ILogger') logger: ILogger) {
+      @inject('IEventBus') eventBus: Homenet.IEventBus,
+      @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._eventBus = eventBus;
     this.instances = {};
@@ -33,7 +36,7 @@ export class TriggerManager implements ITriggerManager {
   /**
    * Adds a trigger.
    */
-  add(typeId: string, instanceId: string, emitter: IEventEmitter) {
+  add(typeId: string, instanceId: string, emitter: Homenet.IEventEmitter) {
     var eventBus = this._eventBus;
     var id = typeId+'.'+instanceId;
     var instance = this.instances[id] = new TriggerImpl(id, emitter || new EventEmitter());
@@ -43,11 +46,11 @@ export class TriggerManager implements ITriggerManager {
     return instance;
   };
 
-  getAll() : ITrigger[] {
-    return _.values<ITrigger>(this.instances);
+  getAll() : Homenet.ITrigger[] {
+    return _.values<Homenet.ITrigger>(this.instances);
   };
 
-  get(typeId: string, instanceId: string) : ITrigger {
+  get(typeId: string, instanceId: string) : Homenet.ITrigger {
     var id = getId(typeId, instanceId);
     return this.instances[id];
   };

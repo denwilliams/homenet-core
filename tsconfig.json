@@ -21,6 +21,7 @@
     "files": [
       "node_modules/node-red-contrib-scenes/node-red-contrib-scenes.d.ts",
       "node_modules/inversify-dts/inversify/inversify.d.ts",
+      "src/interfaces.d.ts",
       "typings/main.d.ts",
       "src/node-red.d.ts",
       "src/interfaces.d.ts",
