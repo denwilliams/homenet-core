@@ -11,16 +11,15 @@ import DefaultPlugins = require('./plugins/default');
 
 export {inject as service, injectable as plugin} from 'inversify';
 
-export function init(RED: any) : Homenet.IRuntime {
-
-  const nodeRedModule: IKernelModule = (k: IKernel) => {
-    console.log('Binding Node Red modules');
+export function init(RED: any, config: Homenet.IConfig) : Homenet.IRuntime {
+  const externalModule: IKernelModule = (k: IKernel) => {
+    console.log('Binding external modules');
     k.bind<any>("RED").toConstantValue(RED);
+    k.bind<Homenet.IConfig>('IConfig').toConstantValue(config);
   };
-  kernel.load(nodeRedModule);
+  kernel.load(externalModule);
 
   const logger = kernel.get<Homenet.ILogger>('ILogger');
-
   const vploader = kernel.get<DefaultPlugins>('DefaultPlugins');
   vploader.addDefault();
 

@@ -2,7 +2,7 @@ var name = 'scheduler';
 
 module.exports = function(RED) {
     var global = RED.settings.functionGlobalContext;
-    var logger = global.logger.getLogger('node-scheduler');
+    // var logger = global.logger.getLogger('node-scheduler');
 
     function Node(config) {
         RED.nodes.createNode(this, config);
@@ -15,14 +15,14 @@ module.exports = function(RED) {
         var hour = current.getHours();
         var min = current.getMinutes();
 
-        logger.info('Setting scheduler for ' + node.hour + ':' + node.minute + ' from ' + hour + ':' + min);
+        node.log('Setting scheduler for ' + node.hour + ':' + node.minute + ' from ' + hour + ':' + min);
 
         var mins = ((24 + node.hour - hour)*60) + (node.minute - min);
         if (mins > 1440) mins = mins - 1440;
-        logger.info('Scheduler mins ' + mins);
+        node.log('Scheduler mins ' + mins);
 
         var wait = mins * 60000;
-        logger.info('Setting scheduler for ' + node.hour + ':' + node.minute + ' in ' + wait + 'ms');
+        node.log('Setting scheduler for ' + node.hour + ':' + node.minute + ' in ' + wait + 'ms');
 
         // should try and be more intelligent than this :-/
         var timer = setTimeout(tick, wait);
@@ -34,9 +34,8 @@ module.exports = function(RED) {
         function tick() {
             msg = { payload: {}, topic:name };
             node.send(msg);
-            logger.info('Scheduler');
+            node.log('Scheduler');
         }
     }
     RED.nodes.registerType(name,Node);
 };
-

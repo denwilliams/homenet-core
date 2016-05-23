@@ -28,9 +28,16 @@ export class NodeRed implements Homenet.INodeRed {
   private _sceneManager: any;
   private _RED: any;
 
-  constructor(@inject('ILogger') logger: Homenet.ILogger, @inject('RED') RED: any) {
+  private _switches: Homenet.ISwitchManager;
+
+  constructor(
+    @inject('ILogger') logger: Homenet.ILogger,
+    @inject('ISwitchManager') switches: Homenet.ISwitchManager,
+    @inject('RED') RED: any) {
   // constructor(logger: ILogger, RED: any) {
     this._logger = logger;
+    this._switches = switches;
+
     this._RED = RED;
     this._sceneManager = new nrScenes.SceneManager();
   }
@@ -40,8 +47,13 @@ export class NodeRed implements Homenet.INodeRed {
     const app = express();
     const server = createServer(app);
     server['test'] = 'this';
+
+    const globalContext = {
+      switches: this._switches
+    };
+    
     // server.listen(1881, () => { console.log('LISTENING 1880'); });
-    nrScenes.start(this._RED, {config, sceneManager: this._sceneManager, logger: this._logger, port: 1880, server, app});
+    nrScenes.start(this._RED, {config, globalContext, sceneManager: this._sceneManager, logger: this._logger, port: 1880, server, app});
   }
 
   getSceneManager() : any {

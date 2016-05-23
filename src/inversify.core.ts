@@ -32,19 +32,19 @@ import PersonManager = require('./classes/person-manager');
 
 import Core = require('./core/index');
 
-@injectable()
-class ConfigImpl implements Homenet.IConfig {
-  hue: any = {};
-  instances: Homenet.InstanceConfig[] = [];
-  zones: Homenet.IZoneConfig[] = [];
-  locks: Homenet.ILockConfig[] = [];
-  people: Homenet.IPersonConfig[] = [];
-  dataPath: string = '';
-  webServerPort: number = 1234;
-  location: Homenet.IConfigCoords = null
-}
+// @injectable()
+// class ConfigImpl implements Homenet.IConfig {
+//   hue: any = {};
+//   instances: Homenet.InstanceConfig[] = [];
+//   zones: Homenet.IZoneConfig[] = [];
+//   locks: Homenet.ILockConfig[] = [];
+//   people: Homenet.IPersonConfig[] = [];
+//   dataPath: string = '';
+//   webServerPort: number = 1234;
+//   location: Homenet.IConfigCoords = null
+// }
 
-const config: Homenet.IConfig = require('./test-config');
+// const config: Homenet.IConfig = require('./test-config');
 
 @injectable()
 class ConsoleLogger implements Homenet.ILogger {
@@ -67,7 +67,6 @@ class ConsoleLogger implements Homenet.ILogger {
 
 export const coreModule: IKernelModule = (kernel: IKernel) => {
     // kernel.bind(new TypeBinding<IConfig>('IConfig', ConfigImpl, TypeBindingScopeEnum.Singleton));
-    kernel.bind<Homenet.IConfig>('IConfig').toConstantValue(config);
     kernel.bind<Homenet.ILogger>('ILogger').to(ConsoleLogger); //.inTransientScope();
     kernel.bind<Homenet.IAuthorizer>('IAuthorizer').to(Authorizer); //.inTransientScope();
     kernel.bind<Homenet.IClassesManager>('IClassesManager').to(ClassesManager).inSingletonScope();

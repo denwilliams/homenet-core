@@ -1,7 +1,7 @@
 declare module 'homenet-core' {
   export function plugin(): (typeConstructor: any) => void;
   export function service(serviceIdentifier: (string)): (target: any, targetKey: string, index?: number) => any;
-  export function init(RED: any): IRuntime;
+  export function init(RED: any, config: IConfig): IRuntime;
 
 
   export interface IRuntime {
