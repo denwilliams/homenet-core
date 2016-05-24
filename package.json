@@ -1,6 +1,6 @@
 {
   "name": "homenet-core",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "description": "Homenet home automation - core system",
   "main": "lib/index.js",
   "engines": {
