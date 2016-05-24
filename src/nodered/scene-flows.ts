@@ -33,6 +33,8 @@ class SceneFlows extends EventEmitter {
 
     this._flowsPath = join(config.dataPath, 'flows.json');
 
+    logger.info('Flows path: ' + this._flowsPath);
+
     if (fs.existsSync(this._flowsPath)) {
       logger.info('Loading saved flows from file: ' + this._flowsPath);
       this._flows = require(this._flowsPath);
@@ -60,7 +62,7 @@ class SceneFlows extends EventEmitter {
     this._logger.debug('Getting flows for scene: ' + this._flows[this._selected]);
     // console.log('flows...',flows._selected,flows[flows._selected]);
     var f = this._flows[this._selected] || [
-      { type: 'tab', id: 'tab.'+this._selected, label: this._selected },
+      { type: 'tab', id: 'tab.' + this._selected, label: this._selected },
       { type: 'current-scene', id: 'current-scene.'+this._selected, name:'', x:75, y:20, z:'tab.'+this._selected, wires:[]}
     ];
 
