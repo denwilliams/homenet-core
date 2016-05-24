@@ -13,31 +13,32 @@ import * as express from 'express';
 // import NodeRedScenes = require('node-red-contrib-scenes');
 import nrScenes = require('node-red-contrib-scenes');
 
-const config = {
-  nodesDir: null, // join(__dirname, '../nodes/'),
-  userDir: join(__dirname, '../../data/'),
-  initialFlow: 'day',
-  redUrl: '/',
-  redApiUrl: '/redapi'
-};
-
 @injectable()
 export class NodeRed implements Homenet.INodeRed {
 
   private _logger: Homenet.ILogger;
   private _sceneManager: any;
   private _RED: any;
+  private _config = {
+    nodesDir: null, // join(__dirname, '../nodes/'),
+    userDir: join(__dirname, '../../data/'),
+    initialFlow: 'day',
+    redUrl: '/',
+    redApiUrl: '/redapi'
+  };
 
   private _switches: Homenet.ISwitchManager;
 
   constructor(
     @inject('ILogger') logger: Homenet.ILogger,
+    @inject('IConfig') config: Homenet.IConfig,
     @inject('ISwitchManager') switches: Homenet.ISwitchManager,
     @inject('RED') RED: any) {
   // constructor(logger: ILogger, RED: any) {
     this._logger = logger;
     this._switches = switches;
 
+    if (config.dataPath) this._config.userDir = config.dataPath;
     this._RED = RED;
     this._sceneManager = new nrScenes.SceneManager();
   }
@@ -51,9 +52,9 @@ export class NodeRed implements Homenet.INodeRed {
     const globalContext = {
       switches: this._switches
     };
-    
+
     // server.listen(1881, () => { console.log('LISTENING 1880'); });
-    nrScenes.start(this._RED, {config, globalContext, sceneManager: this._sceneManager, logger: this._logger, port: 1880, server, app});
+    nrScenes.start(this._RED, {config: this._config, globalContext, sceneManager: this._sceneManager, logger: this._logger, port: 1880, server, app});
   }
 
   getSceneManager() : any {
