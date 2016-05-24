@@ -7,3 +7,10 @@ import { utilsModule } from "./inversify.utils";
 
 export const kernel: IKernel = new Kernel();
 kernel.load(apiModule, coreModule, pluginsModule, utilsModule);
+
+class ServiceContext implements Homenet.IServiceContext {
+  get<T>(type: string) : T {
+    return kernel.get<T>(type);
+  }
+}
+kernel.bind<Homenet.IServiceContext>('IServiceContext').to(ServiceContext);

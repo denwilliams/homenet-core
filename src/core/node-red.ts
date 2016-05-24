@@ -17,6 +17,7 @@ import nrScenes = require('node-red-contrib-scenes');
 export class NodeRed implements Homenet.INodeRed {
 
   private _logger: Homenet.ILogger;
+  private _services: Homenet.IServiceContext;
   private _sceneManager: any;
   private _RED: any;
   private _config = {
@@ -32,10 +33,12 @@ export class NodeRed implements Homenet.INodeRed {
   constructor(
     @inject('ILogger') logger: Homenet.ILogger,
     @inject('IConfig') config: Homenet.IConfig,
+    @inject('IServiceContext') services: Homenet.IServiceContext,
     @inject('ISwitchManager') switches: Homenet.ISwitchManager,
     @inject('RED') RED: any) {
   // constructor(logger: ILogger, RED: any) {
     this._logger = logger;
+    this._services = services;
     this._switches = switches;
 
     if (config.dataPath) this._config.userDir = config.dataPath;
@@ -50,7 +53,8 @@ export class NodeRed implements Homenet.INodeRed {
     server['test'] = 'this';
 
     const globalContext = {
-      switches: this._switches
+      switches: this._switches,
+      services: this._services
     };
 
     // server.listen(1881, () => { console.log('LISTENING 1880'); });

@@ -8,5 +8,5 @@ module.exports = function(RED) {
       else node.send([null,msg]);
     });
   }
-  RED.nodes.registerType("isdark",IsDark);
+  RED.nodes.registerType("isdark", IsDark);
 };

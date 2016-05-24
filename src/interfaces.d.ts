@@ -1,8 +1,11 @@
 /// <reference path="ext.q.d.ts"/>
 /// <reference path="ext.when.d.ts"/>
-// /// <reference path="../homenet-core.d.ts"/>
 
 declare namespace Homenet {
+
+  export interface IServiceContext {
+    get<T>(type: string) : T
+  }
 
   export interface IRuntime {
     start() : void
