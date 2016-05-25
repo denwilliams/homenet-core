@@ -1,10 +1,7 @@
-/// <reference path="../interfaces.d.ts"/>
-
-var EventEmitter = require('events').EventEmitter;
+import { EventEmitter } from 'events';
 import _ = require('lodash');
-import TriggerImpl = require('./models/trigger');
-import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
+import { Trigger } from './models/trigger';
+import { inject, injectable } from 'inversify';
 
 /**
  * @constructor
@@ -39,7 +36,7 @@ export class TriggerManager implements Homenet.ITriggerManager {
   add(typeId: string, instanceId: string, emitter: Homenet.IEventEmitter) {
     var eventBus = this._eventBus;
     var id = typeId+'.'+instanceId;
-    var instance = this.instances[id] = new TriggerImpl(id, emitter || new EventEmitter());
+    var instance = this.instances[id] = new Trigger(id, emitter || new EventEmitter());
     instance.onTrigger(function(data) {
       eventBus.emit('trigger.'+id, null, data);
     });

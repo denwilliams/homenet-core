@@ -2,7 +2,7 @@ import {inject, injectable} from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class CommonImpl implements Homenet.ICommon {
+export class Common implements Homenet.ICommon {
 
   public logger: Homenet.ILogger;
   public config: Homenet.IConfig;
@@ -24,5 +24,3 @@ class CommonImpl implements Homenet.ICommon {
   }
 
 }
-
-export = CommonImpl;

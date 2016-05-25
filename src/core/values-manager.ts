@@ -1,6 +1,5 @@
 import ValueStore = require('./value-store');
 import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 
 
 /**
@@ -12,7 +11,7 @@ import {inject, injectable} from 'inversify';
  * var lights = switchManager.get('loungeroom:lights');
  */
 @injectable()
-class ValuesManagerImpl {
+export class ValuesManager implements Homenet.IValuesManager {
 
   private _logger: Homenet.ILogger;
   private _eventBus: Homenet.IEventBus;
@@ -82,5 +81,3 @@ class ValuesManagerImpl {
   }
 
 }
-
-export = ValuesManagerImpl;

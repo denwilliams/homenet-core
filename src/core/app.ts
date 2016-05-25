@@ -2,7 +2,7 @@ import {inject, injectable} from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class App implements Homenet.IApp {
+export class App implements Homenet.IApp {
 
   private _logger: Homenet.ILogger;
   private _webServer: Homenet.IWebServer;
@@ -37,5 +37,3 @@ class App implements Homenet.IApp {
   }
 
 }
-
-export = App;

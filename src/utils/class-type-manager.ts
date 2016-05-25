@@ -13,7 +13,7 @@ import chalk = require('chalk');
   */
 abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
 
-  private _logger: Homenet.ILogger;
+  protected _logger: Homenet.ILogger;
   private _addInstance: Homenet.IClassFactory<T>;
 
   classId: string;

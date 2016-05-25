@@ -1,11 +1,10 @@
 import { injectable, inject } from 'inversify';
 import chalk = require('chalk');
-// import {Homenet} from '../interfaces.d.ts';
 
 const CLASS_ID = 'light';
 
 @injectable()
-class LightsManager implements Homenet.ILightsManager {
+export class LightsManager implements Homenet.ILightsManager {
 
   private _logger: Homenet.ILogger;
   private _classes: Homenet.IClassesManager;
@@ -112,8 +111,6 @@ class LightsManager implements Homenet.ILightsManager {
     };
   }
 }
-
-export = LightsManager;
 
 
 /**

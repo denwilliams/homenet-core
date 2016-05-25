@@ -9,7 +9,7 @@ import ClassTypeManager = require('../utils/class-type-manager');
 const CLASS_ID = 'lock';
 
 @injectable()
-class LockManager extends ClassTypeManager<Homenet.ILock> implements Homenet.ILockManager {
+export class LockManager extends ClassTypeManager<Homenet.ILock> implements Homenet.ILockManager {
 
   private _switches: Homenet.ISwitchManager;
   private _commands: Homenet.ICommandManager;
@@ -88,5 +88,3 @@ class LockManager extends ClassTypeManager<Homenet.ILock> implements Homenet.ILo
   }
 
 }
-
-export = LockManager;

@@ -1,12 +1,9 @@
-/// <reference path="../interfaces.d.ts"/>
-
 import {keyBy} from 'lodash';
 import Zone = require('./models/zone');
 import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
-class ZoneManagerImpl implements Homenet.IZoneManager {
+export class ZoneManager implements Homenet.IZoneManager {
   private _zoneHeirarchy : any;
   private _zonesArr : Zone[];
 
@@ -68,5 +65,3 @@ class ZoneManagerImpl implements Homenet.IZoneManager {
   }
 
 }
-
-export = ZoneManagerImpl;

@@ -292,8 +292,8 @@ declare namespace Homenet {
     (id : string, opts : any) : T
   }
 
-  interface ISensorManager {
-    getInstance(instanceId: string) : ISensor
+  interface ISensorManager extends IClassTypeManager<ISensor> {
+    trigger(sensorId: string) : void
   }
 
 
@@ -385,7 +385,7 @@ declare namespace Homenet {
 
 
   interface ITriggerManager {
-    add(typeId:string, instanceId:string, emitter?) : ITrigger
+    add(typeId:string, instanceId:string, emitter?: IEventEmitter) : ITrigger
     getAll() : ITrigger[]
     get(typeId: string, instanceId: string) : ITrigger
     trigger(typeId: string, instanceId: string, data: any)

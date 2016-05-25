@@ -1,5 +1,3 @@
-/// <reference path="../interfaces.d.ts"/>
-
 import PresenceState = require('./models/presence-state');
 import {EventEmitter} from 'events';
 import {inject, injectable} from 'inversify';
@@ -16,7 +14,7 @@ import {inject, injectable} from 'inversify';
  * presenceManager.bump();
  */
 @injectable()
-class PresenceManagerImpl extends EventEmitter {
+export class PresenceManager extends EventEmitter implements Homenet.IPresenceManager {
 
   private _items = {};
   private _parents = {};
@@ -77,7 +75,7 @@ class PresenceManagerImpl extends EventEmitter {
 
     //   p = new Presence({
     //     id: name,
-    //     logger: logger,
+  //     logger: logger,
     //     timeout: opts.timeout,
     //   });
 
@@ -101,10 +99,10 @@ class PresenceManagerImpl extends EventEmitter {
 
     this._items[id] = p;
 
-    p.on('present', this._activate.bind(null, name));
+    p.on('present', this._activate.bind(this, name));
 
     return p;
-}
+  }
 
   /**
    * Gets a registered presence
@@ -192,7 +190,7 @@ class PresenceManagerImpl extends EventEmitter {
 
   //// ---- private ---- ////
 
-  _activate(item, present) {
+  private _activate(item: string, present) {
     var details = this._items[item];
     this.emit(item, present);
     var args = {
@@ -207,34 +205,24 @@ class PresenceManagerImpl extends EventEmitter {
 
     var ps = this._getParents(item);
 
-    // logger.debug('Parents of '+item+': '+ps.length);
-
     ps.forEach(function (p) {
       if (present) p.childActivated();
       else p.childDeactivated();
     });
   }
 
-  _getParents(child) {
-    var p = this._parents[child];
+  private _getParents(child) {
+    var p : any[] = this._parents[child];
     if (!p) return [];
 
-    return p.map(function(id) {
-      return this._items[id];
-    })
-    .filter(function (item) {
-      return !!this._items;
-    });
+    return p.map(id => this._items[id]) // map id to actual item
+    // .filter(item => !!this._items); //  not sure what this does???
   }
 
-  _getChildren(parent) {
+  private _getChildren(parent) {
     var c = this._children[parent];
     if (!c) return [];
 
-    return c.map(function(id) {
-      return this._items[id];
-    });
+    return c.map(id => this._items[id]);
   }
 }
-
-export = PresenceManagerImpl;

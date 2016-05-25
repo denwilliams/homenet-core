@@ -1,6 +1,6 @@
 const DEFAULT_TIMEOUT = 60000;
 
-enum SensorMode { 'toggle', 'trigger' };
+export type SensorMode = 'toggle' | 'trigger';
 
 /**
   * @class Sensor
@@ -21,19 +21,24 @@ enum SensorMode { 'toggle', 'trigger' };
   * var sensor = new MySensor(1);
   * sensor.trigger();
   */
-class BaseSensor implements ISensor {
+export class BaseSensor implements Homenet.ISensor {
 
   id: string;
   mode: SensorMode;
 
   private _trigger: any;
-  private _values: IValueStore;
-  private _presence: IPresence;
+  private _values: Homenet.IValueStore;
+  private _presence: Homenet.IPresence;
 
-  constructor(instanceId: string, opts: any, triggers: ITriggerManager, presence: IPresenceManager, values: IValuesManager) {
+  constructor(
+            instanceId: string,
+            opts: {mode?: SensorMode, timeout?: number, zone?: string},
+            triggers: Homenet.ITriggerManager,
+            presence: Homenet.IPresenceManager,
+            values: Homenet.IValuesManager) {
     opts = opts || {};
     this.id = instanceId;
-    var mode = this.mode = opts.mode || 'toggle';
+    const mode: SensorMode = this.mode = opts.mode || 'toggle';
 
     if (mode === 'trigger' || mode === 'toggle') {
       var timeout : number = opts.timeout || DEFAULT_TIMEOUT;

@@ -1,7 +1,6 @@
 import redis = require('redis');
 import Q = require('q');
 import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 
 interface RedisGet {
   (key: string) : Q.Promise<string>
@@ -16,7 +15,7 @@ interface RedisSet {
  * @param {Logger} logger - logger instance
  */
 @injectable()
-class StorageManagerImpl implements Homenet.IStorageManager {
+export class StorageManager implements Homenet.IStorageManager {
 
   private _logger: Homenet.ILogger;
   private _config: Homenet.IConfig;
@@ -69,5 +68,3 @@ class StorageManagerImpl implements Homenet.IStorageManager {
     .then(function(res) { return JSON.parse(res); });
   }
 }
-
-export = StorageManagerImpl;

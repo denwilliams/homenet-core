@@ -1,11 +1,9 @@
-// import { Homenet } from '../../interfaces.d.ts';
-
 /**
  * @classdesc Emits events when triggered
  * @constructor
  * @param {EventEmitter} eventEmitter - the event emitter to use to emit events
  */
-class TriggerImpl implements Homenet.ITrigger {
+export class Trigger implements Homenet.ITrigger {
 
   public lastTriggered: Date;
   public id: string;
@@ -38,5 +36,3 @@ class TriggerImpl implements Homenet.ITrigger {
   }
 
 }
-
-export = TriggerImpl;

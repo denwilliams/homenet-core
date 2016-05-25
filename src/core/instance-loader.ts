@@ -4,7 +4,7 @@ import chalk = require('chalk');
 
 
 @injectable()
-class InstanceLoader implements Homenet.IInstanceLoader {
+export class InstanceLoader implements Homenet.IInstanceLoader {
 
   private _classes : Homenet.IClassesManager;
   private _logger: Homenet.ILogger;
@@ -26,5 +26,3 @@ class InstanceLoader implements Homenet.IInstanceLoader {
     classes.initializeAll();
   }
 }
-
-export = InstanceLoader;
