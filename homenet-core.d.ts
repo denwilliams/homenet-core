@@ -285,7 +285,7 @@ declare module 'homenet-core' {
       (id : string, opts : any) : T
     }
 
-    export interface ISensorManager {
+    export interface ISensorManager extends IClassTypeManager<ISensor> {
       getInstance(instanceId: string) : ISensor
     }
 
