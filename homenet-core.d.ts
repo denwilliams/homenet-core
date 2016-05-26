@@ -2,6 +2,43 @@ declare module 'homenet-core' {
   export function plugin(): (typeConstructor: any) => void;
   export function service(serviceIdentifier: (string)): (target: any, targetKey: string, index?: number) => any;
   export function init(RED: any, config: IConfig): IRuntime;
+  // export declare abstract class BaseSwitch<T> implements ISwitch {
+  //     private _id;
+  //     private _value;
+  //     constructor(id: string, emitOnSet: boolean);
+  //     get(): T;
+  //     set(value: T): void;
+  //
+  //     // event emitter
+  //     on(name: string, cb: Function);
+  //     emit(name: string, value: any);
+  // }
+  export declare type SensorMode = 'toggle' | 'trigger';
+  export declare class BaseSensor implements ISensor {
+      id: string;
+      mode: SensorMode;
+      private _trigger;
+      private _values;
+      private _presence;
+      constructor(instanceId: string, opts: {
+          mode?: SensorMode;
+          timeout?: number;
+          zone?: string;
+      }, triggers: Homenet.ITriggerManager, presence: Homenet.IPresenceManager, values: Homenet.IValuesManager);
+      trigger(): void;
+      on(): void;
+      off(): void;
+      set(key: any, value: any): void;
+      get(key: any): any;
+      getAll(): Homenet.Dict<any>;
+  }
+  export declare class TriggerSensor extends BaseSensor {
+      constructor(instanceId: string, opts: {
+          timeout: number;
+          zone: string;
+      }, triggers: Homenet.ITriggerManager, presence: Homenet.IPresenceManager, values: Homenet.IValuesManager);
+  }
+
 
 
   export interface IRuntime {

@@ -9,6 +9,9 @@ import { kernel } from './inversify.kernel';
 
 import DefaultPlugins = require('./plugins/default');
 
+export { BaseSensor } from './core/models/base-sensor';
+export { TriggerSensor } from './core/models/trigger-sensor';
+
 export {inject as service, injectable as plugin} from 'inversify';
 
 export function init(RED: any, config: Homenet.IConfig) : Homenet.IRuntime {
