@@ -13,8 +13,8 @@ declare module 'homenet-core' {
   //     on(name: string, cb: Function);
   //     emit(name: string, value: any);
   // }
-  export declare type SensorMode = 'toggle' | 'trigger';
-  export declare class BaseSensor implements ISensor {
+  export type SensorMode = 'toggle' | 'trigger';
+  export class BaseSensor implements ISensor {
       id: string;
       mode: SensorMode;
       private _trigger;
@@ -24,7 +24,7 @@ declare module 'homenet-core' {
           mode?: SensorMode;
           timeout?: number;
           zone?: string;
-      }, triggers: Homenet.ITriggerManager, presence: Homenet.IPresenceManager, values: Homenet.IValuesManager);
+      }, triggers: ITriggerManager, presence: IPresenceManager, values: IValuesManager);
       trigger(): void;
       on(): void;
       off(): void;
@@ -32,11 +32,11 @@ declare module 'homenet-core' {
       get(key: any): any;
       getAll(): Homenet.Dict<any>;
   }
-  export declare class TriggerSensor extends BaseSensor {
+  export class TriggerSensor extends BaseSensor {
       constructor(instanceId: string, opts: {
           timeout: number;
           zone: string;
-      }, triggers: Homenet.ITriggerManager, presence: Homenet.IPresenceManager, values: Homenet.IValuesManager);
+      }, triggers: ITriggerManager, presence: IPresenceManager, values: IValuesManager);
   }
 
 
