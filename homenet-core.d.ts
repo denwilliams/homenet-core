@@ -30,7 +30,7 @@ declare module 'homenet-core' {
       off(): void;
       set(key: any, value: any): void;
       get(key: any): any;
-      getAll(): Homenet.Dict<any>;
+      getAll(): Dict<any>;
   }
   export class TriggerSensor extends BaseSensor {
       constructor(instanceId: string, opts: {
