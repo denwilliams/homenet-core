@@ -1,5 +1,4 @@
 import {injectable, inject} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 import chalk = require('chalk');
 
 

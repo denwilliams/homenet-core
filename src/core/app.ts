@@ -3,10 +3,12 @@ import {inject, injectable} from 'inversify';
 
 @injectable()
 export class App implements Homenet.IApp {
-
+  private _config: Homenet.IConfig;
   private _logger: Homenet.ILogger;
   private _webServer: Homenet.IWebServer;
   private _nodeRed: Homenet.INodeRed;
+  private _plugins: Homenet.IPlugins;
+  private _instLdr: Homenet.IInstanceLoader;
 
   constructor(
         @inject('IConfig') config: Homenet.IConfig,
@@ -21,17 +23,18 @@ export class App implements Homenet.IApp {
     if (!plugins) throw new Error('Plugins must be provided');
     if (!instLdr) throw new Error('Instance Loader must be provided');
 
-    instLdr.loadInstances(config);
-    plugins.loadAll();
-
     this._logger = logger;
+    this._config = config;
     this._webServer = webServer;
     this._nodeRed = nodeRed;
-    this._webServer.start();
+    this._plugins = plugins;
+    this._instLdr = instLdr;
   }
 
   start() : void {
     this._logger.info('Starting');
+    this._plugins.loadAll();
+    this._instLdr.loadInstances(this._config);
     this._webServer.start();
     this._nodeRed.start();
   }

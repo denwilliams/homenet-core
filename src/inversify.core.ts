@@ -1,6 +1,5 @@
-/// <reference path="./interfaces.d.ts"/>
-
 import { injectable, inject, IKernel, IKernelModule } from "inversify";
+import * as chalk from 'chalk';
 // import {Homenet} from './interfaces.d.ts';
 
 // import LightsManager = require('./lights/lights-manager');
@@ -54,16 +53,16 @@ class ConsoleLogger implements Homenet.ILogger {
   constructor() {}
 
   info(args : any) : void {
-    console.log('INFO', args);
+    console.log(chalk.green('INFO'), args);
   }
   warn(args : any) : void {
-    console.warn('WARN', args);
+    console.warn(chalk.yellow('WARN'), args);
   }
   error(args : any) : void {
-    console.error('ERRO', args);
+    console.error(chalk.red('ERRO'), args);
   }
   debug(args : any) : void {
-    console.log('DEBG', args);
+    console.log(chalk.blue('DEBG'), args);
   }
 }
 

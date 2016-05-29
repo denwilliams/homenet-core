@@ -41,7 +41,9 @@ class ClassesManager implements Homenet.IClassesManager {
   addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void {
     this._logger.debug('Adding instance of class ' + chalk.cyan(classId) + ' with ID ' + chalk.magenta(instanceId));
     var factory : Homenet.IClassFactory<T> = this._classes[classId];
-    if (typeof factory !== 'function') throw new Error('No class factory found for ' + classId + ' (' + typeId + '/' + instanceId +')');
+    if (typeof factory !== 'function') {
+      throw new Error('No class factory found for ' + classId + ' (' + typeId + '/' + instanceId +')');
+    }
     var id: string = classId + '.' + instanceId;
     this._instances[id] = factory(instanceId, typeId, opts);
   }

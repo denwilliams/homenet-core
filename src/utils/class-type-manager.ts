@@ -67,7 +67,7 @@ abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
    * @param {function} factory -
    */
   addType(typeId: string, factory: Homenet.IClassTypeFactory<T>) {
-    this._logger.info('Adding '+this.classId+' type ' + typeId);
+    this._logger.info('Adding ' + chalk.blue(this.classId) + ' type ' + chalk.cyan(typeId));
     this.types[typeId] = factory;
   }
 

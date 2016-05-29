@@ -137,7 +137,7 @@ class PresenceState extends EventEmitter implements Homenet.IPresence {
       //this._logger.debug('resetting timeout');
       clearTimeout(this._timer);
     }
-    this._timer = setTimeout(this._unpresent, this._timeout);
+    this._timer = setTimeout(this._unpresent.bind(this), this._timeout);
     if (!this._isPresent) {
       this._present();
     } else {

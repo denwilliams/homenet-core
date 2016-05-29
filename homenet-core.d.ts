@@ -34,8 +34,8 @@ declare module 'homenet-core' {
   }
   export class TriggerSensor extends BaseSensor {
       constructor(instanceId: string, opts: {
-          timeout: number;
-          zone: string;
+          timeout?: number;
+          zone?: string;
       }, triggers: ITriggerManager, presence: IPresenceManager, values: IValuesManager);
   }
 
@@ -323,7 +323,7 @@ declare module 'homenet-core' {
     }
 
     export interface ISensorManager extends IClassTypeManager<ISensor> {
-      getInstance(instanceId: string) : ISensor
+      trigger(sensorId: string) : void
     }
 
 
