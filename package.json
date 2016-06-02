@@ -3,6 +3,8 @@
   "version": "4.0.0-alpha.14",
   "description": "Homenet home automation - core system",
   "main": "lib/index.js",
+  "author": "Den Williams",
+  "license": "MIT",
   "engines": {
     "node": ">=4"
   },
@@ -16,8 +18,6 @@
     "tsdoc": "typedoc --verbose --mode file --out ./doc/ --module commonjs --target ES5 --exclude node_modules/* --includeDeclarations main.ts",
     "generate-docs": "jsdoc --configure ./.jsdoc --verbose"
   },
-  "author": "Den Williams",
-  "license": "MIT",
   "node-red": {
     "nodes": {
       "app-event": "nodes/app-event.js",

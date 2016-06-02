@@ -11,7 +11,6 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
   private _values: Homenet.IValuesManager;
   private _presence: Homenet.IPresenceManager;
 
-
   constructor(
         @inject('IClassesManager') classes: Homenet.IClassesManager,
         @inject('ITriggerManager') triggers: Homenet.ITriggerManager,

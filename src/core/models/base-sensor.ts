@@ -100,4 +100,13 @@ export class BaseSensor implements Homenet.ISensor {
     return this._values.getAll();
   }
 
+  onTrigger(cb: Function) : void {
+    if (!this._trigger) return;
+    this._trigger.onTrigger(cb);
+  }
+
+  removeOnTriggerListener(cb: Function) : void {
+    if (!this._trigger) return;
+    this._trigger.removeListener('trigger', cb);
+  }
 }

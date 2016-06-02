@@ -90,6 +90,20 @@ class BaseSensor implements ISensor {
     return this._values.getAll();
   }
 
+  onTrigger(cb: Function) : void {
+    if (!this._trigger) return;
+    this._trigger.onTrigger(cb);
+  }
+
+  on(event: string, cb: Function) : void {
+    if (!this._trigger) return;
+    this._trigger.on(event, cb);
+  }
+
+  removeListener(event: string, cb: Function) : void {
+    if (!this._trigger) return;
+    this._trigger.removeListener(event, cb);
+  }
 }
 
 export = BaseSensor;

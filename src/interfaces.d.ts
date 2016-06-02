@@ -171,8 +171,10 @@ declare namespace Homenet {
 
 
   interface ISensor {
-    trigger()
-    set(key, value) : void
+    trigger(value?: any) : void;
+    set(key, value) : void;
+    onTrigger(cb: Function) : void;
+    removeOnTriggerListener(cb: Function) : void;
 
     // trigger() {
     //   if (!this._trigger) return;
@@ -368,7 +370,8 @@ declare namespace Homenet {
   }
 
   interface IEventSource {
-    on(name: string, cb: Function)
+    on(name: string, cb: Function) : void;
+    removeListener(name: string, cb: Function) : void;
   }
 
   interface IEventSender {
