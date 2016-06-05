@@ -399,6 +399,7 @@ declare module 'homenet-core' {
 
     export interface IEventSource {
       on(name: string, cb: Function)
+      removeListener(name: string, cb: Function)
     }
 
     export interface IEventSender {
