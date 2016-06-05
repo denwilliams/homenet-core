@@ -2,7 +2,7 @@ var name = 'dark';
 
 module.exports = function(RED) {
   var global = RED.settings.functionGlobalContext;
-  var sunlight = global.sunlight;
+  var sunlight = global.services.get('ISunlight');
 
   function Node(n) {
     RED.nodes.createNode(this,n);

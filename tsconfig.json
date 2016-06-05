@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "sourceMap": true,
+        "declaration": true,
+        "listFiles": false,
+        "outDir": "./lib"
+    },
+    "compilerOptions_disabled": {
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "outFile": "./build/tsc.js",
+      "out": "./built/local/tsc.js"
+    },
+    "files": [
+      "node_modules/node-red-contrib-scenes/node-red-contrib-scenes.d.ts",
+      "node_modules/inversify-dts/inversify/inversify.d.ts",
+      "src/interfaces.d.ts",
+      "typings/main.d.ts",
+      "src/node-red.d.ts",
+      "src/interfaces.d.ts",
+      "src/test-config.ts",
+      "src/index.ts"
+    ],
+    "excludeXX": [
+      "typedoc",
+      "old_lib",
+      "old_src",
+      "old_test",
+      "node_modules",
+      "wwwroot",
+      "build",
+      "built",
+      "data",
+      "docs",
+      "logs",
+      "nodes",
+      "out",
+      "plugins",
+      "sample",
+      "src",
+      "tmp"
+    ]
+}

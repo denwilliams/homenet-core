@@ -2,7 +2,7 @@ var name = 'light';
 
 module.exports = function(RED) {
   var global = RED.settings.functionGlobalContext;
-  var sunlight = global.sunlight;
+  var sunlight = global.services.get('ISunlight');
 
   function Node(n) {
     RED.nodes.createNode(this,n);
@@ -19,6 +19,7 @@ module.exports = function(RED) {
       var isTrue = (data.value === name);
 
       msg = { payload: isTrue, topic:name };
+
       if (isTrue) node.send([msg,null]);
       else node.send([null,msg]);
     }

@@ -2,23 +2,36 @@
 
 ## How to Use
 
+> THIS IS NOW WRONG... NEED TO UPDATE DOCS
+
 ...
 
+```js
+import {Core} from 'homenet-core';
+const core = new Core();
+core.start();
+```
 
-
+With plugins:
+```ts
+import {Core} from 'homenet-core';
+const core = new Core();
+core.addPlugin(pluginLoader);
+core.start();
+```
 
 
 ## Available Services
 
-### scene
+### [Scene Manager](interfaces/iscenemanager.html)
 
 Provides information on the available scenes, allows controlling and retrieving the currently active scene.
 
 Scenes should be defined in the configuration.
 
 **Properties:**
-- current:Object - Gets the current scene details
-- currentId:String - Gets the string name (ID) of the current scene
+- `current:Object` - Gets the current scene details
+- `currentId:String` - Gets the string name (ID) of the current scene
 - scenes:Array[Object] - Gets all of the available scenes
 
 **Methods:**
@@ -97,3 +110,8 @@ tbd
 - warn
 - error
 - debug
+
+
+## See Also
+
+[Globals](globals.html)

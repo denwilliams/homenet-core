@@ -1,28 +1,23 @@
+'use strict';
+
 module.exports = function(RED) {
-    "use strict";
+  var global = RED.settings.functionGlobalContext;
+  var switches = global.switches;
 
-    var global = RED.settings.functionGlobalContext;
-    var lights = global.lights;
+  function Node(config) {
+    RED.nodes.createNode(this, config);
 
-    function Node(config) {
-        var self = this;
+    var lightId = config.lightId;
+    var defaultState = config.state;
 
-        RED.nodes.createNode(this,config);
+    //var opts = (config.duration) ? {duration:config.duration} : undefined;
 
-        this.lightId = config.lightId;
-        this.state = config.state;
+    this.on('input', function(msg) {
+      var state = defaultState || msg.payload;
+      
+      switches.set('light', lightId, state);
+    });
+  }
 
-        var opts = (config.duration) ? {duration:config.duration} : undefined;
-
-        var node = this;
-
-        this.on("input", function(msg) {
-
-            lights[node.lightId](node.state || msg.payload, opts);
-
-        });
-    }
-
-    RED.nodes.registerType("lights",Node);
-
+  RED.nodes.registerType('lights', Node);
 };

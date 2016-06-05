@@ -1,0 +1,35 @@
+<script type="text/x-red" data-template-name="devicesensor">
+    <div class="form-row node-input-device">
+        <label for="node-input-device"><i class="fa fa-bookmark"></i> Device Name</label>
+        <input class="input-append-left" type="text" id="node-input-device" placeholder="default" style="width: 40%;" >
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips">
+        Todo: add tips here
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="devicesensor">
+    <p>Device sensor trigger.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('devicesensor',{
+        category: 'homenet-input',
+        color:"#5882FA",
+        defaults: {
+            name: {},
+            devicesensor: {}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "hash.png",
+        align: "right",
+        label: function() {
+            return this.name || this.device || 'Device sensor';
+        }
+    });
+</script>

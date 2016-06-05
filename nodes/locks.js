@@ -1,27 +1,21 @@
+'use strict';
+
 module.exports = function(RED) {
-    'use strict';
+  var global = RED.settings.functionGlobalContext;
+  var switches = global.switches;
 
-    var global = RED.settings.functionGlobalContext;
-    var locks = global.locks;
+  function Node(config) {
+    RED.nodes.createNode(this, config);
 
-    function Node(config) {
-        var self = this;
+    var lockId = config.lockId;
+    var defaultState = config.lock;
 
-        RED.nodes.createNode(this,config);
+    this.on('input', function(msg) {
+      var state = defaultState || msg.payload;
+      state = state === 'true' ? true : false;
+      switches.set('lock', lockId, state);
+    });
+  }
 
-        var lockId = config.lockId;
-        var lock = config.lock;
-
-        var node = this;
-
-        this.on('input', function(msg) {
-
-            // console.log('Setting lock ' + lockId, lock);
-            locks[lockId](lock ? lock === 'true' ? true : false : msg.payload);
-
-        });
-    }
-
-    RED.nodes.registerType('locks out',Node);
-
+  RED.nodes.registerType('locks out', Node);
 };

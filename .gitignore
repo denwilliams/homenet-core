@@ -1,3 +1,5 @@
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -26,3 +28,16 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+build/
+data/
+old_*/*
+typedoc/
+doc/
+lib/**/*.d.ts
+lib/**/*.js
+lib/**/*.js.map
+
+____*
+
+typings/
