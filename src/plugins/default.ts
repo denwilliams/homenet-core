@@ -1,7 +1,6 @@
 import {inject, injectable} from 'inversify';
 
-import VirtualPluginLoader = require('./virtual/index');
-import HuePluginLoader = require('./hue/index');
+import VirtualPluginLoader = require('./virtual');
 
 @injectable()
 class DefaultPlugins {
@@ -22,7 +21,6 @@ class DefaultPlugins {
         @inject('ILogger') logger: Homenet.ILogger) {
     this._plugins = plugins;
     this._toLoad = [
-      // new HuePluginLoader(config, lights, logger),
       new VirtualPluginLoader(lights, presence, values, triggers, locks, sensors, eventBus, logger)
     ];
   }
