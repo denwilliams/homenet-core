@@ -1,4 +1,7 @@
-import {keyBy} from 'lodash';
+// import {keyBy} from 'lodash';
+const _ = require('lodash');
+const keyBy = _.keyBy;
+
 import Zone = require('./models/zone');
 import {inject, injectable} from 'inversify';
 
@@ -19,7 +22,8 @@ export class ZoneManager implements Homenet.IZoneManager {
   }
 
   _buildHeirarchy(zones: Array<Zone>) : Homenet.Dict<Zone> {
-    var zoneMap = keyBy<string, Zone>(zones, 'id');
+    // var zoneMap = keyBy<string, Zone>(zones, 'id');
+    var zoneMap = keyBy(zones, 'id');
     zones.forEach(function(zone: Zone) {
 
       if (zone.parentId) {
