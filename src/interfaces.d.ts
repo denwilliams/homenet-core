@@ -463,7 +463,10 @@ declare namespace Homenet {
   }
 
   interface INodeREDContext {
-
+    logger: Homenet.ILogger;
+    services: Homenet.IServiceContext;
+    switches: Homenet.ISwitchManager;
+    sensors: Homenet.ISensorManager;
   }
 
   interface INodeREDLauncher {

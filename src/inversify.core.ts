@@ -11,6 +11,7 @@ import SwitchManager = require('./core/switch-manager');
 import SharedEventEmitter = require('./core/shared-event-emitter');
 
 import { NodeRed } from './core/node-red';
+import { GlobalContext } from './core/global-context';
 import { SceneManager } from './core/scene-manager';
 import { InstanceLoader } from './core/instance-loader';
 import { Authorizer } from './core/authorizer';
@@ -84,6 +85,8 @@ export const coreModule: IKernelModule = (kernel: IKernel) => {
     kernel.bind<Homenet.IEventBus>('IEventBus').to(SharedEventEmitter).inSingletonScope();
     kernel.bind<Homenet.IWebServer>('IWebServer').to(Core.WebServer).inSingletonScope();
     kernel.bind<Homenet.IApp>('IApp').to(App).inSingletonScope();
+
+    kernel.bind<Homenet.INodeREDContext>('INodeREDContext').to(GlobalContext).inSingletonScope();
     kernel.bind<Homenet.INodeRed>('INodeRed').to(NodeRed).inSingletonScope();
 
     kernel.bind<Homenet.IZoneManager>('IZoneManager').to(ZoneManager).inSingletonScope();

@@ -11,7 +11,7 @@ module.exports = function(RED) {
     var self = this;
     var node = this;
 
-    RED.nodes.createNode(this,config);
+    RED.nodes.createNode(this, config);
 
     var sensorId = config.sensorId;
     var sensor = sensors.getInstance(sensorId);

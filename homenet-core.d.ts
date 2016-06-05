@@ -490,7 +490,10 @@ declare module 'homenet-core' {
     }
 
     export interface INodeREDContext {
-
+      logger: ILogger;
+      services: IServiceContext;
+      switches: ISwitchManager;
+      sensors: ISensorManager;
     }
 
     export interface INodeREDLauncher {
