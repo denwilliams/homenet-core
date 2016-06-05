@@ -489,6 +489,10 @@ declare module 'homenet-core' {
       getAll() : Dict<any>
     }
 
+    export interface IServiceContext {
+      get<T>(type: string) : T
+    }
+
     export interface INodeREDContext {
       logger: ILogger;
       services: IServiceContext;
