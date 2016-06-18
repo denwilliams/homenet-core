@@ -23,6 +23,10 @@ export class Trigger implements Homenet.ITrigger {
     this._eventEmitter.on('trigger', cb);
   }
 
+  removeOnTriggerListener(cb: Function) : void {
+    this._eventEmitter.removeListener('trigger', cb);    
+  }
+
   _emitTrigger(data?: any) : void {
     this._eventEmitter.emit('trigger', data);
   }

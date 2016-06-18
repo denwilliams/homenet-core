@@ -179,6 +179,19 @@ declare module 'homenet-core' {
       (opts: any) : ICommander
     }
 
+    export interface IStatsTarget {
+      gauge(id: string, value: number) : void
+      counter(id: string, increment?: number) : void
+    }
+
+    export interface IStatsManager extends IStatsTarget {
+      /**
+       * Registers a new stats target type
+       * @param  {IStatsTarget} target
+       */
+      // register(target: IStatsTarget) : void
+    }
+
     export interface INotificationsManager {
       /**
        * Registers a new notifier type

@@ -19,14 +19,17 @@ export class TriggerManager implements Homenet.ITriggerManager {
 
   private _logger : Homenet.ILogger;
   private _eventBus : Homenet.IEventBus;
+  private _statsManager : Homenet.IStatsManager;
 
   public instances : Homenet.Dict<Homenet.ITrigger>;
 
   constructor(
       @inject('IEventBus') eventBus: Homenet.IEventBus,
+      @inject('IStatsManager') statsManager: Homenet.IStatsManager,
       @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
     this._eventBus = eventBus;
+    this._statsManager = statsManager;
     this.instances = {};
   }
 
@@ -34,11 +37,12 @@ export class TriggerManager implements Homenet.ITriggerManager {
    * Adds a trigger.
    */
   add(typeId: string, instanceId: string, emitter: Homenet.IEventEmitter) {
-    var eventBus = this._eventBus;
-    var id = typeId+'.'+instanceId;
-    var instance = this.instances[id] = new Trigger(id, emitter || new EventEmitter());
-    instance.onTrigger(function(data) {
-      eventBus.emit('trigger.'+id, null, data);
+    const id = typeId+'.'+instanceId;
+    const uid = 'trigger.'+id;
+    const instance = this.instances[id] = new Trigger(id, emitter || new EventEmitter());
+    instance.onTrigger(data => {
+      this._eventBus.emit(uid, null, data);
+      this._statsManager.counter(uid, data);
     });
     return instance;
   };

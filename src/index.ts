@@ -11,9 +11,13 @@ import DefaultPlugins = require('./plugins/default');
 
 export { BaseSensor } from './core/models/base-sensor';
 export { TriggerSensor } from './core/models/trigger-sensor';
-
 export {inject as service, injectable as plugin} from 'inversify';
-
+export function registerLogger(CustomLogger: new(...args: any[]) => Homenet.ILogTarget) {
+  kernel.bind<Homenet.ILogTarget>('ILogTarget').to(CustomLogger);
+}
+export function registerStats(CustomStats: new(...args: any[]) => Homenet.IStatsTarget) {
+  kernel.bind<Homenet.IStatsTarget>('IStatsTarget').to(CustomStats);
+}
 export function init(RED: any, config: Homenet.IConfig) : Homenet.IRuntime {
   const externalModule: IKernelModule = (k: IKernel) => {
     console.log('Binding external modules');

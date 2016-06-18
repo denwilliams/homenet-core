@@ -38,7 +38,24 @@ declare namespace Homenet {
     app: any;
   }
 
-  interface ILogger {
+  interface ILogEventMessage {
+    level: string,
+    message: string
+  }
+
+  interface ILogEventHandler {
+    (log: ILogEventMessage) : void
+  }
+
+  interface ILogger extends ILogTarget {
+    onLog(handler: ILogEventHandler) : void
+    info(args : any) : void
+    warn(args : any) : void
+    error(args : any) : void
+    debug(args : any) : void
+  }
+
+  interface ILogTarget {
     info(args : any) : void
     warn(args : any) : void
     error(args : any) : void
@@ -72,6 +89,7 @@ declare namespace Homenet {
   interface ITrigger {
     lastTriggered: Date
     onTrigger(listener: Function) : void
+    removeOnTriggerListener(listener: Function) : void
     trigger(data?: any) : void
   }
 
@@ -147,6 +165,19 @@ declare namespace Homenet {
 
   interface ICommanderFactory {
     (opts: any) : ICommander
+  }
+
+  interface IStatsTarget {
+    gauge(id: string, value: number) : void
+    counter(id: string, increment?: number) : void
+  }
+
+  interface IStatsManager extends IStatsTarget {
+    /**
+     * Registers a new stats target type
+     * @param  {IStatsTarget} target
+     */
+    // register(target: IStatsTarget) : void
   }
 
   interface INotificationsManager {

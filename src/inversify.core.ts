@@ -1,5 +1,6 @@
-import { injectable, inject, IKernel, IKernelModule } from "inversify";
+import { injectable, inject, multiInject, IKernel, IKernelModule } from "inversify";
 import * as chalk from 'chalk';
+import { EventEmitter } from 'events';
 // import {Homenet} from './interfaces.d.ts';
 
 // import LightsManager = require('./lights/lights-manager');
@@ -50,7 +51,7 @@ import Core = require('./core/index');
 // const config: Homenet.IConfig = require('./test-config');
 
 @injectable()
-class ConsoleLogger implements Homenet.ILogger {
+class ConsoleLogger implements Homenet.ILogTarget {
   constructor() {}
 
   info(args : any) : void {
@@ -67,10 +68,98 @@ class ConsoleLogger implements Homenet.ILogger {
   }
 }
 
+@injectable()
+class CoreLogger extends EventEmitter implements Homenet.ILogger {
+  /**
+   * Constructor
+   */
+  constructor(@multiInject('ILogTarget') loggers: Homenet.ILogTarget[]) {
+    super();
+    loggers.forEach(logger => {
+      this._bindLogger(logger);
+    });
+  }
+    
+  onLog(handler: Homenet.ILogEventHandler) : void {
+    this.on('log', handler);
+  }
+  
+  info(args : any) : void {
+    this._log('info', args);
+  }
+  warn(args : any) : void {
+    this._log('warn', args);
+  }
+  error(args : any) : void {
+    this._log('error', args);
+  }
+  debug(args : any) : void {
+    this._log('debug', args);
+  }
+  
+  private _log(level, args: any) {
+    const msg: Homenet.ILogEventMessage = {
+      level: level,
+      message: args
+    };
+    this.emit(level, msg);
+  }
+  
+  private _bindLogger(logger: Homenet.ILogTarget) : void {
+    this.onLog(msg => {
+      switch (msg.level) {
+        case 'info':
+        case 'debug':
+        case 'warn':
+        case 'error':
+          logger[msg.level](msg.message);
+          break;
+        default:
+          break;
+      }
+    });
+  }
+}
+
+
+
+@injectable()
+class StatsManager extends EventEmitter implements Homenet.IStatsManager {
+  /**
+   * Constructor
+   */
+  constructor(@multiInject('IStatsTarget') targets: Homenet.IStatsTarget[]) {
+    super();
+    targets.forEach(target => {
+      this._bindTarget(target);
+    });
+  }
+
+  gauge(id: string, value: number) {
+    this.emit('gauge', {id: id, value: value});
+  }
+
+  counter(id: string, value: number = 1) {
+    this.emit('counter', {id: id, value: value});
+  }
+
+  private _bindTarget(target: Homenet.IStatsTarget) : void {
+    this.on('gauge', msg => {
+      target.gauge(msg.id, msg.number);
+    });
+    this.on('counter', msg => {
+      target.counter(msg.id, msg.number);
+    });
+  }
+}
+
+
 
 export const coreModule: IKernelModule = (kernel: IKernel) => {
     // kernel.bind(new TypeBinding<IConfig>('IConfig', ConfigImpl, TypeBindingScopeEnum.Singleton));
-    kernel.bind<Homenet.ILogger>('ILogger').to(ConsoleLogger); //.inTransientScope();
+    kernel.bind<Homenet.IStatsManager>('IStatsManager').to(StatsManager).inSingletonScope(); //.inTransientScope();
+    kernel.bind<Homenet.ILogger>('ILogger').to(CoreLogger).inSingletonScope(); //.inTransientScope();
+    kernel.bind<Homenet.ILogTarget>('ILogTarget').to(ConsoleLogger); //.inTransientScope();
     kernel.bind<Homenet.IAuthorizer>('IAuthorizer').to(Authorizer); //.inTransientScope();
     kernel.bind<Homenet.IClassesManager>('IClassesManager').to(ClassesManager).inSingletonScope();
     kernel.bind<Homenet.IInstanceLoader>('IInstanceLoader').to(InstanceLoader); //.inTransientScope();

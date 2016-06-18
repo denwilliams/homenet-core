@@ -26,7 +26,7 @@ export class BaseSensor implements Homenet.ISensor {
   id: string;
   mode: SensorMode;
 
-  private _trigger: any;
+  private _trigger: Homenet.ITrigger;
   private _values: Homenet.IValueStore;
   private _presence: Homenet.IPresence;
 
@@ -107,6 +107,6 @@ export class BaseSensor implements Homenet.ISensor {
 
   removeOnTriggerListener(cb: Function) : void {
     if (!this._trigger) return;
-    this._trigger.removeListener('trigger', cb);
+    this._trigger.removeOnTriggerListener(cb);
   }
 }
