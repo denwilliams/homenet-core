@@ -102,7 +102,7 @@ class CoreLogger extends EventEmitter implements Homenet.ILogger {
       level: level,
       message: args
     };
-    this.emit(level, msg);
+    this.emit('log', msg);
   }
   
   private _bindLogger(logger: Homenet.ILogTarget) : void {
