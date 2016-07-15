@@ -29,7 +29,7 @@ import { Sunlight } from './core/sunlight';
 import { ZoneManager } from './core/zone-manager';
 
 // higher level
-import { SensorManager } from './core/sensor-manager';
+import { SensorManager } from './classes/sensor-manager';
 import { LightsManager } from './classes/lights-manager';
 import { LockManager } from './classes/lock-manager';
 import PersonManager = require('./classes/person-manager');
