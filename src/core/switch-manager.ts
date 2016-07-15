@@ -2,8 +2,8 @@ const EVENT_TYPE: string = 'switch';
 
 import chalk = require('chalk');
 import _ = require('lodash');
-import SwitchWrapper = require('./models/wrapper');
-import {inject, injectable} from 'inversify';
+import SwitchWrapper = require('./models/switch-wrapper');
+import { inject, injectable } from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 
 /**
@@ -98,8 +98,8 @@ class SwitchManager implements Homenet.ISwitchManager {
   * Gets switch instance
   * @returns {SwitchWrapper}
   */
-  getInstance(typeId: string, instanceId: string): Homenet.ISwitch {
-    var id = getId(typeId, instanceId);
+  getInstance(typeIdOrFullId: string, instanceId?: string): Homenet.ISwitch {
+    var id = getId(typeIdOrFullId, instanceId);
     var switchWrapper = this.instances[id];
     if (switchWrapper) return switchWrapper;
     this._logger.warn(chalk.red('No instance found') + ' for switch: ' + chalk.green(id));
@@ -113,6 +113,7 @@ class SwitchManager implements Homenet.ISwitchManager {
   */
   set(typeId: string, instanceId: string, value: boolean|string|number): any {
     var instance: Homenet.ISwitch = this.getInstance(typeId, instanceId);
+    if (!instance) throw new Error(`No instance found for ${typeId}.${instanceId}`)
     var result = instance.set(value);
     // if (instance.emitOnSet) {
     //   this.emitValue(typeId, instanceId, value);
@@ -153,7 +154,7 @@ class SwitchManager implements Homenet.ISwitchManager {
   };
 }
 
-function getId(typeId: string, instanceId: string) : any {
+function getId(typeId: string, instanceId?: string) : any {
   if (instanceId) return typeId+'.'+instanceId;
   return typeId;
 }

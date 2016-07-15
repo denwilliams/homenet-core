@@ -11,7 +11,7 @@ import {inject, injectable} from 'inversify';
  * commandManager.run('loungeroom:music', 'play', {playlist:'1234'});
  */
 @injectable()
-class CommandManagerImpl implements Homenet.ICommandManager {
+export class CommandManager implements Homenet.ICommandManager {
 
   types: Homenet.Dict<Homenet.ICommanderFactory>;
   typeMeta: Homenet.Dict<Homenet.ICommandTypeMeta>;
@@ -41,7 +41,7 @@ class CommandManagerImpl implements Homenet.ICommandManager {
     this._logger.info('Adding command type ' + typeId);
     this.types[typeId] = factory;
     this.typeMeta[typeId] = meta || {};
-  };
+  }
 
   /**
   * Adds a new instance to the manager
@@ -54,27 +54,28 @@ class CommandManagerImpl implements Homenet.ICommandManager {
     this._logger.debug('Adding command instance ' + instanceId + ' of type ' + typeId + '   ' + id);
     this.instances[id] = this._createSingletonInstance(typeId, opts);
     this.instanceTypes[id] = typeId;
-  };
+  }
 
-  getInstance(typeId: string, instanceId: string) : Homenet.ICommander {
+  getInstance(typeId: string, instanceId?: string) : Homenet.ICommander {
     var id:string = getId(typeId, instanceId);
     this._logger.debug('Getting command instance ' + id);
     var factory : Homenet.Func<Homenet.ICommander> = this.instances[id];
+    if (!factory) return null;
     return factory();
   };
 
   getAll(): Homenet.Dict<Homenet.ICommander> {
     return _.mapValues(this.instances, getCommander);
-  };
+  }
 
   /**
   * Runs a command on an instance
   * @param  {string} instanceId - the ID of the instance to run a command on
   * @param  {string} command  - the command to run
-  * @param  {Object} [args] - optional args to be passed to the command
+  * @param  {any[]} [args] - optional args to be passed to the command
   * @return {*} optionally a value may be returned
   */
-  run(typeId: string, instanceId: string, command: string, args: any): any {
+  run(typeId: string, instanceId: string, command: string, args?: any[]): Promise<any> {
     var id: string = getId(typeId, instanceId);
     this._logger.debug('Running command on instance ' + instanceId + ' - cmd:' + command);
 
@@ -84,13 +85,13 @@ class CommandManagerImpl implements Homenet.ICommandManager {
     var cmdFn: Function = instance[command];
     if (!cmdFn) return null;
 
-    var result = cmdFn.call(instance, args);
+    var result = cmdFn.apply(instance, args);
     this._eventBus.emit('command.'+id, command, args);
 
     return result;
   };
 
-  getMeta(typeId: string, instanceId: string): Homenet.ICommandTypeMeta {
+  getMeta(typeId: string, instanceId?: string): Homenet.ICommandTypeMeta {
     var id: string = getId(typeId, instanceId);
     this._logger.debug('Getting meta for ' + id);
     var tid: string = this.instanceTypes[id];
@@ -130,6 +131,3 @@ function getId(typeId:string, instanceId:string) : string {
 function getCommander(commanderFn: Homenet.Func<Homenet.ICommander>) : Homenet.ICommander {
   return commanderFn();
 }
-
-
-export = CommandManagerImpl;

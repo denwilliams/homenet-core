@@ -1,13 +1,13 @@
-/// <reference path="../../interfaces/interfaces.d.ts"/>
+// /// <reference path="../../interfaces/interfaces.d.ts"/>
 
-class NullLogger implements ILogger {
+// class NullLogger implements ILogger {
 
-  constructor() {}
+//   constructor() {}
 
-  info() {}
-  warn() {}
-  error() {}
-  debug() {}
-}
+//   info() {}
+//   warn() {}
+//   error() {}
+//   debug() {}
+// }
 
-export = NullLogger;
+// export = NullLogger;

@@ -1,20 +1,18 @@
-var express = require('express');
-var _ = require('lodash');
+import express = require('express');
+import _ = require('lodash');
 
-function factory (services) {
+export function create(services: Homenet.IWebDependencies): express.Router {
   return createApi(services.switches);
 }
 
-module.exports = exports = factory;
-
-function createApi(switches) {
+function createApi(switches: Homenet.ISwitchManager) {
 
   var app = express();
 
   app.get('/', function (req, res) {
-    var all = _.mapValues(
+    var all = _.map(
       switches.getAllInstances(),
-      function(sw) { return sw.get(); }
+      (sw, key) => mapSwitch(sw, key)
     );
     res.json(all);
   });
@@ -22,19 +20,19 @@ function createApi(switches) {
   app.get('/:id', function (req, res) {
     var id = req.params.id;
     var sw = switches.getInstance(id);
-    res.json(mapSwitch(sw));
+    res.json(mapSwitch(sw, id));
   });
 
   app.put('/:id', function (req, res) {
     var id = req.params.id;
     var sw = switches.getInstance(id);
-    sw.set(req.body);
-    res.json(mapSwitch(sw));
+    sw.set(req.body.value);
+    res.json(mapSwitch(sw, id));
   });
 
   return app;
 }
 
-function mapSwitch(s) {
-  return s.get();
+function mapSwitch(sw, id) {
+  return {id, value: sw.get()};
 }

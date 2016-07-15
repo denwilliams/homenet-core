@@ -16,9 +16,9 @@ export function createRouter(services: Homenet.IWebDependencies) : express.Route
   const app = express();
   let peopleWithTokens = {};
 
-  config.instances.filter(personWithTokenFilter).forEach(person => {
-    peopleWithTokens[person.options.token] = person.id;
-  });
+  // config.instances.filter(personWithTokenFilter).forEach(person => {
+  //   peopleWithTokens[person.options.token] = person.id;
+  // });
 
   app.post('/:token', function(req, res) {
     var token, personId, msg, p;

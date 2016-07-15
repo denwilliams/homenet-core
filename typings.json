@@ -12,5 +12,12 @@
     "redis": "registry:dt/redis#0.12.1+20160316155526",
     "serve-static": "registry:dt/serve-static#0.0.0+20160501131543",
     "when": "registry:dt/when#2.4.0+20160317120654"
+  },
+  "devDependencies": {
+    "sinon": "registry:npm/sinon#1.16.0+20160427193336"
+  },
+  "globalDevDependencies": {
+    "superagent": "registry:dt/superagent#1.4.0+20160317120654",
+    "supertest-as-promised": "registry:dt/supertest-as-promised#2.0.2+20160317120654"
   }
 }

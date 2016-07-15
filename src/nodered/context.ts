@@ -1,10 +1,10 @@
 
-class NodeREDContext implements INodeREDContext {
+// class NodeREDContext implements INodeREDContext {
 
-  constructor() {
+//   constructor() {
 
-  }
+//   }
 
-}
+// }
 
-export = NodeREDContext;
+// export = NodeREDContext;

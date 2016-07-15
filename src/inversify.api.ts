@@ -3,11 +3,10 @@
 import { IKernel, IKernelModule } from "inversify";
 // import { Homenet } from './interfaces.d.ts';
 
-import { WebApi } from './api/web/index';
+import { WebApi } from './api/web';
 import { WebDependencies } from './api/web/dependencies';
 
 export const apiModule: IKernelModule = (k: IKernel) => {
-  console.log('Binding API modules');
   k.bind<Homenet.IWebDependencies>("IWebDependencies").to(WebDependencies);
   k.bind<Homenet.IWebApi>("IWebApi").to(WebApi);
 };

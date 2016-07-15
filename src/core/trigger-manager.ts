@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events';
 import _ = require('lodash');
+import { EventEmitter } from 'events';
 import { Trigger } from './models/trigger';
 import { inject, injectable } from 'inversify';
 
@@ -37,11 +37,11 @@ export class TriggerManager implements Homenet.ITriggerManager {
    * Adds a trigger.
    */
   add(typeId: string, instanceId: string, emitter: Homenet.IEventEmitter) {
-    const id = typeId+'.'+instanceId;
-    const uid = 'trigger.'+id;
+    const id = typeId + '.' + instanceId;
+    const uid = 'trigger.' + id;
     const instance = this.instances[id] = new Trigger(id, emitter || new EventEmitter());
     instance.onTrigger(data => {
-      this._eventBus.emit(uid, null, data);
+      this._eventBus.emit(uid, 'triggered', data);
       this._statsManager.counter(uid, data);
     });
     return instance;

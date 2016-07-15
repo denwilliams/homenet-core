@@ -69,7 +69,16 @@ export class LightsManager implements Homenet.ILightsManager {
           instance.set(false);
         }
       };
-    }, null);
+    }, {
+      'turnOn': {
+        "title": "Turn On",
+        "comment": "Turns on the light"
+      },
+      'turnOff': {
+        "title": "Turn Off",
+        "comment": "Turns off the light"
+      }
+    });
   }
 
   /**
@@ -83,7 +92,9 @@ export class LightsManager implements Homenet.ILightsManager {
   }
 
   getInstance(instanceId: string): Homenet.ILight {
-    return this._instances[instanceId]();
+    const instance = this._instances[instanceId];
+    if (!instance) return null;
+    return instance();
   }
 
   _addInstance(instanceId: string, typeId: string, opts: any): void {
@@ -95,10 +106,10 @@ export class LightsManager implements Homenet.ILightsManager {
 
   _createInstance(id: string, typeId: string, opts: any) : Homenet.ILight {
     this._logger.info('Creating lights instance of type ' + typeId);
-    var factory: Homenet.ILightFactory = this._types[typeId];
+    const factory: Homenet.ILightFactory = this._types[typeId];
     if (factory) return factory(id, opts);
-
     this._logger.warn('No factory found for light type ' + typeId);
+    return null;
   }
 
   _singleton(id: string, typeId: string, opts: any) : Homenet.Func<Homenet.ILight> {
@@ -106,7 +117,9 @@ export class LightsManager implements Homenet.ILightsManager {
     var instance : Homenet.ILight;
 
     return function() {
-      if (!instance) instance = self._createInstance(id, typeId, opts);
+      if (!instance) {
+        instance = self._createInstance(id, typeId, opts);
+      }
       return instance;
     };
   }

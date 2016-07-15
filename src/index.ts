@@ -4,13 +4,12 @@ require('reflect-metadata');
 require('source-map-support').install();
 
 import { Kernel, IKernel, IKernelModule } from 'inversify';
-import { kernel } from './inversify.kernel';
+import { create as createKernel } from './inversify.kernel';
 // import {Homenet} from './interfaces.d.ts';
+const kernel = createKernel();
 
 import DefaultPlugins = require('./plugins/default');
 
-export { BaseSensor } from './core/models/base-sensor';
-export { TriggerSensor } from './core/models/trigger-sensor';
 export {inject as service, injectable as plugin} from 'inversify';
 export function registerLogger(CustomLogger: new(...args: any[]) => Homenet.ILogTarget) {
   kernel.bind<Homenet.ILogTarget>('ILogTarget').to(CustomLogger);

@@ -1,112 +1,113 @@
-const DEFAULT_TIMEOUT = 60000;
+// const DEFAULT_TIMEOUT = 60000;
 
-export type SensorMode = 'toggle' | 'trigger';
+// import { EventEmitter } from 'events';
 
-/**
-  * @class Sensor
-  * @abstract
-  * @param {string} instanceId - unique ID of this instance
-  * @param {Object}      [opts] - options
-  * @param {SensorMode}  [opts.mode='toggle'] - trigger|toggle|value.
-  *                                 Toggle based sensors are set `true`/`false`.
-  *                                 Trigger based sensors are `true` when triggered until a timeout period expires where they become `false`.
-  * @param {integer}     [opts.timeout] - timeout period in milliseconds for trigger based sensors.
-  * @param {string}      [opts.zone] - the ID of any zone this sensor is a child of
-  * @example
-  * function MySensor(id) {
-  *   Sensor.call(this, id, {mode:'trigger'});
-  * }
-  * Sensor.extend(MySensor);
-  *
-  * var sensor = new MySensor(1);
-  * sensor.trigger();
-  */
-export class BaseSensor implements Homenet.ISensor {
+// export type SensorMode = 'toggle' | 'trigger';
 
-  id: string;
-  mode: SensorMode;
+// /**
+//   * @class Sensor
+//   * @abstract
+//   * @param {string} instanceId - unique ID of this instance
+//   * @param {Object}      [opts] - options
+//   * @param {SensorMode}  [opts.mode='toggle'] - trigger|toggle|value.
+//   *                                 Toggle based sensors are set `true`/`false`.
+//   *                                 Trigger based sensors are `true` when triggered until a timeout period expires where they become `false`.
+//   * @param {integer}     [opts.timeout] - timeout period in milliseconds for trigger based sensors.
+//   * @param {string}      [opts.zone] - the ID of any zone this sensor is a child of
+//   * @example
+//   * function MySensor(id) {
+//   *   Sensor.call(this, id, {mode:'trigger'});
+//   * }
+//   * Sensor.extend(MySensor);
+//   *
+//   * var sensor = new MySensor(1);
+//   * sensor.trigger();
+//   */
+// export class BaseSensor extends EventEmitter implements Homenet.ISensor {
 
-  private _trigger: Homenet.ITrigger;
-  private _values: Homenet.IValueStore;
-  private _presence: Homenet.IPresence;
+//   id: string;
+//   mode: SensorMode;
 
-  constructor(
-            instanceId: string,
-            opts: {mode?: SensorMode, timeout?: number, zone?: string},
-            triggers: Homenet.ITriggerManager,
-            presence: Homenet.IPresenceManager,
-            values: Homenet.IValuesManager) {
-    opts = opts || {};
-    this.id = instanceId;
-    const mode: SensorMode = this.mode = opts.mode || 'toggle';
+//   private _trigger: Homenet.ITrigger;
+//   private _values: Homenet.IValueStore;
+//   private _presence: Homenet.IPresence;
 
-    if (mode === 'trigger' || mode === 'toggle') {
-      var timeout : number = opts.timeout || DEFAULT_TIMEOUT;
-      var parentId : string = opts.zone ? 'zone.'+opts.zone : null;
-      var sensorPresence = this._presence = presence.add(
-        'sensor.'+instanceId,
-        {timeout:timeout, category:'sensor', parent:parentId, name: 'sensor.'+instanceId}
-      );
-    }
+//   constructor(
+//             instanceId: string,
+//             opts: {mode?: SensorMode, timeout?: number, zone?: string}
+//             ) {
+//     super();
+//     opts = opts || {};
+//     this.id = instanceId;
+//     const mode: SensorMode = this.mode = opts.mode || 'toggle';
 
-    if (mode === 'trigger') {
-      var trigger = this._trigger = triggers.add('sensor', instanceId, null);
-      trigger.onTrigger(function() {
-        sensorPresence.bump();
-      });
-    } else if (mode === 'value') {
-      this._values = values.addInstance('sensor', instanceId);
-    }
-  }
+//     if (mode === 'trigger' || mode === 'toggle') {
+//       var timeout : number = opts.timeout || DEFAULT_TIMEOUT;
+//       var parentId : string = opts.zone ? 'zone.'+opts.zone : null;
+//       var sensorPresence = this._presence = presence.add(
+//         'sensor.'+instanceId,
+//         {timeout:timeout, category:'sensor', parent:parentId, name: 'sensor.'+instanceId}
+//       );
+//     }
 
-  // /**
-  //  * Extends a class by inheriting Sensor.
-  //  * IMPORTANT: must call `Sensor.call(this, id, triggerBased)` in the constructor.
-  //  * @param  {function} Constructor - the constructor to extend
-  //  */
-  // extend(Constructor) {
-  //   util.inherits(Constructor, Sensor);
-  // };
+//     if (mode === 'trigger') {
+//       var trigger = this._trigger = triggers.add('sensor', instanceId, null);
+//       trigger.onTrigger(function() {
+//         sensorPresence.bump();
+//       });
+//     } else if (mode === 'value') {
+//       this._values = values.addInstance('sensor', instanceId);
+//     }
+//   }
 
-  /**
-   * Triggers this sensor
-   */
-  trigger() {
-    if (!this._trigger) return;
-    this._trigger.trigger(true);
-  }
+//   // /**
+//   //  * Extends a class by inheriting Sensor.
+//   //  * IMPORTANT: must call `Sensor.call(this, id, triggerBased)` in the constructor.
+//   //  * @param  {function} Constructor - the constructor to extend
+//   //  */
+//   // extend(Constructor) {
+//   //   util.inherits(Constructor, Sensor);
+//   // };
 
-  on() {
-    if (!this._presence) return;
-    this._presence.set();
-  }
+//   /**
+//    * Triggers this sensor
+//    */
+//   trigger() {
+//     if (!this._trigger) return;
+//     this._trigger.trigger(true);
+//   }
 
-  off() {
-    if (!this._presence) return;
-    this._presence.clear();
-  }
+//   on() {
+//     if (!this._presence) return;
+//     this._presence.set();
+//   }
 
-  set(key, value) {
-    if (!this._values) return;
-    this._values.set(key, value);
-  }
+//   off() {
+//     if (!this._presence) return;
+//     this._presence.clear();
+//   }
 
-  get(key) {
-    if (!this._values) return;
-    return this._values.get(key);
-  }
+//   set(key, value) {
+//     if (!this._values) return;
+//     this._values.set(key, value);
+//   }
 
-  getAll() {
-    return this._values.getAll();
-  }
+//   get(key) {
+//     if (!this._values) return;
+//     return this._values.get(key);
+//   }
 
-  onTrigger(cb: Function) : void {
-    if (!this._trigger) return;
-    this._trigger.onTrigger(cb);
-  }
+//   getAll() {
+//     return this._values.getAll();
+//   }
 
-  removeOnTriggerListener(cb: Function) : void {
-    if (!this._trigger) return;
-    this._trigger.removeOnTriggerListener(cb);
-  }
-}
+//   onTrigger(cb: Function) : void {
+//     if (!this._trigger) return;
+//     this._trigger.onTrigger(cb);
+//   }
+
+//   removeOnTriggerListener(cb: Function) : void {
+//     if (!this._trigger) return;
+//     this._trigger.removeOnTriggerListener(cb);
+//   }
+// }

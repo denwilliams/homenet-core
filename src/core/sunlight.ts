@@ -1,8 +1,6 @@
 const SunCalc = require('suncalc');
-import {EventEmitter} from 'events';
-import domain = require('domain');
-import {injectable, inject} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
+import { EventEmitter } from 'events';
+import { injectable, inject } from 'inversify';
 
 const TEN_MINS = 600000;
 const ONE_MIN = 60000;
@@ -40,7 +38,7 @@ export class Sunlight extends EventEmitter implements Homenet.ISunlight {
     this.init();
 
     this.on('light', function(lightState) {
-      states.emitState(STATE_TYPE, lightState.value);
+      states.emitState(STATE_TYPE, lightState);
     });
 
     this._addStateType(states);
@@ -50,16 +48,17 @@ export class Sunlight extends EventEmitter implements Homenet.ISunlight {
     const self = this;
     states.addType(STATE_TYPE, {
 
-      getCurrent: function() {
-        return self.current;
+      getCurrent() : Promise<string> {
+        return Promise.resolve(self.current);
       },
 
-      setCurrent: function(state:string|any) {
+      setCurrent(state: string): Promise<string> {
         // ignore
+        return Promise.resolve(state);
       },
 
-      getAvailable: function() {
-        return null; // ignore
+      getAvailable() : string[] {
+        return ['light', 'dark'];
       }
     });
   }
@@ -114,7 +113,7 @@ export class Sunlight extends EventEmitter implements Homenet.ISunlight {
     * @readOnly
     */
   get current() : any {
-    return { isLight: this.isLight(), primaryState: this.currentLight() };
+    return this.currentLight();
   }
 
   refresh() : void {
@@ -122,9 +121,7 @@ export class Sunlight extends EventEmitter implements Homenet.ISunlight {
     if (this._state != newState) {
       this._state = newState;
       var stateName = (this._state ? 'dark' : 'light');
-      this.emit('light', {value:stateName});
-      //mqtt.publish('environment/light', {value: stateName});
-      //mqtt.publishNotification('light',stateName,'yellow');
+      this.emit('light', stateName);
     }
   }
 
@@ -162,5 +159,4 @@ export class Sunlight extends EventEmitter implements Homenet.ISunlight {
   private _dateDiff(d1, d2) : number {
     return d1.getTime() - d2.getTime();
   }
-
 }

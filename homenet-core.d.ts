@@ -2,6 +2,10 @@ declare module 'homenet-core' {
   export function plugin(): (typeConstructor: any) => void;
   export function service(serviceIdentifier: (string)): (target: any, targetKey: string, index?: number) => any;
   export function init(RED: any, config: IConfig): IRuntime;
+  export function registerLogger(CustomLogger: new(...args: any[]) => ILogTarget);
+  export function registerStats(CustomStats: new(...args: any[]) => IStatsTarget);
+
+
   // export declare abstract class BaseSwitch<T> implements ISwitch {
   //     private _id;
   //     private _value;
@@ -68,7 +72,24 @@ declare module 'homenet-core' {
     app: any;
   }
 
-  export interface ILogger {
+  export interface ILogEventMessage {
+    level: string,
+    message: string
+  }
+
+  export interface ILogEventHandler {
+    (log: ILogEventMessage) : void
+  }
+
+  export interface ILogger extends ILogTarget {
+    onLog(handler: ILogEventHandler) : void
+    info(args : any) : void
+    warn(args : any) : void
+    error(args : any) : void
+    debug(args : any) : void
+  }
+
+  export interface ILogTarget {
     info(args : any) : void
     warn(args : any) : void
     error(args : any) : void
@@ -407,7 +428,8 @@ declare module 'homenet-core' {
     }
 
     interface IPersistence {
-      set(key: string, value: any) : void;
+    set(key: string, value: any) : Q.IPromise<any>;
+    get(key: string) : Q.IPromise<any>;
     }
 
     export interface IEventSource {

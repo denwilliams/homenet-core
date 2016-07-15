@@ -1,27 +1,24 @@
-var express = require('express');
-var _ = require('lodash');
+import express = require('express');
+import _ = require('lodash');
 
-function factory (services) {
+export function create(services: Homenet.IWebDependencies) : express.Router {
   return createApi(services.commands);
 }
 
-module.exports = exports = factory;
-
-
-function createApi(commands) {
+export function createApi(commands: Homenet.ICommandManager) : express.Router {
 
   var app = express();
 
   app.get('/', function (req, res) {
-    res.json(_.mapValues(commands.getAll(), function(obj, id) {
-      return commands.getMeta(id);
+    res.json(_.map(commands.getAll(), (obj, id) => {
+      return { id: id, commands: commands.getMeta(id) };
     }));
   });
 
   app.get('/:id', function (req, res) {
     var id = req.params.id;
     var meta = commands.getMeta(id);
-    res.json(meta);
+    res.json({ id: id, commands: commands.getMeta(id) });
   });
 
   app.get('/:id/:cmd', function (req, res) {

@@ -18,10 +18,12 @@ export class InstanceLoader implements Homenet.IInstanceLoader {
   loadInstances(config: Homenet.IConfig) : void {
     this._logger.info('Loading instances from config...');
     const classes = this._classes;
-    config.instances.forEach(instance => {
-      this._logger.info('Loading ' + chalk.green(instance.class + '/' + instance.type + '/' + instance.id));
-      classes.addInstance(instance.class, instance.id, instance.type, instance.options);
-    });
+    if (config.instances) {
+      config.instances.forEach(instance => {
+        this._logger.info('Loading ' + chalk.green(instance.class + '/' + instance.type + '/' + instance.id));
+        classes.addInstance(instance.class, instance.id, instance.type, instance.options);
+      });
+    }
     classes.initializeAll();
   }
 }

@@ -1,7 +1,6 @@
-var EventEmitter2 = require('eventemitter2').EventEmitter2;
+const { EventEmitter2 } = require('eventemitter2');
 import chalk = require('chalk');
 import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 
 function eventName(source:string, event:string) : string {
   if (!event) return source;

@@ -1,15 +1,11 @@
-var express = require('express');
-var _ = require('lodash');
+import express = require('express');
+import _ = require('lodash');
 
-function factory (services) {
+export function create(services: Homenet.IWebDependencies) : express.Router {
   return createApi(services.presence);
 }
 
-module.exports = exports = factory;
-
-
-function createApi(presence) {
-
+function createApi(presence: Homenet.IPresenceManager) : express.Router {
   var app = express();
 
   app.get('/', function (req, res) {

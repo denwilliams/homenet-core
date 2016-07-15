@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
-import ClassTypeManager = require('../utils/class-type-manager');
-import { TriggerSensor } from './models/trigger-sensor';
+import { ClassTypeManager } from '../utils/class-type-manager';
+// import { TriggerSensor } from './models/trigger-sensor';
 
 const CLASS_ID = 'sensor';
 
@@ -27,21 +27,61 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
       this._presence = presence;
     }
 
-  trigger(sensorId: string) : void {
-    this.getInstance(sensorId).trigger();
-  }
+  // public trigger(sensorId: string) : void {
+  //   this.getInstance(sensorId).trigger();
+  // }
 
-  public createTriggerSensor(
-                          instanceId: string,
-                          opts: {timeout: number, zone: string},
-                          triggers: Homenet.ITriggerManager,
-                          presence : Homenet.IPresenceManager,
-                          values: Homenet.IValuesManager)
-                          : Homenet.ISensor {
-    return new TriggerSensor(instanceId, opts, this._triggers, this._presence, this._values);
-  }
+  // public createTriggerSensor(
+  //                         instanceId: string,
+  //                         opts: {timeout: number, zone: string},
+  //                         triggers: Homenet.ITriggerManager,
+  //                         presence : Homenet.IPresenceManager,
+  //                         values: Homenet.IValuesManager)
+  //                         : Homenet.ISensor {
+  //   return new TriggerSensor(instanceId, opts, this._triggers, this._presence, this._values);
+  // }
 
-  protected onAddInstance(instance: Homenet.Func<Homenet.ISensor>, instanceId: string, typeId: string, opts: any) : void {
-    this._triggers.add(CLASS_ID, instanceId);
+  protected onAddInstance(instanceFn: Homenet.Func<Homenet.ISensor>, instanceId: string, typeId: string, opts: any) : void {
+    // const valueOnly = typeId.endsWith('value');
+    // const triggerOnly = typeId.endsWith('trigger');
+    // const toggleOnly = typeId.endsWith('toggle');
+
+    const sensor = instanceFn();
+
+    let sensorPresence = null;
+    const guid = `sensor.${instanceId}`;
+    if (sensor.isTrigger || sensor.isToggle) {
+      const zoneId = sensor.opts.zoneId;
+      const parent : string = zoneId ? `zone.${zoneId}` : null;
+      sensorPresence = this._presence.add(
+        guid,
+        { category: 'sensor', timeout: sensor.opts.timeout, parent, name: guid }
+      );
+    }
+
+    if (sensor.isTrigger) {
+      // allow trigger
+      let trigger = this._triggers.add(CLASS_ID, instanceId);
+      sensor.on('trigger', () => {
+        trigger.trigger();
+      });
+      trigger.onTrigger(() => {
+        sensorPresence.bump();
+      });
+    }
+    if (sensor.isToggle) {
+      // allow toggle
+      sensor.on('active', isActive => {
+        if (isActive) sensorPresence.set();
+        else sensorPresence.clear();
+      });
+    }
+    if (sensor.isValue) {
+      // allow values
+      let valueStore = this._values.addInstance(CLASS_ID, instanceId);
+      sensor.on('value', (key: string, value: any) => {
+        valueStore.set(key, value);
+      });
+    }
   }
 }

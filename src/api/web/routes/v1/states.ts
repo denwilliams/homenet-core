@@ -1,5 +1,3 @@
-// import { Homenet } from '../../../../interfaces.d.ts';
-
 import express = require('express');
 import _ = require('lodash');
 
@@ -9,18 +7,35 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
   const app: express.Express = express();
 
   app.get('/', function(req, res) {
-    res.json(_.mapValues(states.getTypes(), function(state) {
-      return state.getCurrent();
-    }));
+    Promise.all(_.map(states.getTypes(), (state, key) => {
+      return state.getCurrent().then(state => {
+        return { id: key, state };
+      });
+    }))
+    .then(items => {
+      res.json(items);
+    })
+    .catch(err => {
+    });
   });
 
   app.get('/:type', function(req, res) {
-    res.json(states.getCurrent(req.params.type));
+    const type = req.params.type;
+    states.getCurrent(req.params.type)
+    .then(state => res.json({ id: type, state }))
+    .catch(err => {
+      res.status(400).send(err);
+    });
   });
 
   app.put('/:type', function(req, res) {
-    states.setCurrent(req.params.type, req.body);
-    res.json(states.getCurrent(req.params.type));
+    states.setCurrent(req.params.type, String(req.body.state))
+    .then(state => {
+      res.json(state);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
   });
 
   return app;

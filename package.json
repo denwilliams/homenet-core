@@ -9,14 +9,18 @@
     "node": ">=4"
   },
   "scripts": {
-    "prepublish": "typings install && tsc",
-    "pretest": "tsc",
-    "test": "mocha --require source-map-support/register --recursive build/test",
     "build": "tsc",
     "build-run": "npm run build && node build/main",
+    "precoverage": "rm -rf ./lib && tsc",
+    "coverage": "nyc ava -v",
     "jsdoc": "jsdoc -c .jsdoc",
-    "tsdoc": "typedoc --verbose --mode file --out ./doc/ --module commonjs --target ES5 --exclude node_modules/* --includeDeclarations main.ts",
-    "generate-docs": "jsdoc --configure ./.jsdoc --verbose"
+    "generate-docs": "jsdoc --configure ./.jsdoc --verbose",
+    "prepublish": "typings install && tsc",
+    "pretest": "rm -rf ./lib && tsc",
+    "test": "ava -v",
+    "watchtest": "tsc -w -v",
+    "watchbuildtest": "tsc -w -v & ava -v -w",
+    "tsdoc": "typedoc --verbose --mode file --out ./doc/ --module commonjs --target ES5 --exclude node_modules/* --includeDeclarations main.ts"
   },
   "node-red": {
     "nodes": {
@@ -75,7 +79,12 @@
   },
   "devDependencies": {
     "assert": "^1.3.0",
+    "ava": "^0.15.2",
+    "nyc": "^6.6.1",
     "should": "^7.1.1",
+    "sinon": "^1.17.4",
+    "supertest": "^1.2.0",
+    "supertest-as-promised": "^3.2.0",
     "typedoc": "^0.3.12",
     "typescript": "^1.8.10"
   },

@@ -1,30 +1,28 @@
 import chalk = require('chalk');
+import { EventEmitter } from 'events';
 
-import { BaseSensor } from '../../core/models/base-sensor';
-
-export function createSensorsFactory(triggers: Homenet.ITriggerManager, presence: Homenet.IPresenceManager, values: Homenet.IValuesManager) {
+export function createSensorsFactory() {
   return function factory(id: string, opts: any) : Homenet.ISensor {
-    return new VirtualSensor(id, opts, triggers, presence, values);
+    return new VirtualSensor(id, opts);
   }
 }
 
-class VirtualSensor extends BaseSensor implements Homenet.ISensor {
+class VirtualSensor extends EventEmitter implements Homenet.ISensor {
 
-  private _controller: string;
+  public opts: Homenet.ISensorOpts;
+  public isTrigger: boolean;
+  public isToggle: boolean;
+  public isValue: boolean;
 
-  public emitOnSet: boolean = true;
-
-  constructor(instanceId: string, opts: any, triggers: Homenet.ITriggerManager, presence: Homenet.IPresenceManager, values: Homenet.IValuesManager) {
-    super(instanceId, opts, triggers, presence, values);
-    this._controller = opts.controller;
-
+  constructor(instanceId: string, opts: any) {
+    super();
+    this.opts = {
+      timeout: opts.timeout,
+      zoneId: opts.zone
+    };
+    this.isTrigger = true;
     setInterval(() => {
-      this.trigger();
+      this.emit('trigger');
     }, 1000);
-  }
-
-  on() : void {
-    console.log(chalk.cyan('SET VIRTUAL SENSOR STATE TO ON'));
-    super.on();
   }
 }

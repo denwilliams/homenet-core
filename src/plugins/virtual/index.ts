@@ -7,7 +7,7 @@ import createLockFactory = require('./lock');
 import {createSensorsFactory} from './sensors';
 
 @injectable()
-class VirtualPluginLoader implements Homenet.IPluginLoader {
+export class VirtualPluginLoader implements Homenet.IPluginLoader {
   private _logger : Homenet.ILogger;
 
   constructor(
@@ -20,7 +20,7 @@ class VirtualPluginLoader implements Homenet.IPluginLoader {
           @inject('IEventBus') eventBus: Homenet.IEventBus,
           @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
-    sensors.addType('virtual', createSensorsFactory(triggers, presence, values))
+    sensors.addType('virtual', createSensorsFactory())
     lights.addType('virtual', lightFactory);
     locks.addType('virtual', createLockFactory(eventBus));
   }
@@ -29,5 +29,3 @@ class VirtualPluginLoader implements Homenet.IPluginLoader {
     this._logger.info('Loading virtual lights');
   }
 }
-
-export = VirtualPluginLoader;

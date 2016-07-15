@@ -1,6 +1,6 @@
 import {inject, injectable} from 'inversify';
 
-import VirtualPluginLoader = require('./virtual');
+import { VirtualPluginLoader } from './virtual';
 
 @injectable()
 class DefaultPlugins {

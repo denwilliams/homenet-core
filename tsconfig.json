@@ -1,25 +1,21 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "target": "es5",
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "sourceMap": true,
-        "declaration": false,
-        "listFiles": false,
-        "outDir": "./lib"
-    },
-    "files": [
-      "node_modules/node-red-contrib-scenes/node-red-contrib-scenes.d.ts",
-      "node_modules/inversify-dts/inversify/inversify.d.ts",
-      "typings/index.d.ts",
-      "src/interfaces.d.ts",
-      "src/node-red.d.ts",
-      "src/interfaces.d.ts",
-      "src/test-config.ts",
-      "src/index.ts"
-    ]
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "watch": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "declaration": false,
+    "listFiles": false,
+    "outDir": "./lib"
+  },
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
 }

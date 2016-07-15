@@ -104,7 +104,7 @@ declare namespace Homenet {
     addType(typeId: string, switchFactory: ISwitchFactory) : void
     addInstance(typeId: string, instanceId: string, opts: any) : void
     getAllInstances() : Dict<ISwitch>
-    getInstance(typeId: string, instanceId: string): ISwitch
+    getInstance(typeIdOrFullId: string, instanceId?: string): ISwitch
     set(typeId: string, instanceId: string, value: boolean|string|number) : any
     get(typeId: string, instanceId: string) : boolean|string|number
     // emitValue(typeId: string, instanceId: string, value: boolean|string|number) : void
@@ -113,29 +113,37 @@ declare namespace Homenet {
   interface ICommandManager {
     addType(typeId: string, factory: ICommanderFactory, meta: ICommandTypeMeta) : void
     addInstance(typeId: string, instanceId: string, opts: any) : void
+    getInstance(fullId: string) : Homenet.ICommander
+    getInstance(typeId: string, instanceId: string) : Homenet.ICommander
+    getAll(): Homenet.Dict<Homenet.ICommander>
+    getMeta(fullId: string): Homenet.ICommandTypeMeta
+    getMeta(typeId: string, instanceId: string): Homenet.ICommandTypeMeta
+    getTypeMeta(typeId) : Homenet.ICommandTypeMeta
+    getType(typeId: string) : Homenet.ICommanderFactory
+    run(typeId: string, instanceId: string, command: string, args?: any[]): Promise<any>
   }
 
   interface IStateManager {
     addType(typeId: string, provider: IStateProvider) : void
     getType(typeId: string) : IStateProvider
     getTypes() : Dict<IStateProvider>
-    emitState(typeId: string, state: any) : void
-    getCurrent(typeId: string) : any;
-    setCurrent(typeId: string, state:string|any) : void;
-    getAvailable(typeId: string): any;
+    emitState(typeId: string, state: string) : void
+    getCurrent(typeId: string) : Promise<string>;
+    setCurrent(typeId: string, state:string) : Promise<string>;
+    getAvailable(typeId: string): string[];
   }
 
   interface IStateProvider {
     emitOnSet?: boolean;
-    getCurrent() : any;
-    setCurrent(state:string|any) : void;
-    getAvailable(): any;
+    getCurrent() : Promise<string>;
+    setCurrent(state: string) : Promise<string>;
+    getAvailable(): string[];
   }
 
-  interface TypeStateProvider<T> extends IStateProvider {
-    getCurrent() : T;
-    setCurrent(state:string|T) : void;
-  }
+  // interface TypeStateProvider<T> extends IStateProvider {
+  //   getCurrent() : T;
+  //   setCurrent(state:string|T) : void;
+  // }
 
   interface ISceneManager {
 
@@ -200,8 +208,27 @@ declare namespace Homenet {
     notify(severity: string, msgTxt: string, msgHtml: [string]) : void;
   }
 
+  type SensorEvent = 'trigger' | 'active' | 'value';
 
-  interface ISensor {
+  interface ISensorOpts {
+    zoneId?: string;
+    timeout?: number;
+  }
+
+  interface ISensor extends IEventSource {
+    opts: ISensorOpts;
+    isTrigger: boolean;
+    isToggle: boolean;
+    isValue: boolean;
+    on(event: SensorEvent, cb: Function) : void;
+  }
+
+  interface IValueSensor extends ISensor {
+    get(key: string, value: string) : void
+    set(key: string, value: string) : void
+  }
+
+  interface ISensorOld {
     trigger(value?: any) : void;
     set(key, value) : void;
     onTrigger(cb: Function) : void;
@@ -313,6 +340,7 @@ declare namespace Homenet {
     [key: string]: InstanceOrFactory<T>
   }
 
+  export type FuncInOut<TIn, TOut> = (TIn) => TOut;
   export type Func<T> = () => T;
   export type Factory<T> = Func<T>;
   export type InstanceOrFactory<T> = T | Factory<T>;
@@ -326,7 +354,7 @@ declare namespace Homenet {
   }
 
   interface ISensorManager extends IClassTypeManager<ISensor> {
-    trigger(sensorId: string) : void
+    // trigger(sensorId: string) : void
   }
 
 
@@ -397,7 +425,8 @@ declare namespace Homenet {
   }
 
   interface IPersistence {
-    set(key: string, value: any) : void;
+    set(key: string, value: any) : Promise<any>;
+    get(key: string) : Promise<any>;
   }
 
   interface IEventSource {
@@ -480,17 +509,12 @@ declare namespace Homenet {
   //   getAvailable();
   // }
 
-  interface IValuesManager {
-    addInstance(typeId: string, instanceId: string) : IValueStore
-    getInstance(typeId: string, instanceId: string) : IValueStore
-    set(typeId: string, instanceId: string, key: string, value: any) : void
-    get(typeId: string, instanceId: string, key: string) : IValueStore
-  }
-
   interface IValueStore {
+    id: string
     set(key: string, value: any) : void
     get(key: string) : any
     getAll() : Dict<any>
+    waitReady(): Promise<void>
   }
 
   interface INodeREDContext {
@@ -531,23 +555,49 @@ declare namespace Homenet {
     longitude?: number
   }
 
-  interface ISunlight {
+  interface ISunlight extends IEventSource {
+    /**
+     * Returns true if it is currently dark in the specified coordinates
+     */
     isDark() : boolean;
+
+    /**
+     * Returns true if it is currently light in the specified coordinates
+     */
     isLight() : boolean;
+
+    /**
+     * Returns the current light state (light/dark)
+     */
     currentLight() : string;
+
+    /**
+     * Starts monitoring for light changes (fires events when light->dark->light)
+     */
     start() : void;
+
+    /**
+     * Stops monitoring for light changes
+     */
     stop() : void;
-    current: ISunlightState;
+
+    /**
+     * Gets the current light state (light/dark)
+     */
+    current: string;
   }
 
-  interface ISunlightState {
-    isLight: boolean;
-    primaryState: string;
-  }
 
-  interface IValueStore {
 
-  }
+
+
+
+  // interface ISunlightState {
+  //   isLight: boolean;
+  //   primaryState: string;
+  // }
+
+  interface IValueStore {}
 
   interface IInstanceLoader {
     loadInstances(config: IConfig) : void
@@ -555,6 +605,12 @@ declare namespace Homenet {
 
 
   interface IValuesManager {
+    addInstance(typeId: string, instanceId: string) : IValueStore
+    getInstance(typeId: string, instanceId: string) : IValueStore
+    set(typeId: string, instanceId: string, key: string, value: any) : void
+    get(typeId: string, instanceId: string, key: string) : IValueStore
+    waitReady(typeId: string, instanceId: string) : Promise<void>;
+
       /**
       * Adds a new instance to the manager
       * @param {string} instanceId - unique ID for this instance
@@ -568,7 +624,11 @@ declare namespace Homenet {
       * @param  {string} instanceId
       * @return {ValueStore}
       */
-      getInstance(typeId: string, instanceId: string) : IValueStore;
+      getInstance(typeOrFullId: string, instanceId?: string) : IValueStore;
+
+      getAllInstances() : Homenet.IValueStore[];
+
+      getInstances(type: string) : Homenet.IValueStore[];
 
       /**
       * Sets value
@@ -607,6 +667,7 @@ declare namespace Homenet {
     locks: ILockManager;
     lights: ILightsManager;
     scene: ISceneManager;
+    values: IValuesManager;
     zones: IZoneManager;
     authorization: IAuthorizer;
   }

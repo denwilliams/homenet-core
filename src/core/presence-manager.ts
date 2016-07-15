@@ -1,7 +1,6 @@
 import PresenceState = require('./models/presence-state');
 import {EventEmitter} from 'events';
 import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 
 /**
  * Manages and maintains presence state for devices, zones (rooms), people, and other entities.
@@ -201,7 +200,7 @@ export class PresenceManager extends EventEmitter implements Homenet.IPresenceMa
     }
 
     this.emit('presence', args);
-    this._eventBus.emit('presence', details.id, present);
+    this._eventBus.emit('presence.' + details.id, 'changed', present);
 
     var ps = this._getParents(item);
 

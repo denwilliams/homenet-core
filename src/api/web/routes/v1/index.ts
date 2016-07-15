@@ -1,17 +1,12 @@
-// import { Homenet } from '../../../../interfaces.d.ts';
-
 import express  = require('express');
 import WebApiDependencies = require('../../dependencies');
 import triggers = require('./triggers');
 import zones = require('./zones');
 import states = require('./states');
-
-
-// var sceneApi    = require('./scene');
-// var lightsApi   = require('./lights');
-// var locksApi    = require('./locks');
-// var peopleApi   = require('./people');
-import sunlight = require('./sunlight');
+import values = require('./values');
+import switches = require('./switches');
+import presence = require('./presence');
+import commands = require('./commands');
 
 export function createRouter(services: Homenet.IWebDependencies) {
   const app = express();
@@ -19,23 +14,15 @@ export function createRouter(services: Homenet.IWebDependencies) {
   var authorization = services.authorization;
 
   // TODO: finish token middleware
-  //
   //app.use(tokenMiddleware);
 
   app.use('/triggers', triggers.create(services));
-  app.use('/zones', zones.create(services));
-  app.use('/sunlight', sunlight.create(services));
-  // app.use('/commands', require('./commands')(services));
-  // app.use('/switches', require('./switches')(services));
-  // app.use('/values',   require('./values')(services));
+  app.use('/zones',    zones.create(services));
+  app.use('/commands', commands.create(services));
+  app.use('/switches', switches.create(services));
+  app.use('/values',   values.create(services));
   app.use('/states',   states.create(services));
-  // app.use('/presence', require('./presence')(services));
-  // app.use('/scenes',   sceneApi(services));
-  // app.use('/sunlight', sunlightApi(services));
-  //app.use('/sensor',  services.sensors.app);
-  // app.use('/lights',  lightsApi (services));
-  // app.use('/locks',   locksApi  (services));
-  // app.use('/people',  peopleApi (services));
+  app.use('/presence', presence.create(services));
 
   return app;
 
@@ -57,7 +44,6 @@ export function createRouter(services: Homenet.IWebDependencies) {
         next(err);
       });
     } else {
-      // next();
       next(new Error('No token'));
     }
   }

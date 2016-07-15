@@ -1,5 +1,5 @@
 /// <reference path="../interfaces.d.ts"/>
-import {inject, injectable} from 'inversify';
+import { inject, injectable } from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 
 @injectable()
@@ -35,30 +35,32 @@ export class StateManager implements Homenet.IStateManager {
     return this._types;
   }
 
-  setCurrent(typeId: string, state: string) : any {
-    this._logger.info('Setting ' + typeId + ' state to ' + state);
-    var type = this.getType(typeId);
-    if (!type.setCurrent) {
-      this._logger.warn('Could not set state for type ' + typeId + ' - no setCurrent method defined');
-      return;
-    }
-    var result = type.setCurrent(state);
-    if (type.emitOnSet) {
-      this.emitState(typeId, state);
-    }
-    return result;
+  setCurrent(typeId: string, state: string) : Promise<string> {
+    return Promise.resolve()
+    .then(() => {
+      this._logger.info('Setting ' + typeId + ' state to ' + state);
+      var type = this.getType(typeId);
+      if (!type.setCurrent) {
+        this._logger.warn('Could not set state for type ' + typeId + ' - no setCurrent method defined');
+        return;
+      }
+      var result = type.setCurrent(state);
+      if (type.emitOnSet) {
+        this.emitState(typeId, state);
+      }
+      return result;
+    });
   }
 
-  emitState(typeId: string, state: any) : void {
-    this._eventBus.emit('state', typeId, state);
+  emitState(typeId: string, state: string) : void {
+    this._eventBus.emit('state.' + typeId, 'changed', state);
   }
 
-  getCurrent(typeId: string) : any {
+  getCurrent(typeId: string) : Promise<string> {
     return this.getType(typeId).getCurrent();
   }
 
-  getAvailable(typeId: string) : any {
+  getAvailable(typeId: string) : string[] {
     return this.getType(typeId).getAvailable();
   }
-
 }

@@ -4,7 +4,7 @@ import { injectable, inject } from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 import chalk = require('chalk');
 
-import ClassTypeManager = require('../utils/class-type-manager');
+import { ClassTypeManager } from '../utils/class-type-manager';
 
 const CLASS_ID = 'lock';
 

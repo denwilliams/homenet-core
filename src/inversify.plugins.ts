@@ -3,11 +3,11 @@
 import { injectable, inject, IKernel, IKernelModule } from "inversify";
 // import { Homenet } from './interfaces.d.ts';
 
-import VirtualPluginLoader = require('./plugins/virtual/index');
+import { VirtualPluginLoader } from './plugins/virtual/index';
 import DefaultPlugins = require('./plugins/default');
 
 // import LightsManager = require('./lights/lights-manager');
-import ClassTypeManager = require('./utils/class-type-manager');
+import { ClassTypeManager } from './utils/class-type-manager';
 
 @injectable()
 class Plugins implements Homenet.IPlugins {
@@ -31,7 +31,6 @@ class Plugins implements Homenet.IPlugins {
 
 
 export const pluginsModule: IKernelModule = (kernel: IKernel) => {
-  console.log('Binding plugins modules');
   kernel.bind<VirtualPluginLoader>('VirtualPluginLoader').to(VirtualPluginLoader);
   kernel.bind<Homenet.IPlugins>('IPlugins').to(Plugins);
   kernel.bind<DefaultPlugins>('DefaultPlugins').to(DefaultPlugins);

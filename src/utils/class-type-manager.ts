@@ -5,13 +5,13 @@ import chalk = require('chalk');
 // import {Homenet} from '../interfaces.d.ts';
 
 /**
-  * Manages instances of a specific class
-  * @class
-  * @param {string} classId
-  * @param {ClassTypeManager.onAddInstance} onAddInstance
-  * @param {Logger} logger
-  */
-abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
+ * Manages instances of a specific class
+ * @class
+ * @param {string} classId
+ * @param {ClassTypeManager.onAddInstance} onAddInstance
+ * @param {Logger} logger
+ */
+export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
 
   protected _logger: Homenet.ILogger;
   private _addInstance: Homenet.IClassFactory<T>;
@@ -101,8 +101,4 @@ abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
     * @param {Object} opts
     */
   protected abstract onAddInstance(instance: Homenet.Func<T>, instanceId: string, typeId: string, opts: any): void;
-
-
 }
-
-export = ClassTypeManager;

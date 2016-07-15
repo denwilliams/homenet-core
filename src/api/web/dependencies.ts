@@ -20,6 +20,7 @@ export class WebDependencies implements Homenet.IWebDependencies {
   scene: Homenet.ISceneManager;
   zones: Homenet.IZoneManager;
   authorization: Homenet.IAuthorizer;
+  values: Homenet.IValuesManager;
   // utils: Utils;
 
 
@@ -36,6 +37,7 @@ export class WebDependencies implements Homenet.IWebDependencies {
     @inject('ILockManager') locks: Homenet.ILockManager,
     @inject('ILightsManager') lights: Homenet.ILightsManager,
     @inject('ISceneManager') scene: Homenet.ISceneManager,
+    @inject('IValuesManager') values: Homenet.IValuesManager,
     @inject('IZoneManager') zones: Homenet.IZoneManager,
     @inject('IAuthorizer') authorization: Homenet.IAuthorizer
     // utils: Utils
@@ -53,6 +55,7 @@ export class WebDependencies implements Homenet.IWebDependencies {
     this.lights = lights;
     this.scene = scene;
     this.zones = zones;
+    this.values =  values;
     this.authorization = authorization;
     // this.utils = utils;
   }

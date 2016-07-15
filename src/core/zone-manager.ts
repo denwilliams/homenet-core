@@ -65,7 +65,6 @@ export class ZoneManager implements Homenet.IZoneManager {
   }
 
   get(id: string) : Homenet.IZone {
-    return this._zoneHeirarchy[id];
+    return this._zoneHeirarchy[id] || null;
   }
-
 }
