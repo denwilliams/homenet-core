@@ -1,6 +1,3 @@
-/// <reference path="ext.q.d.ts"/>
-/// <reference path="ext.when.d.ts"/>
-
 declare namespace Homenet {
 
   export interface IServiceContext {
