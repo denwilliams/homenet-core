@@ -14,6 +14,7 @@ test.beforeEach(t => {
   t.context.sensorManager = sensorManager;
   t.context.triggers = kernel.get<Homenet.ITriggerManager>('ITriggerManager');
   t.context.values = kernel.get<Homenet.IValuesManager>('IValuesManager');
+  t.context.presence = kernel.get<Homenet.IPresenceManager>('IPresenceManager');
 
   return instanceLoader.loadInstances(config);
 });
@@ -48,14 +49,33 @@ test('emitting value updates values instance', async (t) => {
   t.is(valueStore.get('temperature'), '25C');
 });
 
-test.skip('toggle', async (t) => {
-  t.fail();
+test('emitting active toggles presence', async (t) => {
+  // ARRANGE
+  const sensorManager:  Homenet.ISensorManager = t.context.sensorManager;
+  const presence:  Homenet.IPresenceManager = t.context.presence;
+  const sensor: EventEmitter = <any> (sensorManager.getInstance('presence'));
+  const sensorPresence: Homenet.IPresence = presence.get('sensor.presence');
+  t.false(sensorPresence.isPresent);
+
+  // ACT
+  sensor.emit('active', true);
+
+  // ASSERT
+  t.true(sensorPresence.isPresent);
 });
 
-test.skip('presence trigger', async (t) => {
-  t.fail();
-});
+test('emitting trigger bumps presence', async (t) => {
+  // ARRANGE
+  const sensorManager:  Homenet.ISensorManager = t.context.sensorManager;
+  const presence:  Homenet.IPresenceManager = t.context.presence;
+  const sensor: EventEmitter = <any> (sensorManager.getInstance('motion'));
+  const sensorPresence: Homenet.IPresence = presence.get('sensor.motion');
+  t.false(sensorPresence.isPresent);
 
-test.skip('presence toggle', async (t) => {
-  t.fail();
+  // ACT
+  sensor.emit('trigger');
+
+  // ASSERT
+  t.true(sensorPresence.isPresent);
+  // TODO: skip 100ms into future
 });

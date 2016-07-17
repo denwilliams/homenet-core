@@ -6,7 +6,13 @@ export const config: Homenet.IConfig = {
       id: 'motion',
       class: 'sensor',
       type: 'test',
-      options: { isTrigger: true }
+      options: { isTrigger: true, timeout: 100 }
+    },
+    {
+      id: 'presence',
+      class: 'sensor',
+      type: 'test',
+      options: { isToggle: true }
     },
     {
       id: 'temperature',

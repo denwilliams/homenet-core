@@ -1,7 +1,6 @@
 const EVENT_TYPE: string = 'switch';
 const EVENT_PREFIX: string = EVENT_TYPE+'.';
 import {EventEmitter} from 'events';
-// import { Homenet } from '../../interfaces.d.ts';
 
 abstract class BaseSwitch<T> extends EventEmitter implements Homenet.ISwitch {
 

@@ -32,7 +32,7 @@ import { ZoneManager } from './core/zone-manager';
 import { SensorManager } from './classes/sensor-manager';
 import { LightsManager } from './classes/lights-manager';
 import { LockManager } from './classes/lock-manager';
-import PersonManager = require('./classes/person-manager');
+import { PersonManager } from './classes/person-manager';
 import { RedisPersistence } from './core/redis-persistence';
 
 import Core = require('./core/index');
@@ -202,6 +202,7 @@ export const coreModule: IKernelModule = (kernel: IKernel) => {
     kernel.bind<Homenet.INodeRed>('INodeRed').to(NodeRed).inSingletonScope();
 
     kernel.bind<Homenet.IZoneManager>('IZoneManager').to(ZoneManager).inSingletonScope();
+    kernel.bind<Homenet.IPersonManager>('IPersonManager').to(PersonManager).inSingletonScope();
     kernel.bind<Homenet.ILightsManager>('ILightsManager').to(LightsManager).inSingletonScope();
     kernel.bind<Homenet.ILockManager>('ILockManager').to(LockManager).inSingletonScope();
     kernel.bind<Homenet.IStorageManager>('IStorageManager').to(StorageManager).inSingletonScope();

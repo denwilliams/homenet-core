@@ -406,6 +406,7 @@ declare namespace Homenet {
 
   interface IPersonConfig {
     id: string;
+    name: string;
     token: string;
   }
 
@@ -603,6 +604,28 @@ declare namespace Homenet {
     loadInstances(config: IConfig) : void
   }
 
+  interface IPerson extends ISwitch {
+    id: string;
+    name: string;
+    presence: boolean;
+
+    bump() : void
+
+    /**
+     * @implements Switch#set
+     */
+    set(isPresent: boolean) : void
+
+    /**
+     * @implements Switch#get
+     */
+    get() : boolean
+  }
+
+  interface IPersonManager {
+    add(id: string, name: string, timeout: number): IPerson;
+    get(id): IPerson
+  }
 
   interface IValuesManager {
     addInstance(typeId: string, instanceId: string) : IValueStore

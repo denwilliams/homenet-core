@@ -1,21 +1,21 @@
 import { injectable, inject } from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 
-var Person = require('./person');
+import { Person } from './models/person';
 var ROOT_PRESNCE = 'person.any';
 var PRESENCE_CATEGORY = 'person';
 var PRESENCE_PREFIX = PRESENCE_CATEGORY + '.';
 
 @injectable()
-class PersonManager {
+export class PersonManager implements Homenet.IPersonManager {
 
   private _presence : Homenet.IPresenceManager;
   private _switches : Homenet.ISwitchManager;
   private _commands : Homenet.ICommandManager;
   private _logger : Homenet.ILogger;
-  private _people : Homenet.Dict<any>;
+  private _people : Homenet.Dict<Person>;
 
   constructor(
+        @inject('IConfig') config: Homenet.IConfig,
         @inject('IPresenceManager') presence: Homenet.IPresenceManager,
         @inject('ISwitchManager') switches: Homenet.ISwitchManager,
         @inject('ICommandManager') commands: Homenet.ICommandManager,
@@ -58,9 +58,17 @@ class PersonManager {
     });
 
     var rootPresence = presence.add(ROOT_PRESNCE, {category:'person', name:'Anyone'});
+
+    this._load(config);
   }
 
-  add(id, name, timeout) {
+  private _load(config: Homenet.IConfig) : void {
+    config.people.forEach((person: Homenet.IPersonConfig) => {
+      this.add(person.id, person.name, -1);
+    });
+  }
+
+  add(id: string, name: string, timeout: number): Homenet.IPerson {
     var presence = this._presence;
     var opts = {
       category: PRESENCE_CATEGORY,
@@ -74,15 +82,12 @@ class PersonManager {
     return person;
   }
 
-  onAddPerson(person) {
+  onAddPerson(person: Person): void {
     this._switches.addInstance('person', person.id, {id: person.id});
     this._commands.addInstance('person', person.id, {id: person.id});
   }
 
-  get(id) {
-    return this._people[id];
+  get(id): Person {
+    return this._people[id] || null;
   }
-
 }
-
-export = PersonManager;
