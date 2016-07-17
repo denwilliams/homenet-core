@@ -1,4 +1,4 @@
-import { createKernel, IKernel } from '../inversify.testkernel';
+import { createKernel } from '../inversify.testkernel';
 import test from 'ava';
 import { factory, config } from './fixtures/test-sensors';
 import { EventEmitter } from 'events';

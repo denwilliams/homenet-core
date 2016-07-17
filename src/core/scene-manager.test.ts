@@ -1,4 +1,4 @@
-import { createKernel, IKernel } from '../inversify.testkernel';
+import { createKernel } from '../inversify.testkernel';
 import test from 'ava';
 
 test.beforeEach(t => {
@@ -40,8 +40,7 @@ test('should store set scene in persistence', t => {
   // ARRANGE
   const SCENE_NAME ='khasdf';
   const sceneManager: Homenet.ISceneManager = t.context.sceneManager;
-  const kernel: IKernel = t.context.kernel;
-  const persistence = kernel.get<Homenet.IPersistence>('IPersistence');
+  const persistence: Homenet.IPersistence = t.context.kernel.get('IPersistence');
 
   // ACT
   sceneManager.set(SCENE_NAME);

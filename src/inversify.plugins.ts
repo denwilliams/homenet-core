@@ -1,6 +1,6 @@
 /// <reference path="./interfaces.d.ts"/>
 
-import { injectable, inject, IKernel, IKernelModule } from "inversify";
+import { injectable, inject, KernelModule } from "inversify";
 // import { Homenet } from './interfaces.d.ts';
 
 import { VirtualPluginLoader } from './plugins/virtual/index';
@@ -30,8 +30,8 @@ class Plugins implements Homenet.IPlugins {
 }
 
 
-export const pluginsModule: IKernelModule = (kernel: IKernel) => {
-  kernel.bind<VirtualPluginLoader>('VirtualPluginLoader').to(VirtualPluginLoader);
-  kernel.bind<Homenet.IPlugins>('IPlugins').to(Plugins);
-  kernel.bind<DefaultPlugins>('DefaultPlugins').to(DefaultPlugins);
-};
+export const pluginsModule = new KernelModule(bind => {
+  bind<VirtualPluginLoader>('VirtualPluginLoader').to(VirtualPluginLoader);
+  bind<Homenet.IPlugins>('IPlugins').to(Plugins);
+  bind<DefaultPlugins>('DefaultPlugins').to(DefaultPlugins);
+});

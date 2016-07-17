@@ -1,8 +1,7 @@
 require('reflect-metadata');
 require('source-map-support').install();
 
-import { injectable } from "inversify";
-export { IKernel } from "inversify";
+import { injectable, interfaces as inversify } from "inversify";
 
 import { config } from './fixtures';
 import { create } from './inversify.kernel';
@@ -18,7 +17,7 @@ class NullLogger implements Homenet.ILogTarget {
 }
 
 export function createKernel() {
-  const kernel = create();
+  const kernel: inversify.Kernel = create();
   kernel.bind('IConfig').toConstantValue(config);
 
   kernel.unbind('IPersistence');

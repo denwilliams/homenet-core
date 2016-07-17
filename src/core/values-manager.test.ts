@@ -1,9 +1,9 @@
-import { createKernel, IKernel } from '../inversify.testkernel';
+import { createKernel } from '../inversify.testkernel';
 import test from 'ava';
 import * as sinon from 'sinon';
 
 test.beforeEach(t => {
-  const kernel: IKernel = createKernel();
+  const kernel = createKernel();
   t.context.kernel = kernel;
   t.context.valuesManager = kernel.get<Homenet.IValuesManager>('IValuesManager');
 });

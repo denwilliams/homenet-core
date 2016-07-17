@@ -1,4 +1,4 @@
-import { createKernel, IKernel } from '../inversify.testkernel';
+import { createKernel } from '../inversify.testkernel';
 import { EventEmitter } from 'events';
 import test from 'ava';
 import * as sinon from 'sinon';

@@ -1,20 +1,9 @@
-/// <reference path="./interfaces.d.ts"/>
-
-import { IKernel, IKernelModule } from "inversify";
-// import { Homenet } from './interfaces.d.ts';
+import { KernelModule, interfaces } from 'inversify';
 
 import { WebApi } from './api/web';
 import { WebDependencies } from './api/web/dependencies';
 
-export const apiModule: IKernelModule = (k: IKernel) => {
-  k.bind<Homenet.IWebDependencies>("IWebDependencies").to(WebDependencies);
-  k.bind<Homenet.IWebApi>("IWebApi").to(WebApi);
-};
-
-// import * as NodeRED from 'node-red-interfaces';
-// import { TypeBinding, Kernel, TypeBindingScopeEnum } from 'inversify';
-
-// export function bindModules(kernel: Kernel) : void {
-//   kernel.bind(new TypeBinding<WebApiDependencies>('WebApiDependencies', WebApiDependencies));
-//   kernel.bind(new TypeBinding<IWebApi>('IWebApi', WebApi));
-// };
+export const apiModule = new KernelModule(bind => {
+  bind<Homenet.IWebDependencies>("IWebDependencies").to(WebDependencies);
+  bind<Homenet.IWebApi>("IWebApi").to(WebApi);
+});

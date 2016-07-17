@@ -1,4 +1,4 @@
-import { createKernel, IKernel } from '../inversify.testkernel';
+import { createKernel } from '../inversify.testkernel';
 
 import test from 'ava';
 import * as sinon from 'sinon';
@@ -41,8 +41,7 @@ test.afterEach(t => {
 test('melboure was light at epoch 0', t => {
   // ARRANGE
   const config: TestConfig = t.context.config;
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
 
   // ACT
   const light = sunlight.isLight();
@@ -55,8 +54,7 @@ test('new york was dark at epoch 0', t => {
   // ARRANGE
   const config: TestConfig = t.context.config;
   t.context.config.location = newyork;
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
 
   // ACT
   const light = sunlight.isLight();
@@ -69,8 +67,7 @@ test('london was dark at epoch 0', t => {
   // ARRANGE
   const config: TestConfig = t.context.config;
   t.context.config.location = london;
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
 
   // ACT
   const light = sunlight.isLight();
@@ -82,8 +79,7 @@ test('london was dark at epoch 0', t => {
 test('#isDark is the opposite of #isLight', t => {
   // ARRANGE
   const config: TestConfig = t.context.config;
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
 
   // ACT
   const light = sunlight.isLight();
@@ -97,8 +93,7 @@ test('#isDark is the opposite of #isLight', t => {
 test('#currentLight returns the current light state', t => {
   // ARRANGE
   const config: TestConfig = t.context.config;
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
 
   // ACT
   const current = sunlight.currentLight();
@@ -110,8 +105,7 @@ test('#currentLight returns the current light state', t => {
 test('#current returns the current light state', t => {
   // ARRANGE
   const config: TestConfig = t.context.config;
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
 
   // ACT
   const current = sunlight.currentLight();
@@ -122,9 +116,8 @@ test('#current returns the current light state', t => {
 
 test('provides state through stateManager as sunlight', async (t) => {
   // ARRANGE
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
-  const stateManager = kernel.get<Homenet.IStateManager>('IStateManager');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
+  const stateManager: Homenet.IStateManager = t.context.kernel.get('IStateManager');
 
   // ACT
   const sunlightState = await stateManager.getCurrent('sunlight');
@@ -136,9 +129,8 @@ test('provides state through stateManager as sunlight', async (t) => {
 test('publishes state events through stateManager as sunlight', async (t) => {
   // ARRANGE
   t.plan(3);
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
-  const eventBus = kernel.get<Homenet.IEventBus>('IEventBus');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
+  const eventBus: Homenet.IEventBus = t.context.kernel.get('IEventBus');
   t.context.clock.tick(300000); // jump forward 5m to bypass start event
   t.is(sunlight.current, 'light');
   eventBus.on('state.sunlight', 'changed', assertEvent);
@@ -156,8 +148,7 @@ test('publishes state events through stateManager as sunlight', async (t) => {
 test('fires event when light state changes', (t) => {
   // ARRANGE
   t.plan(2);
-  const kernel: IKernel = t.context.kernel;
-  const sunlight = kernel.get<Homenet.ISunlight>('ISunlight');
+  const sunlight: Homenet.ISunlight = t.context.kernel.get('ISunlight');
   t.context.clock.tick(300000); // jump forward 5m to bypass start event
   sunlight.on('light', assertEvent);
   t.is(sunlight.current, 'light');

@@ -1,4 +1,4 @@
-import { createKernel, IKernel } from '../inversify.testkernel';
+import { createKernel } from '../inversify.testkernel';
 import test from 'ava';
 
 class TestStateProvider implements Homenet.IStateProvider {
