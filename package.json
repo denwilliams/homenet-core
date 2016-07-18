@@ -9,16 +9,12 @@
     "node": ">=0.12"
   },
   "scripts": {
-    "localbuild": "tsc --sourceMap",
-    "prelocaltest": "npm run localbuild",
+    "build": "tsc --sourceMap",
+    "prelocaltest": "npm run build",
     "localtest": "ava -v",
-    "prebuild": "rm -rf lib/",
-    "build": "tsc --outDir lib-es2015 && babel lib-es2015 --out-dir lib",
-    "postbuild": "rm -rf lib-es2015",
     "coverage": "nyc ava -v",
     "jsdoc": "jsdoc -c .jsdoc",
     "generate-docs": "jsdoc --configure ./.jsdoc --verbose",
-    "pretest": "typings install && npm run build",
     "test": "ava -v",
     "watchtest": "tsc -w -v",
     "watchbuildtest": "tsc -w -v & ava -v -w",
