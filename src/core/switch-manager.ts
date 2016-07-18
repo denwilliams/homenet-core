@@ -2,7 +2,7 @@ const EVENT_TYPE: string = 'switch';
 
 import chalk = require('chalk');
 import _ = require('lodash');
-import SwitchWrapper = require('./models/switch-wrapper');
+import { SwitchWrapper } from './models/switch-wrapper';
 import { inject, injectable } from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 
@@ -15,7 +15,7 @@ import { inject, injectable } from 'inversify';
  * var lights = switchManager.get('loungeroom:lights');
  */
 @injectable()
-class SwitchManager implements Homenet.ISwitchManager {
+export class SwitchManager implements Homenet.ISwitchManager {
 
   types: Homenet.Dict<Homenet.ISwitchFactory>
   instances: Homenet.Dict<Homenet.ISwitch>
@@ -166,5 +166,3 @@ function lazy(factory: Homenet.ISwitchFactory, id: string, opts: any): Homenet.I
     return instance;
   };
 }
-
-export = SwitchManager;

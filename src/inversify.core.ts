@@ -4,10 +4,10 @@ import { EventEmitter } from 'events';
 
 import { App } from './core/app';
 import { Common } from './core/common';
-import ClassesManager = require('./core/classes-manager');
+import { ClassesManager } from './core/classes-manager';
 import { CommandManager } from './core/command-manager';
-import SwitchManager = require('./core/switch-manager');
-import SharedEventEmitter = require('./core/shared-event-emitter');
+import { SwitchManager } from './core/switch-manager';
+import { SharedEventEmitter } from './core/shared-event-emitter';
 
 import { NodeRed } from './core/node-red';
 import { GlobalContext } from './core/global-context';
@@ -131,8 +131,8 @@ class StatsManager implements Homenet.IStatsManager {
     this._events.emit('gauge', {id: id, value: value});
   }
 
-  counter(id: string, value: number = 1) {
-    this._events.emit('counter', {id: id, value: value});
+  counter(id: string, value?: number) {
+    this._events.emit('counter', {id: id, value: value || 1});
   }
 
   private _bindTarget(target: Homenet.IStatsTarget) : void {

@@ -3,7 +3,7 @@ const EVENT_PREFIX: string = EVENT_TYPE+'.';
 import {EventEmitter} from 'events';
 // import {Homenet} from '../../interfaces.d.ts';
 
-class SwitchWrapper extends EventEmitter implements Homenet.ISwitch {
+export class SwitchWrapper extends EventEmitter implements Homenet.ISwitch {
 
   id: string;
   emitOnSet: boolean;
@@ -51,5 +51,3 @@ class SwitchWrapper extends EventEmitter implements Homenet.ISwitch {
     this.emit('updated', value);
   }
 }
-
-export = SwitchWrapper;

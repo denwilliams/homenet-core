@@ -11,7 +11,7 @@ function eventName(source:string, event:string) : string {
  * @class SharedEventEmitter
  */
 @injectable()
-class SharedEventEmitter implements Homenet.IEventBus {
+export class SharedEventEmitter implements Homenet.IEventBus {
   private _e : any;
   private _logger : Homenet.ILogger;
 
@@ -73,5 +73,3 @@ class SharedEventEmitter implements Homenet.IEventBus {
     // console.log('Listeners:', name, e.listeners(name));
   }
 }
-
-export = SharedEventEmitter;

@@ -1,6 +1,5 @@
 import _ = require('lodash');
-import {inject, injectable} from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
+import { inject, injectable } from 'inversify';
 import chalk = require('chalk');
 
 /**
@@ -9,7 +8,7 @@ import chalk = require('chalk');
  * @param {Logger} logger - logger instance
  */
 @injectable()
-class ClassesManager implements Homenet.IClassesManager {
+export class ClassesManager implements Homenet.IClassesManager {
 
   private _classes : Homenet.Dict<Homenet.IClassFactory<any>>;
   private _logger : Homenet.ILogger;
@@ -98,5 +97,3 @@ class ClassesManager implements Homenet.IClassesManager {
   }
 
 }
-
-export = ClassesManager;

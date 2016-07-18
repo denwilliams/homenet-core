@@ -9,14 +9,13 @@
     "node": ">=4"
   },
   "scripts": {
-    "build": "tsc",
-    "build-run": "npm run build && node build/main",
-    "precoverage": "rm -rf ./lib && tsc",
+    "build": "tsc --outDir lib-es2015 && babel lib-es2015 --out-dir lib --source-maps",
+    "postbuild": "rm -rf lib-es2015",
     "coverage": "nyc ava -v",
     "jsdoc": "jsdoc -c .jsdoc",
     "generate-docs": "jsdoc --configure ./.jsdoc --verbose",
-    "prepublish": "typings install && tsc",
-    "pretest": "rm -rf ./lib && tsc",
+    "prepublish": "typings install && npm run build",
+    "pretest": "npm run build",
     "test": "ava -v",
     "watchtest": "tsc -w -v",
     "watchbuildtest": "tsc -w -v & ava -v -w",
@@ -79,6 +78,8 @@
   "devDependencies": {
     "assert": "^1.3.0",
     "ava": "^0.15.2",
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
     "inversify-dts": "^1.4.0",
     "nyc": "^6.6.1",
     "should": "^7.1.1",
