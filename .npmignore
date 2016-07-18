@@ -34,3 +34,6 @@ typedoc/
 doc/
 src/
 ____*
+.vscode/
+docs/old/
+typings/
