@@ -1,0 +1,3 @@
+Most things in the system work of short ID strings with no spaces. This doesn't make for a very usable system.
+
+To make this more usable map any ID to a human readable string by...
