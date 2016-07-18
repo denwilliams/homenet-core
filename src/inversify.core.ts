@@ -70,19 +70,20 @@ class ConsoleLogger implements Homenet.ILogTarget {
 }
 
 @injectable()
-class CoreLogger extends EventEmitter implements Homenet.ILogger {
+class CoreLogger implements Homenet.ILogger {
+  private _events: EventEmitter = new EventEmitter();
+
   /**
    * Constructor
    */
   constructor(@multiInject('ILogTarget') loggers: Homenet.ILogTarget[]) {
-    super();
     loggers.forEach(logger => {
       this._bindLogger(logger);
     });
   }
 
   onLog(handler: Homenet.ILogEventHandler) : void {
-    this.on('log', handler);
+    this._events.on('log', handler);
   }
 
   info(args : any) : void {
@@ -103,7 +104,7 @@ class CoreLogger extends EventEmitter implements Homenet.ILogger {
       level: level,
       message: args
     };
-    this.emit('log', msg);
+    this._events.emit('log', msg);
   }
 
   private _bindLogger(logger: Homenet.ILogTarget) : void {
@@ -125,8 +126,9 @@ class CoreLogger extends EventEmitter implements Homenet.ILogger {
 
 
 @injectable()
-class StatsManager extends EventEmitter implements Homenet.IStatsManager {
+class StatsManager implements Homenet.IStatsManager {
   private _eventBus: Homenet.IEventBus;
+  private _events: EventEmitter = new EventEmitter();
 
   /**
    * Constructor
@@ -135,7 +137,6 @@ class StatsManager extends EventEmitter implements Homenet.IStatsManager {
         @inject('IEventBus') eventBus: Homenet.IEventBus,
         @multiInject('IStatsTarget') targets: Homenet.IStatsTarget[]
         ) {
-    super();
     targets.forEach(target => {
       this._bindTarget(target);
     });
@@ -143,18 +144,18 @@ class StatsManager extends EventEmitter implements Homenet.IStatsManager {
   }
 
   gauge(id: string, value: number) {
-    this.emit('gauge', {id: id, value: value});
+    this._events.emit('gauge', {id: id, value: value});
   }
 
   counter(id: string, value: number = 1) {
-    this.emit('counter', {id: id, value: value});
+    this._events.emit('counter', {id: id, value: value});
   }
 
   private _bindTarget(target: Homenet.IStatsTarget) : void {
-    this.on('gauge', msg => {
+    this._events.on('gauge', msg => {
       target.gauge(msg.id, msg.number);
     });
-    this.on('counter', msg => {
+    this._events.on('counter', msg => {
       target.counter(msg.id, msg.number);
     });
   }

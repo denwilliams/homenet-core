@@ -1,8 +1,6 @@
-/// <reference path="../interfaces.d.ts"/>
-
 import {lazySingleton, eagerSingleton} from './lifecycle';
 import chalk = require('chalk');
-// import {Homenet} from '../interfaces.d.ts';
+import { injectable } from 'inversify';
 
 /**
  * Manages instances of a specific class
@@ -11,6 +9,7 @@ import chalk = require('chalk');
  * @param {ClassTypeManager.onAddInstance} onAddInstance
  * @param {Logger} logger
  */
+@injectable()
 export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
 
   protected _logger: Homenet.ILogger;

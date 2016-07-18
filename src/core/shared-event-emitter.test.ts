@@ -3,7 +3,9 @@ import { createKernel } from '../inversify.testkernel';
 import test from 'ava';
 
 test.beforeEach(t => {
-  t.context.kernel = createKernel();
+  const kernel = createKernel();
+  t.context.kernel = kernel;
+  t.context.eventBus = kernel.get('IEventBus');
 });
 
-test('nothing', () => {});
+test.skip('nothing yet', () => {});

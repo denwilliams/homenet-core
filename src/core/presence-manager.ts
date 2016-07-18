@@ -13,22 +13,37 @@ import {inject, injectable} from 'inversify';
  * presenceManager.bump();
  */
 @injectable()
-export class PresenceManager extends EventEmitter implements Homenet.IPresenceManager {
+export class PresenceManager implements Homenet.IPresenceManager {
 
   private _items = {};
   private _parents = {};
   private _children = {};
   private _logger: Homenet.ILogger;
   private _eventBus: Homenet.IEventBus;
+  private _events: EventEmitter = new EventEmitter();
 
   constructor(
             @inject('IEventBus') eventBus: Homenet.IEventBus,
             @inject('ILogger') logger: Homenet.ILogger) {
-    super();
     this._eventBus = eventBus;
     this._logger = logger;
   }
 
+  public on(event: string, listener: Function) {
+    this._events.on(event, listener);
+  }
+
+  public removeListener(event: string, listener: Function) {
+    this._events.removeListener(event, listener);
+  }
+
+  public removeAllListeners(event: string) {
+    this._events.removeAllListeners(event);
+  }
+
+  public emit(event: string, ...args: any[]) {
+    this._events.emit(event, ...args);
+  }
 
   /**
    * Adds a presence item to be watched
