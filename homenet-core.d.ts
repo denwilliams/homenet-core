@@ -307,13 +307,13 @@ declare module 'homenet-core' {
   interface ICommandManager {
     addType(typeId: string, factory: ICommanderFactory, meta: ICommandTypeMeta) : void
     addInstance(typeId: string, instanceId: string, opts: any) : void
-    getInstance(fullId: string) : Homenet.ICommander
-    getInstance(typeId: string, instanceId: string) : Homenet.ICommander
-    getAll(): Homenet.Dict<Homenet.ICommander>
-    getMeta(fullId: string): Homenet.ICommandTypeMeta
-    getMeta(typeId: string, instanceId: string): Homenet.ICommandTypeMeta
-    getTypeMeta(typeId) : Homenet.ICommandTypeMeta
-    getType(typeId: string) : Homenet.ICommanderFactory
+    getInstance(fullId: string) : ICommander
+    getInstance(typeId: string, instanceId: string) : ICommander
+    getAll(): Dict<ICommander>
+    getMeta(fullId: string): ICommandTypeMeta
+    getMeta(typeId: string, instanceId: string): ICommandTypeMeta
+    getTypeMeta(typeId) : ICommandTypeMeta
+    getType(typeId: string) : ICommanderFactory
     run(typeId: string, instanceId: string, command: string, args?: any[]): Promise<any>
   }
 
@@ -713,10 +713,10 @@ declare module 'homenet-core' {
   }
 
   interface INodeREDContext {
-    logger: Homenet.ILogger;
-    services: Homenet.IServiceContext;
-    switches: Homenet.ISwitchManager;
-    sensors: Homenet.ISensorManager;
+    logger: ILogger;
+    services: IServiceContext;
+    switches: ISwitchManager;
+    sensors: ISensorManager;
   }
 
   interface INodeREDLauncher {
@@ -843,9 +843,9 @@ declare module 'homenet-core' {
       */
       getInstance(typeOrFullId: string, instanceId?: string) : IValueStore;
 
-      getAllInstances() : Homenet.IValueStore[];
+      getAllInstances() : IValueStore[];
 
-      getInstances(type: string) : Homenet.IValueStore[];
+      getInstances(type: string) : IValueStore[];
 
       /**
       * Sets value
