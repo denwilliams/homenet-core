@@ -1,9 +1,7 @@
 import { injectable, inject, multiInject, KernelModule } from "inversify";
 import * as chalk from 'chalk';
 import { EventEmitter } from 'events';
-// import {Homenet} from './interfaces.d.ts';
 
-// import LightsManager = require('./lights/lights-manager');
 import { App } from './core/app';
 import { Common } from './core/common';
 import ClassesManager = require('./core/classes-manager');
@@ -36,20 +34,6 @@ import { PersonManager } from './classes/person-manager';
 import { RedisPersistence } from './core/redis-persistence';
 
 import Core = require('./core/index');
-
-// @injectable()
-// class ConfigImpl implements Homenet.IConfig {
-//   hue: any = {};
-//   instances: Homenet.InstanceConfig[] = [];
-//   zones: Homenet.IZoneConfig[] = [];
-//   locks: Homenet.ILockConfig[] = [];
-//   people: Homenet.IPersonConfig[] = [];
-//   dataPath: string = '';
-//   webServerPort: number = 1234;
-//   location: Homenet.IConfigCoords = null
-// }
-
-// const config: Homenet.IConfig = require('./test-config');
 
 @injectable()
 class ConsoleLogger implements Homenet.ILogTarget {
