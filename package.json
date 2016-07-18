@@ -1,6 +1,6 @@
 {
   "name": "homenet-core",
-  "version": "4.0.0-alpha.21",
+  "version": "4.0.0-alpha.22",
   "description": "Homenet home automation - core system",
   "main": "lib/index.js",
   "author": "Den Williams",
