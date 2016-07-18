@@ -6,7 +6,7 @@
   "author": "Den Williams",
   "license": "MIT",
   "engines": {
-    "node": ">=4"
+    "node": ">=0.12"
   },
   "scripts": {
     "localbuild": "tsc --sourceMap",
