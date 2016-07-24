@@ -52,6 +52,16 @@ export const config: Homenet.IConfig = {
       }
     }
   ],
+  scenes: [
+    {
+      id: 'day',
+      name: 'Day'
+    },
+    {
+      id: 'night',
+      name: 'Night'
+    }
+  ],
   zones: [
     {
       id: 'simple',
