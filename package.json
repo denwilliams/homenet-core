@@ -1,12 +1,12 @@
 {
   "name": "homenet-core",
-  "version": "4.0.0-alpha.23",
+  "version": "4.0.0-beta.1",
   "description": "Homenet home automation - core system",
   "main": "lib/index.js",
   "author": "Den Williams",
   "license": "MIT",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4"
   },
   "scripts": {
     "build": "tsc --sourceMap",
@@ -25,34 +25,6 @@
       "current-scene": "node_modules/node-red-contrib-scenes/nodes/current-scene.js",
       "scene": "node_modules/node-red-contrib-scenes/nodes/scene.js",
       "scene-startstop": "node_modules/node-red-contrib-scenes/nodes/scene-startstop.js"
-    },
-    "disabled": {
-      "app-event": "node_modules/homenet-nodes/nodes/app-event.js",
-      "bump-presence": "node_modules/homenet-nodes/nodes/bump-presence.js",
-      "currentlight": "node_modules/homenet-nodes/nodes/currentlight.js",
-      "currentpresence": "node_modules/homenet-nodes/nodes/currentpresence.js",
-      "dark": "node_modules/homenet-nodes/nodes/dark.js",
-      "deserialize": "node_modules/homenet-nodes/nodes/deserialize.js",
-      "device-sensor": "node_modules/homenet-nodes/nodes/device-sensor.js",
-      "isdark": "node_modules/homenet-nodes/nodes/isdark.js",
-      "islight": "node_modules/homenet-nodes/nodes/islight.js",
-      "ispresent": "node_modules/homenet-nodes/nodes/ispresent.js",
-      "isscene": "node_modules/homenet-nodes/nodes/isscene.js",
-      "isweekday": "node_modules/homenet-nodes/nodes/isweekday.js",
-      "isweekend": "node_modules/homenet-nodes/nodes/isweekend.js",
-      "light": "node_modules/homenet-nodes/nodes/light.js",
-      "lights": "node_modules/homenet-nodes/nodes/lights.js",
-      "locks": "node_modules/homenet-nodes/nodes/locks.js",
-      "media-state": "node_modules/homenet-nodes/nodes/media-state.js",
-      "notify": "node_modules/homenet-nodes/nodes/notify.js",
-      "presence-parent": "node_modules/homenet-nodes/nodes/presence-parent.js",
-      "presence": "node_modules/homenet-nodes/nodes/presence.js",
-      "remember": "node_modules/homenet-nodes/nodes/remember.js",
-      "scheduler": "node_modules/homenet-nodes/nodes/scheduler.js",
-      "secure": "node_modules/homenet-nodes/nodes/secure.js",
-      "sensor": "node_modules/homenet-nodes/nodes/sensor.js",
-      "timeofday": "node_modules/homenet-nodes/nodes/timeofday.js",
-      "currentscene": "nodes/currentscene.js"
     }
   },
   "dependencies": {

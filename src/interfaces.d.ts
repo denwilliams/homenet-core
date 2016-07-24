@@ -208,7 +208,8 @@ declare namespace Homenet {
   type SensorEvent = 'trigger' | 'active' | 'value';
 
   interface ISensorOpts {
-    zoneId?: string;
+    zoneId?: string; // deprecated
+    zone?: string;
     timeout?: number;
   }
 
@@ -230,30 +231,6 @@ declare namespace Homenet {
     set(key, value) : void;
     onTrigger(cb: Function) : void;
     removeOnTriggerListener(cb: Function) : void;
-
-    // trigger() {
-    //   if (!this._trigger) return;
-    //   this._trigger.trigger();
-    // };
-
-    // on() {
-    //   if (!this._presence) return;
-    //   this._presence.set();
-    // };
-
-    // off() {
-    //   if (!this._presence) return;
-    //   this._presence.clear();
-    // };
-
-    // get(key) {
-    //   if (!this._values) return;
-    //   return this._values.get(key);
-    // };
-
-    // getAll() {
-    //   return this._values.getAll();
-    // };
   }
 
 
@@ -372,6 +349,7 @@ declare namespace Homenet {
     hue?: any,
     instances?: InstanceConfig[],
     zones?: IZoneConfig[],
+    scenes?: ISceneConfig[],
     locks?: ILockConfig[],
     people?: IPersonConfig[],
     dataPath?: string,
@@ -399,6 +377,11 @@ declare namespace Homenet {
     faIcon: string;
     parent: string;
     timeout: number;
+  }
+
+  interface ISceneConfig {
+    id: string;
+    name?: string;
   }
 
   interface IPersonConfig {

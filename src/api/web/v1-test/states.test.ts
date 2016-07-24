@@ -23,7 +23,7 @@ test.beforeEach(t => {
   t.context.kernel = kernel;
 });
 
-test('GET /states returns an array of objects with id and state', async (t) => {
+test('GET /states returns an array of objects with id, state, and available', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
   const request: supertest.SuperTest = supertest(app);
@@ -34,8 +34,16 @@ test('GET /states returns an array of objects with id and state', async (t) => {
   // ASSERT
   t.true(Array.isArray(result.body));
   t.is(result.body.length, 2);
+
   t.is(result.body[0].id, 'sunlight');
   t.is(result.body[0].state, 'light');
+  t.is(result.body[0].available[0], 'light');
+  t.is(result.body[0].available[1], 'dark');
+
+  t.is(result.body[1].id, 'scene');
+  t.is(result.body[1].state, null);
+  t.is(result.body[1].available[0], 'day');
+  t.is(result.body[1].available[1], 'night');
 });
 
 test('GET /states/:type returns the state of a single type', async (t) => {

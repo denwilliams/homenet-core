@@ -1,0 +1,10 @@
+{
+  "name": "homenet-core-tsd",
+  "version": "4.0.0-alpha.1",
+  "description": "Typescript definition for homenet-core",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Den Williams",
+  "license": "MIT"
+}

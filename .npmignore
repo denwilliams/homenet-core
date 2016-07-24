@@ -37,3 +37,4 @@ ____*
 .vscode/
 docs/old/
 typings/
+tsd/package.json
