@@ -8,8 +8,8 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
 
   app.get('/', function(req, res) {
     Promise.all(_.map(states.getTypes(), (state, key) => {
-      return state.getCurrent().then(state => {
-        return { id: key, state };
+      return state.getCurrent().then(stateId => {
+        return { id: key, state: stateId, available: state.getAvailable() };
       });
     }))
     .then(items => {
@@ -21,8 +21,8 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
 
   app.get('/:type', function(req, res) {
     const type = req.params.type;
-    states.getCurrent(req.params.type)
-    .then(state => res.json({ id: type, state }))
+    states.getCurrent(type)
+    .then(state => res.json({ id: type, state, available: states.getAvailable(type) }))
     .catch(err => {
       res.status(400).send(err);
     });

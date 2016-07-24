@@ -8,7 +8,8 @@ export class SceneManager implements Homenet.ISceneManager {
   constructor(
             @inject('INodeRed') nodeRed: Homenet.INodeRed,
             @inject('IPersistence') persistence: Homenet.IPersistence,
-            @inject('IStateManager') states: Homenet.IStateManager
+            @inject('IStateManager') states: Homenet.IStateManager,
+            @inject('IConfig') config: Homenet.IConfig
             ) {
     this._scene = nodeRed.getSceneManager();
     this._persistence = persistence;
@@ -26,7 +27,7 @@ export class SceneManager implements Homenet.ISceneManager {
         return Promise.resolve(self.getCurrentId());
       },
       getAvailable(): string[] {
-        return null;
+        return (config.scenes || []).map(s => s.id);
       }
     };
     states.addType('scene', stateProvider);

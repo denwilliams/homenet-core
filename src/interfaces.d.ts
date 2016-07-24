@@ -349,6 +349,7 @@ declare namespace Homenet {
     hue?: any,
     instances?: InstanceConfig[],
     zones?: IZoneConfig[],
+    scenes?: ISceneConfig[],
     locks?: ILockConfig[],
     people?: IPersonConfig[],
     dataPath?: string,
@@ -376,6 +377,11 @@ declare namespace Homenet {
     faIcon: string;
     parent: string;
     timeout: number;
+  }
+
+  interface ISceneConfig {
+    id: string;
+    name?: string;
   }
 
   interface IPersonConfig {
