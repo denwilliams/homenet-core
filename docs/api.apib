@@ -1,0 +1,49 @@
+FORMAT: 1A
+HOST: https://yourserver:3210/v1
+
+# Automation API
+
+## Commands [/commands]
+
+### List [GET]
+
+Gets all available command sources.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "light.kitchen",
+                "commands": {
+                    "turnOn": {
+                        "title": "Turn On",
+                        "comment": "Turns on the light"
+                    },
+                    "turnOff": {
+                    }
+                }
+            }
+        ]
+
+
+## Presence [/presence]
+## States [/states]
+## Switches [/switches]
+
+### List [GET]
+
+Gets all switches.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "light.kitchen"
+            }
+        ]
+
+
+## Triggers [/triggers]
+## Values [/values]
+## Zones [/zones]
+

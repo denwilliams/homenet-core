@@ -2,6 +2,7 @@ import { createKernel } from '../../../inversify.testkernel';
 import test from 'ava';
 import * as express from 'express';
 import * as supertest from 'supertest-as-promised';
+import * as sinon from 'sinon';
 import { config } from './fixtures/api-test-config';
 import { factory as lightFactory } from './fixtures/lights';
 import { factory as sensorFactory } from './fixtures/sensors';
@@ -95,16 +96,32 @@ test('POST /commands/:id/:cmd executes a command', async (t) => {
   t.is(light1.get(), 'on');
 });
 
-test.skip('POST /commands/:id/:cmd returns a command response after promise resolve', async (t) => {
+test('POST /commands/:id/:cmd returns a command response', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
   const request: supertest.SuperTest = supertest(app);
   const lights: Homenet.ILightsManager = t.context.lights;
   const light1 = lights.getInstance('one');
+  sinon.stub(light1, 'set').returns({test: 'RESULT'});
 
   // ACT
   const result: any = await request.post('/v1/commands/light.one/turnOn').expect(200);
 
   // ASSERT
-  t.fail();
+  t.deepEqual(result.body, {test: 'RESULT'})
+});
+
+test('POST /commands/:id/:cmd returns a command response after promise resolve', async (t) => {
+  // ARRANGE
+  const app: express.Router = t.context.app;
+  const request: supertest.SuperTest = supertest(app);
+  const lights: Homenet.ILightsManager = t.context.lights;
+  const light1 = lights.getInstance('one');
+  sinon.stub(light1, 'set').returns(Promise.resolve({test: 'RESULT'}));
+
+  // ACT
+  const result: any = await request.post('/v1/commands/light.one/turnOn').expect(200);
+
+  // ASSERT
+  t.deepEqual(result.body, { test: 'RESULT' })
 });
