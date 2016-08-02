@@ -34,7 +34,11 @@ export function createApi(commands: Homenet.ICommandManager) : express.Router {
     var instance = commands.getInstance(id);
     var command = instance[cmd];
     var response = command(req.body);
-    res.json(response);
+    if (!response  || !response.then) {
+      res.json(response);
+      return;
+    }
+    response.then((actual) => res.json(actual));
   });
 
   return app;

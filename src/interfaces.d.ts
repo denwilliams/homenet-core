@@ -425,6 +425,7 @@ declare namespace Homenet {
   interface IEventBus {
     emit(source: string, name: string, value: any)
     on(source: string, name: string, cb: Function)
+    onAny(cb: Function)
   }
 
 

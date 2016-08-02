@@ -63,10 +63,10 @@ export class LightsManager implements Homenet.ILightsManager {
       var instance: Homenet.ILight = self._instances[id]();
       return {
         turnOn: function() {
-          instance.set(true);
+          return instance.set(true);
         },
         turnOff: function() {
-          instance.set(false);
+          return instance.set(false);
         }
       };
     }, {
