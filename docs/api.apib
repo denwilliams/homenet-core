@@ -1,15 +1,32 @@
 FORMAT: 1A
 HOST: https://yourserver:3210/v1
 
-# Automation API
 
-## Commands [/commands]
 
-### List [GET]
+# Homenet Automation API
+
+This API allows for interaction with the homenet system from third party applications.
+
+
+
+
+
+
+
+
+
+
+
+
+## Group Commands
+
+### All Commands [/commands]
+
+#### List [GET]
 
 Gets all available command sources.
 
-  + Response 200 (application/json)
++ Response 200 (application/json)
 
         [
             {
@@ -25,12 +42,190 @@ Gets all available command sources.
             }
         ]
 
+### One Item [/commands/{id}]
 
-## Presence [/presence]
-## States [/states]
-## Switches [/switches]
+Gets available commands for a single item or runs them.
 
-### List [GET]
++ Parameters
+
+    + id: light.kitchen (string) - An unique identifier of the command.
+
+#### Get One [GET]
+
+Gets a single available command source.
+
++ Request JSON
+
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": "light.kitchen",
+                "commands": {
+                    "turnOn": {
+                        "title": "Turn On",
+                        "comment": "Turns on the light"
+                    },
+                    "turnOff": {
+                    }
+                }
+            }
+
+
+#### Run One [POST]
+
+  + Response 200 (application/json)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Group Presence
+
+A resource representing all of instances that have presence.
+
+### All Presence Items [/presence]
+
+#### List [GET]
+
+Gets all presence instances.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "zone.kitchen",
+                "presence": true
+            }
+        ]
+
+### Once Presence Item [/presence/{id}]
+
++ Parameters
+
+    + id: zone.kitchen (string) - An unique identifier of the instance.
+
+#### Get One [GET]
+
+Gets a single presence instance.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "zone.kitchen",
+            "presence": true
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Group States
+
+### All States [/states]
+
+#### List [GET]
+
+Gets all state instances.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "mystate",
+                "state": "on",
+                "available": ["on", "off"]
+            }
+        ]
+
+
+### One State [/states/{id}]
+
++ Parameters
+
+    + id: mystate (string) - Unique identifier of the state.
+
+### Get One [GET]
+
+Gets a single state instance.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "tester",
+            "state": "on",
+            "available": ["on", "off"]
+        }
+
+
+### Set One [PUT]
+
+Sets a single state instance.
+
+  + Request (application/json)
+
+        {
+            "state": "off"
+        }
+
+
+  + Response 200 (application/json)
+
+        {
+            "id": "tester",
+            "state": "off",
+            "available": ["on", "off"]
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Group Switches
+
+### All Switches [/switches]
+
+#### List [GET]
 
 Gets all switches.
 
@@ -38,12 +233,220 @@ Gets all switches.
 
         [
             {
-                "id": "light.kitchen"
+                "id": "light.kitchen",
+                "value": "full"
+            }
+        ]
+
+### One Switch [/switches/{id}]
+
++ Parameters
+
+    + id: light.kitchen (string) - An unique identifier of the switch.
+
+#### Get One [GET]
+
+Gets one switch instance.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "light.kitchen",
+            "value": "full"
+        }
+
+#### Set One [PUT]
+
+Sets a switch instance.
+
+  + Request (application/json)
+
+        {
+            "value": "full"
+        }
+
+  + Response 200 (application/json)
+
+        {
+            "id": "light.kitchen",
+            "value": "full"
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Group Triggers
+
+### All Triggers [/triggers]
+
+#### List [GET]
+
+Gets all triggers.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "trigger.motionsensor",
+                "lastTriggered": "2016-08-09T08:55:35.000Z"
+            }
+        ]
+
+### One Trigger [/triggers/{id}]
+
++ Parameters
+
+    + id: sensor.motion (string) - An unique identifier of the trigger.
+
+
+#### Get One [GET]
+
+Gets one trigger instance.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "sensor.motion",
+            "lastTriggered": "2016-08-09T08:55:35.000Z"
+        }
+
+
+#### Set One [POST]
+
+"Triggers" a trigger instance.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "sensor.motion",
+            "lastTriggered": "2016-08-09T08:55:35.000Z"
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Group Values
+
+### All Value Stores [/values]
+
+#### List [GET]
+
+Gets all value stores.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "sensor.temp",
+                "values": {
+                    "temp": 21,
+                    "hum": 68
+                }
+            }
+        ]
+
+### Single Value Store [/values/{id}]
+
++ Parameters
+
+    + id: sensor.temp (string) - An unique identifier of the value store.
+
+#### Get One [GET]
+
+Gets one value store.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "sensor.temp",
+            "values": {
+                "temp": 21,
+                "hum": 68
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Group Zones
+
+### All Zones [/zones]
+
+#### List [GET]
+
+Gets all zones.
+
+  + Response 200 (application/json)
+
+        [
+            {
+                "id": "kitchen",
+                "name": "Kitchen",
+                "presence": true,
+                "parent": "house"
             }
         ]
 
 
-## Triggers [/triggers]
-## Values [/values]
-## Zones [/zones]
+### One Zone [/zones/{id}]
+
++ Parameters
+
+    + id: kitchen (string) - An unique identifier of the zone.
+
+
+#### Get One [GET]
+
+Gets one zone.
+
+  + Response 200 (application/json)
+
+        {
+            "id": "kitchen",
+            "name": "Kitchen",
+            "presence": true,
+            "parent": "house"
+        }
+
 

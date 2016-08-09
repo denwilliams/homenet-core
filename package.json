@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc --sourceMap",
+    "builddocs": "aglio --theme-variables streak --theme-template triple -i docs/api.apib -o docs/api.html",
     "prelocaltest": "npm run build",
     "localtest": "ava -v",
     "coverage": "nyc ava -v",
@@ -45,6 +46,7 @@
     "winston-papertrail": "^1.0.2"
   },
   "devDependencies": {
+    "aglio": "^2.2.1",
     "ava": "^0.15.2",
     "inversify-dts": "^1.4.0",
     "nyc": "^6.6.1",
