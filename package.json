@@ -46,7 +46,6 @@
     "winston-papertrail": "^1.0.2"
   },
   "devDependencies": {
-    "aglio": "^2.2.1",
     "ava": "^0.15.2",
     "inversify-dts": "^1.4.0",
     "nyc": "^6.6.1",
