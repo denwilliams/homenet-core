@@ -12,6 +12,8 @@ before_install:
   - tsc --outDir lib-es2015
   - babel lib-es2015 --out-dir lib
   - rm -rf lib-es2015
+after_install:
+  - ./ci-docs.deploy.sh
 deploy:
   provider: npm
   email: work@denwilliams.net
