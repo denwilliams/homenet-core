@@ -1,17 +1,41 @@
-# Welcome to MkDocs
+# Homenet Core
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+## The Basics
 
-## Commands
+- [Requirements](basics/requirements.md)
+  - [Redis persistence](basics/redis.md)
+- [Starting](basics/starting.md)
+- [Customizing](basics/customizing.md)
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+## Core Concepts
 
-## Project layout
+- Node RED rule system
+  - Custom nodes
+- Classes
+  - People
+  - Lights
+  - Locks
+  - Sensors
+- Zones
+- Environment
+  - Sunlight
+- Core Components
+  - Commands
+  - Events
+  - Presence
+  - Switches
+  - Triggers
+  - Values
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Plugins
+
+- Node RED plugins
+- Homenet plugins
+  - Lights
+  - Locks
+  - Sensors
+
+## API
+
+- Authentication
+- Documentation

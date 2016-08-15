@@ -1,0 +1,4 @@
+Lights
+Locks
+People
+Sensors
