@@ -337,7 +337,6 @@ declare namespace Homenet {
   }
 
   interface IButtonManager extends IClassTypeManager<IButton> {
-    // trigger(sensorId: string) : void
   }
 
 

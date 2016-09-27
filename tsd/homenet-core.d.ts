@@ -469,6 +469,15 @@ declare module 'homenet-core' {
     data: any
   }
 
+  interface IButton {
+    onClick(cb: Function)
+    onDoubleClick(cb: Function)
+    onHold(cb: Function)
+  }
+
+  interface IButtonManager extends IClassTypeManager<IButton> {
+  }
+
   interface ILock extends ISwitch {
     // get() : boolean
     // set(value: boolean) : void
