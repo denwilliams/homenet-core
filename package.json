@@ -1,6 +1,6 @@
 {
   "name": "homenet-core",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0-beta.3",
   "description": "Homenet home automation - core system",
   "main": "lib/index.js",
   "author": "Den Williams",
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc --sourceMap",
+    "builddocs": "aglio --theme-variables streak --theme-template triple -i docs/api.apib -o docs/api.html",
     "prelocaltest": "npm run build",
     "localtest": "ava -v",
     "coverage": "nyc ava -v",
@@ -18,7 +19,8 @@
     "test": "ava -v",
     "watchtest": "tsc -w -v",
     "watchbuildtest": "tsc -w -v & ava -v -w",
-    "tsdoc": "typedoc --verbose --mode file --out ./doc/ --module commonjs --target ES5 --exclude node_modules/* --includeDeclarations main.ts"
+    "typedoc": "typedoc --mode file --out ./out/tsdoc/ --module commonjs --target ES6 --exclude node_modules/* --includeDeclarations tsconfig.json",
+    "typedocv": "typedoc --verbose --mode file --out ./out/tsdoc/ --module commonjs --target ES6 --exclude node_modules/* --includeDeclarations tsconfig.json"
   },
   "node-red": {
     "nodes": {

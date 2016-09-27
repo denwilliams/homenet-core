@@ -29,9 +29,10 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
   });
 
   app.put('/:type', function(req, res) {
-    states.setCurrent(req.params.type, String(req.body.state))
+    const type = req.params.type;
+    states.setCurrent(type, String(req.body.state))
     .then(state => {
-      res.json(state);
+      res.json({ id: type, state, available: states.getAvailable(type) });
     })
     .catch(err => {
       res.status(400).send(err);

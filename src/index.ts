@@ -36,7 +36,8 @@ export function init(RED: any, config: Homenet.IConfig) : Homenet.IRuntime {
   // const locks = kernel.get<ILockManager>('ILockManager');
   // const switches = kernel.get<ISwitchManager>('ISwitchManager');
 
-  return {
+  let runtime;
+  runtime = {
     start() : void {
       logger.info('-------------------------------------------');
       logger.info('==============>>> HOMENET <<<==============');
@@ -55,6 +56,9 @@ export function init(RED: any, config: Homenet.IConfig) : Homenet.IRuntime {
       kernel.bind<T>(ctor).to(ctor).inSingletonScope();
       const pluginLoader: T = kernel.get<T>(ctor);
       plugins.add(pluginLoader);
+      return runtime;
     }
   };
+
+  return runtime;
 }
