@@ -32,6 +32,6 @@ class Plugins implements Homenet.IPlugins {
 
 export const pluginsModule = new KernelModule(bind => {
   bind<VirtualPluginLoader>('VirtualPluginLoader').to(VirtualPluginLoader);
-  bind<Homenet.IPlugins>('IPlugins').to(Plugins);
+  bind<Homenet.IPlugins>('IPlugins').to(Plugins).inSingletonScope();
   bind<DefaultPlugins>('DefaultPlugins').to(DefaultPlugins);
 });
