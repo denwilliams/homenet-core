@@ -233,6 +233,11 @@ declare namespace Homenet {
     removeOnTriggerListener(cb: Function) : void;
   }
 
+  interface IButton {
+    onClick(cb: Function)
+    onDoubleClick(cb: Function)
+    onHold(cb: Function)
+  }
 
   interface IBaseSensorArgs {
 
@@ -328,6 +333,10 @@ declare namespace Homenet {
   }
 
   interface ISensorManager extends IClassTypeManager<ISensor> {
+    // trigger(sensorId: string) : void
+  }
+
+  interface IButtonManager extends IClassTypeManager<IButton> {
     // trigger(sensorId: string) : void
   }
 
