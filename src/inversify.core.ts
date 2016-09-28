@@ -29,6 +29,7 @@ import { ZoneManager } from './core/zone-manager';
 // higher level
 import { SensorManager } from './classes/sensor-manager';
 import { LightsManager } from './classes/lights-manager';
+import { ButtonManager } from './classes/button-manager';
 import { LockManager } from './classes/lock-manager';
 import { PersonManager } from './classes/person-manager';
 import { RedisPersistence } from './core/redis-persistence';
@@ -190,6 +191,7 @@ export const coreModule = new KernelModule(bind => {
   bind<Homenet.IPersonManager>('IPersonManager').to(PersonManager).inSingletonScope();
   bind<Homenet.ILightsManager>('ILightsManager').to(LightsManager).inSingletonScope();
   bind<Homenet.ILockManager>('ILockManager').to(LockManager).inSingletonScope();
+  bind<Homenet.IButtonManager>('IButtonManager').to(ButtonManager).inSingletonScope();
   bind<Homenet.IStorageManager>('IStorageManager').to(StorageManager).inSingletonScope();
   bind<Homenet.ISensorManager>('ISensorManager').to(SensorManager).inSingletonScope();
 
