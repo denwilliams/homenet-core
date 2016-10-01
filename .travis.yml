@@ -5,7 +5,8 @@ node_js:
 before_install:
   - rm -rf lib/
   - npm install
-  - npm install -g typescript@1.8.10 typings@1.3.1 typedoc@0.3.12 babel-cli@6.10.1
+  # - npm install -g typescript@1.8.10 typings@1.4.0 typedoc@0.4.5 babel-cli@6.10.1
+  - npm install -g typescript@1.8.10 typings@1.4.0 babel-cli@6.10.1
   - npm install babel-preset-es2015@6.9.0
   # - npm install -g aglio
   - typings install
@@ -15,10 +16,14 @@ before_install:
 after_success:
   - ./ci-docs.deploy.sh
 deploy:
-  provider: npm
-  email: work@denwilliams.net
-  api_key:
-    secure: uuWhuiUWkZplVfLmXmOAMxuNtshKb/0h3bpAsXjY7TwnuXgG8xSD9IMlZqGHkTeYhNsUKAkehPFJh8g06Av3B4oP3Xm7HjyoXd3yAROTVxPxQiC5S1MsQRbuRSNLtM9g6Ht0iADyzyn5FfuHpVf1Epgzs/1sfHi8jQQPgJl9xGHrXV1Snq89gyc6QYY7h3au3OkWiR5oc6FCd+KQy8BpCO90glwn7pSKRKhZBQJIZ76C+HwsXqSo6FFbqdfjE7RP/nHJdvw1xK+Agf387K1dSB9Ymah8PB+54g8L+RWD5MU950iLGMkmfOoMrhBkzGnssHbjm06JkGJQ++VO7egQuM571DLEpAve/aKO+4a2ONtLbn8BNneCjwtDiK6eP/906pJaePmvl/XBxhjdRDne765RyZd2XVuoTyoNx9hNBb+wHLpsr+Bl8IGpKZa0B5HAspCcp6H2wkTULAP+Im9we53ASGD6SrhdceJSMqnVvwTmxapp1q91zUAUQlpdtfeNwmFNlHjuCJVSVVrMEXB1nD6AMfkQgD2fxIzypq+DCBG/5DX1TmTCklZL+fmC6mTt+YQFomcddgKpasJtcv+oP3RhbgcRwS939qJiz3pCTXoCGk9smbXaiy4nyWOgDR/PjxPDSJsj107SeHkZH5eGfq2SFU3xK0CiGN6AbG5aizA=
-  on:
-    tags: true
-    repo: denwilliams/homenet-core
+  - provider: npm
+    email: work@denwilliams.net
+    api_key:
+      secure: uuWhuiUWkZplVfLmXmOAMxuNtshKb/0h3bpAsXjY7TwnuXgG8xSD9IMlZqGHkTeYhNsUKAkehPFJh8g06Av3B4oP3Xm7HjyoXd3yAROTVxPxQiC5S1MsQRbuRSNLtM9g6Ht0iADyzyn5FfuHpVf1Epgzs/1sfHi8jQQPgJl9xGHrXV1Snq89gyc6QYY7h3au3OkWiR5oc6FCd+KQy8BpCO90glwn7pSKRKhZBQJIZ76C+HwsXqSo6FFbqdfjE7RP/nHJdvw1xK+Agf387K1dSB9Ymah8PB+54g8L+RWD5MU950iLGMkmfOoMrhBkzGnssHbjm06JkGJQ++VO7egQuM571DLEpAve/aKO+4a2ONtLbn8BNneCjwtDiK6eP/906pJaePmvl/XBxhjdRDne765RyZd2XVuoTyoNx9hNBb+wHLpsr+Bl8IGpKZa0B5HAspCcp6H2wkTULAP+Im9we53ASGD6SrhdceJSMqnVvwTmxapp1q91zUAUQlpdtfeNwmFNlHjuCJVSVVrMEXB1nD6AMfkQgD2fxIzypq+DCBG/5DX1TmTCklZL+fmC6mTt+YQFomcddgKpasJtcv+oP3RhbgcRwS939qJiz3pCTXoCGk9smbXaiy4nyWOgDR/PjxPDSJsj107SeHkZH5eGfq2SFU3xK0CiGN6AbG5aizA=
+    on:
+      tags: true
+      repo: denwilliams/homenet-core
+  - provider: script
+    script: bash ./deploy-docs.sh
+    on:
+      branch: master
