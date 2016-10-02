@@ -12,9 +12,9 @@
 	<title>Events - Homenet Docs</title>
 
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -32,7 +32,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -40,7 +39,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="../..">Homenet Docs</a>
@@ -48,121 +46,120 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="../..">Home</a>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
+            
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
                         
-                            
 <li >
     <a href="../../basics/customizing/">Customizing</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../../basics/redis/">Redis</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../../basics/requirements/">Requirements</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../../basics/starting/">Starting</a>
 </li>
 
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Core <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
                         
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Core <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
 <li >
     <a href="../_people/"> people</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../_scenes/"> scenes</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../_sunlight/"> sunlight</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../classes/">Classes</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../commands/">Commands</a>
 </li>
 
+                    
                         
-                            
 <li class="active">
     <a href="./">Events</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../presence/">Presence</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../switches/">Switches</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../triggers/">Triggers</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../values/">Values</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../zones/">Zones</a>
 </li>
 
+                    
                         
-                            
   <li class="dropdown-submenu">
     <a tabindex="-1" href="">Rules</a>
     <ul class="dropdown-menu">
@@ -188,65 +185,63 @@
     </ul>
   </li>
 
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plugins <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
                         
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plugins <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
 <li >
     <a href="../../plugins/lights/">Lights</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../../plugins/locks/">Locks</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../../plugins/nodered/">Nodered</a>
 </li>
 
+                    
                         
-                            
 <li >
     <a href="../../plugins/sensors/">Sensors</a>
 </li>
 
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
+                    
+                    </ul>
+                </li>
             
+            
+            </ul>
 
+            <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                
-                    <li >
-                        <a rel="next" href="../commands/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../presence/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                
+                <li >
+                    <a rel="next" href="../commands/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../presence/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
                 
             </ul>
         </div>
@@ -254,22 +249,20 @@
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 </div>
-            
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
         <script src="../../js/jquery-1.10.2.min.js"></script>
@@ -303,6 +296,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>
