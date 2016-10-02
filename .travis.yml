@@ -1,29 +1,28 @@
 language: node_js
 node_js:
-  - "node"
-  - "4"
+- node
+- '4'
 before_install:
-  - rm -rf lib/
-  - npm install
-  # - npm install -g typescript@1.8.10 typings@1.4.0 typedoc@0.4.5 babel-cli@6.10.1
-  - npm install -g typescript@1.8.10 typings@1.4.0 babel-cli@6.10.1
-  - npm install babel-preset-es2015@6.9.0
-  # - npm install -g aglio
-  - typings install
-  - tsc --outDir lib-es2015
-  - babel lib-es2015 --out-dir lib
-  - rm -rf lib-es2015
-# after_success:
-#   - ./ci-docs.deploy.sh
+- rm -rf lib/
+- npm install
+- npm install -g typescript@1.8.10 typings@1.4.0 babel-cli@6.10.1
+- npm install babel-preset-es2015@6.9.0
+- typings install
+- tsc --outDir lib-es2015
+- babel lib-es2015 --out-dir lib
+- rm -rf lib-es2015
 deploy:
-  - provider: npm
-    email: work@denwilliams.net
-    api_key:
-      secure: uuWhuiUWkZplVfLmXmOAMxuNtshKb/0h3bpAsXjY7TwnuXgG8xSD9IMlZqGHkTeYhNsUKAkehPFJh8g06Av3B4oP3Xm7HjyoXd3yAROTVxPxQiC5S1MsQRbuRSNLtM9g6Ht0iADyzyn5FfuHpVf1Epgzs/1sfHi8jQQPgJl9xGHrXV1Snq89gyc6QYY7h3au3OkWiR5oc6FCd+KQy8BpCO90glwn7pSKRKhZBQJIZ76C+HwsXqSo6FFbqdfjE7RP/nHJdvw1xK+Agf387K1dSB9Ymah8PB+54g8L+RWD5MU950iLGMkmfOoMrhBkzGnssHbjm06JkGJQ++VO7egQuM571DLEpAve/aKO+4a2ONtLbn8BNneCjwtDiK6eP/906pJaePmvl/XBxhjdRDne765RyZd2XVuoTyoNx9hNBb+wHLpsr+Bl8IGpKZa0B5HAspCcp6H2wkTULAP+Im9we53ASGD6SrhdceJSMqnVvwTmxapp1q91zUAUQlpdtfeNwmFNlHjuCJVSVVrMEXB1nD6AMfkQgD2fxIzypq+DCBG/5DX1TmTCklZL+fmC6mTt+YQFomcddgKpasJtcv+oP3RhbgcRwS939qJiz3pCTXoCGk9smbXaiy4nyWOgDR/PjxPDSJsj107SeHkZH5eGfq2SFU3xK0CiGN6AbG5aizA=
-    on:
-      tags: true
-      repo: denwilliams/homenet-core
-  - provider: script
-    script: bash ./deploy-docs.sh
-    on:
-      branch: master
+- provider: npm
+  email: work@denwilliams.net
+  api_key:
+    secure: uuWhuiUWkZplVfLmXmOAMxuNtshKb/0h3bpAsXjY7TwnuXgG8xSD9IMlZqGHkTeYhNsUKAkehPFJh8g06Av3B4oP3Xm7HjyoXd3yAROTVxPxQiC5S1MsQRbuRSNLtM9g6Ht0iADyzyn5FfuHpVf1Epgzs/1sfHi8jQQPgJl9xGHrXV1Snq89gyc6QYY7h3au3OkWiR5oc6FCd+KQy8BpCO90glwn7pSKRKhZBQJIZ76C+HwsXqSo6FFbqdfjE7RP/nHJdvw1xK+Agf387K1dSB9Ymah8PB+54g8L+RWD5MU950iLGMkmfOoMrhBkzGnssHbjm06JkGJQ++VO7egQuM571DLEpAve/aKO+4a2ONtLbn8BNneCjwtDiK6eP/906pJaePmvl/XBxhjdRDne765RyZd2XVuoTyoNx9hNBb+wHLpsr+Bl8IGpKZa0B5HAspCcp6H2wkTULAP+Im9we53ASGD6SrhdceJSMqnVvwTmxapp1q91zUAUQlpdtfeNwmFNlHjuCJVSVVrMEXB1nD6AMfkQgD2fxIzypq+DCBG/5DX1TmTCklZL+fmC6mTt+YQFomcddgKpasJtcv+oP3RhbgcRwS939qJiz3pCTXoCGk9smbXaiy4nyWOgDR/PjxPDSJsj107SeHkZH5eGfq2SFU3xK0CiGN6AbG5aizA=
+  on:
+    tags: true
+    repo: denwilliams/homenet-core
+- provider: script
+  script: bash ./deploy-docs.sh
+  on:
+    branch: master
+env:
+  global:
+    secure: Ln6stsu6/PZYeXrqLiuazyrp9JJstMZ7r3keYQFcZ7SsS8/ji1jLFb0zyBXT1zsHSoaCOIJiaTmUXqtp8cY1aqKDkB5RfxHJtSiiRoSQaQpOVhJCNJNgMkDq23zYigJIuW1SGz2Q+6uW4GrohtMCjceieoUo7Z9PPZnCA7o+vnStGOWAcgXEoqjKvzW8KixiaDw29tBFEV1dx8tfUpSdFSeGoVRyLZil1xW1TkKzubleuazmpciKRWfJVHdX4EgYK+Q7cA1LxAsDfkf9TTBfyQUKJxDSayLh+hxClMY9pOKe6rv0x98Jn55DalaBC30/IqgL1JIGGeoczYNJp9kluCw8UL4+eFMzExK0y4w2UZUJZL/grdTtjQFAD+3mZLLn+vt1P+SZyVjRtVZJcvB3l8wKhmb7R8N0ApmElEkx9yAmQDYKFWk2ldtF8sCRRVt9IWYSX4H4xBYeQnZ/dWQSumHmeczzKGikPM9uO9oaV6JiFE8xusXzjgNY6w/Qfn8/x6yeT1uoqMEP3RqhZKtSnSlj3samc6gkPZACOza7NL78zvDO7WhzCsxK7P04JFieZvuvH81Kk2bIUaj2KheWUF/8C54vV8AgvEb6OPGn5wd3iHvXlmGNHUE6a6ts9PP0F8MNMvB7MM5usVOXMIpdaojkfdu003Wyd+c3SoiDn3k=
