@@ -1,4 +1,4 @@
 site_name: Homenet Docs
 docs_dir: src
 site_dir: ./out/
-theme: cosmo
+theme: readthedocs
