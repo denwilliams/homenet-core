@@ -201,6 +201,31 @@
             "title": "Node red"
         }, 
         {
+            "location": "/plugins/buttons/", 
+            "text": "", 
+            "title": "Buttons"
+        }, 
+        {
+            "location": "/plugins/", 
+            "text": "Plugins\n\n\nHomenet Plugins\n\n\nHomenet Plugins provide vendor specific implementations for core classes.\n\n\nPlugins can provide implementations for the following classes:\n\n\n\n\nLights\n\n\nLocks\n\n\nSensors\n including motion sensors and temperature sensors\n\n\nButtons\n\n\n\n\nNode RED Plugins\n\n\nIn addition to Homenet plugins, \nNode RED plugins can also be used\n.\n\n\nNode RED plugins can be used within any rule, but are not available via the API.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/plugins/#plugins", 
+            "text": "", 
+            "title": "Plugins"
+        }, 
+        {
+            "location": "/plugins/#homenet-plugins", 
+            "text": "Homenet Plugins provide vendor specific implementations for core classes.  Plugins can provide implementations for the following classes:   Lights  Locks  Sensors  including motion sensors and temperature sensors  Buttons", 
+            "title": "Homenet Plugins"
+        }, 
+        {
+            "location": "/plugins/#node-red-plugins", 
+            "text": "In addition to Homenet plugins,  Node RED plugins can also be used .  Node RED plugins can be used within any rule, but are not available via the API.", 
+            "title": "Node RED Plugins"
+        }, 
+        {
             "location": "/plugins/lights/", 
             "text": "", 
             "title": "Lights"

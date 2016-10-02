@@ -116,6 +116,18 @@
     
         
     <url>
+     <loc>None/plugins/buttons/</loc>
+     <lastmod>2016-10-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/plugins/</loc>
+     <lastmod>2016-10-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>None/plugins/lights/</loc>
      <lastmod>2016-10-02</lastmod>
      <changefreq>daily</changefreq>
