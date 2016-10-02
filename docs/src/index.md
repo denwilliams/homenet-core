@@ -1,6 +1,6 @@
 # Homenet Core
 
-WIP
+WIP...
 
 ## The Basics
 
