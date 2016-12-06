@@ -29,7 +29,7 @@ test.beforeEach(t => {
 test('GET /commands returns an array of objects with id and commands', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/commands').expect(200);
@@ -46,7 +46,7 @@ test('GET /commands returns an array of objects with id and commands', async (t)
 test('GET /commands/:id returns a single item with commands', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/commands/light.one').expect(200);
@@ -61,7 +61,7 @@ test('GET /commands/:id returns a single item with commands', async (t) => {
 test('GET /commands/:id/:cmd returns a command metadata', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/commands/light.one/turnOn').expect(200);
@@ -73,7 +73,7 @@ test('GET /commands/:id/:cmd returns a command metadata', async (t) => {
 test('GET /commands/:id/:cmd returns a command metadata', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/commands/light.one/turnOn').expect(200);
@@ -85,7 +85,7 @@ test('GET /commands/:id/:cmd returns a command metadata', async (t) => {
 test('POST /commands/:id/:cmd executes a command', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const lights: Homenet.ILightsManager = t.context.lights;
   const light1 = lights.getInstance('one');
 
@@ -99,7 +99,7 @@ test('POST /commands/:id/:cmd executes a command', async (t) => {
 test('POST /commands/:id/:cmd returns a command response', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const lights: Homenet.ILightsManager = t.context.lights;
   const light1 = lights.getInstance('one');
   sinon.stub(light1, 'set').returns({test: 'RESULT'});
@@ -114,7 +114,7 @@ test('POST /commands/:id/:cmd returns a command response', async (t) => {
 test('POST /commands/:id/:cmd returns a command response after promise resolve', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const lights: Homenet.ILightsManager = t.context.lights;
   const light1 = lights.getInstance('one');
   sinon.stub(light1, 'set').returns(Promise.resolve({test: 'RESULT'}));

@@ -25,7 +25,7 @@ test.beforeEach(t => {
 test('/zones returns an array of objects with id and ??', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/zones');
@@ -41,7 +41,7 @@ test('/zones returns an array of objects with id and ??', async (t) => {
 test('/zones/:id returns a single zone', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/zones/simple');

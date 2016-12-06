@@ -1,6 +1,6 @@
 /// <reference path="./interfaces.d.ts"/>
 
-import { injectable, inject, KernelModule } from "inversify";
+import { injectable, inject, ContainerModule } from "inversify";
 // import { Homenet } from './interfaces.d.ts';
 
 import { VirtualPluginLoader } from './plugins/virtual/index';
@@ -30,7 +30,7 @@ class Plugins implements Homenet.IPlugins {
 }
 
 
-export const pluginsModule = new KernelModule(bind => {
+export const pluginsModule = new ContainerModule(bind => {
   bind<VirtualPluginLoader>('VirtualPluginLoader').to(VirtualPluginLoader);
   bind<Homenet.IPlugins>('IPlugins').to(Plugins).inSingletonScope();
   bind<DefaultPlugins>('DefaultPlugins').to(DefaultPlugins);
