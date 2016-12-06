@@ -5,8 +5,11 @@ node_js:
 before_install:
 - rm -rf lib/
 - npm install
-- npm install -g typescript@2.0.10
-- tsc
+- npm install -g typescript@2.0.10 babel-cli@6.10.1
+- npm install babel-preset-es2015@6.9.0
+- tsc --outDir lib-es2015
+- babel lib-es2015 --out-dir lib
+- rm -rf lib-es2015
 deploy:
 - provider: npm
   email: work@denwilliams.net
