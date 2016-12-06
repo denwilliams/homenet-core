@@ -10,7 +10,7 @@
     "preserveConstEnums": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": false,
     "listFiles": false,
     "outDir": "./lib"
