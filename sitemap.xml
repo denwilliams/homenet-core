@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,26 +12,26 @@
     
         
     <url>
-     <loc>None/basics/customizing/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/basics/customizing/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/basics/redis/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/basics/redis/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/basics/requirements/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/basics/requirements/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/basics/starting/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/basics/starting/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -40,73 +40,73 @@
     
         
     <url>
-     <loc>None/core/_people/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/_people/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/_scenes/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/_scenes/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/_sunlight/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/_sunlight/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/classes/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/classes/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/commands/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/commands/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/events/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/events/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/presence/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/presence/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/switches/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/switches/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/triggers/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/triggers/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/values/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/values/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/core/zones/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/core/zones/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None</loc>
+     <loc></loc>
      <lastmod></lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -116,38 +116,38 @@
     
         
     <url>
-     <loc>None/plugins/buttons/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/plugins/buttons/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/plugins/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/plugins/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/plugins/lights/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/plugins/lights/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/plugins/locks/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/plugins/locks/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/plugins/nodered/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/plugins/nodered/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/plugins/sensors/</loc>
-     <lastmod>2016-10-02</lastmod>
+     <loc>/plugins/sensors/</loc>
+     <lastmod>2016-12-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
