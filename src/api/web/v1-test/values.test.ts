@@ -27,7 +27,7 @@ test.beforeEach(t => {
 test('GET /values returns an array of available values', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const sensors: Homenet.ISensorManager = t.context.sensors;
   const sensor = sensors.getInstance('temperature');
   const sensorValue: Homenet.IValueStore = t.context.values.getInstance('sensor', 'temperature');
@@ -50,7 +50,7 @@ test('GET /values returns an array of available values', async (t) => {
 test('GET /values/:id returns a single value source', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const sensor = t.context.sensors.getInstance('temperature');
   const sensorValue: Homenet.IValueStore = t.context.values.getInstance('sensor', 'temperature');
   await sensorValue.waitReady();

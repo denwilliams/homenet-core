@@ -1,5 +1,7 @@
 # Homenet Core
 
+WIP...
+
 ## The Basics
 
 - [Requirements](basics/requirements.md)

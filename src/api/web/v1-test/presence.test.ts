@@ -25,7 +25,7 @@ test.beforeEach(t => {
 test('GET /presence returns an array of objects with id and present', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/presence').expect(200);
@@ -40,7 +40,7 @@ test('GET /presence returns an array of objects with id and present', async (t) 
 test('GET /presence/:id returns an object with id and present', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/presence/zone.simple').expect(200);

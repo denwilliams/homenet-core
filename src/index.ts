@@ -3,7 +3,7 @@
 require('reflect-metadata');
 require('source-map-support').install();
 
-import { Kernel, KernelModule } from 'inversify';
+import { Container, ContainerModule } from 'inversify';
 import { create as createKernel } from './inversify.kernel';
 // import {Homenet} from './interfaces.d.ts';
 const kernel = createKernel();
@@ -18,7 +18,7 @@ export function registerStats(CustomStats: new(...args: any[]) => Homenet.IStats
   kernel.bind<Homenet.IStatsTarget>('IStatsTarget').to(CustomStats);
 }
 export function init(RED: any, config: Homenet.IConfig) : Homenet.IRuntime {
-  const externalModule = new KernelModule(bind => {
+  const externalModule = new ContainerModule(bind => {
     console.log('Binding external modules');
     bind<any>("RED").toConstantValue(RED);
     bind<Homenet.IConfig>('IConfig').toConstantValue(config);

@@ -112,5 +112,5 @@ test('#set or instance#set emits an event', async (t) => {
   t.true(spy1.calledOnce);
   t.true(spy2.calledOnce);
   t.true(spyAll.calledTwice);
-  t.deepEqual(spy1.getCalls()[0].args[0], {name: 'value.test.1.key1', data: 1});
+  t.deepEqual(spy1.firstCall.args[0], {name: 'value.test.1.key1', data: 1});
 });
