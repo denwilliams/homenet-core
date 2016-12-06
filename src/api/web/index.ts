@@ -2,6 +2,7 @@
 
 import WebApiDependencies = require('./dependencies');
 import express = require('express');
+import cors = require('cors');
 import bodyParser = require('body-parser');
 
 // import { Homenet } from '../../interfaces.d.ts';
@@ -21,6 +22,7 @@ export class WebApi implements Homenet.IWebApi {
       = this.app
       = express();
 
+    app.use(cors());
     app.use(bodyParser.json({strict: false}));
     app.use('/geohopper', geohopper.createRouter(webApiDependencies));
     app.use('/v1', v1.createRouter(webApiDependencies));

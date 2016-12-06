@@ -26,7 +26,7 @@ test.beforeEach(t => {
 test('GET /switches returns an array of available switches', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/switches').expect(200);
@@ -41,7 +41,7 @@ test('GET /switches returns an array of available switches', async (t) => {
 test('GET /switches/:id returns a single switch', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/switches/light.one').expect(200);
@@ -54,7 +54,7 @@ test('GET /switches/:id returns a single switch', async (t) => {
 test('PUT /switches/:id sets a single switch', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const lights: Homenet.ILightsManager = t.context.lights;
   const light1 = lights.getInstance('one');
 

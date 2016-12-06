@@ -1,12 +1,12 @@
-import { inject, injectable, Kernel, interfaces as inversify } from "inversify";
+import { inject, injectable, Container, interfaces as inversify } from 'inversify';
 
 import { apiModule } from "./inversify.api";
 import { coreModule } from "./inversify.core";
 import { pluginsModule } from "./inversify.plugins";
 import { utilsModule } from "./inversify.utils";
 
-export function create(): inversify.Kernel {
-  const kernel: inversify.Kernel = new Kernel();
+export function create(): Container {
+  const kernel: Container = new Container();
   kernel.load(apiModule, coreModule, pluginsModule, utilsModule);
 
   @injectable()

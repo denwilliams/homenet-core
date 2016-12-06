@@ -26,7 +26,7 @@ test.beforeEach(t => {
 test('GET /states returns an array of objects with id, state, and available', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/states').expect(200);
@@ -49,7 +49,7 @@ test('GET /states returns an array of objects with id, state, and available', as
 test('GET /states/:type returns the state of a single type', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/states/sunlight').expect(200);
@@ -62,7 +62,7 @@ test('GET /states/:type returns the state of a single type', async (t) => {
 test('PUT /states/:type sets the state', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const scenes: Homenet.ISceneManager = t.context.kernel.get('ISceneManager');
 
   // ACT

@@ -26,7 +26,7 @@ test.beforeEach(t => {
 test('GET /triggers returns an array of object with ID and lastTriggered', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/triggers').expect(200);
@@ -41,7 +41,7 @@ test('GET /triggers returns an array of object with ID and lastTriggered', async
 test('GET /triggers/:id returns a single item', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
 
   // ACT
   const result: any = await request.get('/v1/triggers/sensor.motion').expect(200);
@@ -54,7 +54,7 @@ test('GET /triggers/:id returns a single item', async (t) => {
 test('POST /triggers/:id triggers an item', async (t) => {
   // ARRANGE
   const app: express.Router = t.context.app;
-  const request: supertest.SuperTest = supertest(app);
+  const request = supertest(app);
   const triggers: Homenet.ITriggerManager = t.context.triggers;
   const trigger = triggers.get('sensor', 'motion');
 

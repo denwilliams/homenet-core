@@ -1,4 +1,4 @@
-import { injectable, inject, multiInject, KernelModule } from "inversify";
+import { injectable, inject, multiInject, ContainerModule } from 'inversify';
 import * as chalk from 'chalk';
 import { EventEmitter } from 'events';
 
@@ -159,7 +159,7 @@ class StatsManager implements Homenet.IStatsManager {
 
 
 
-export const coreModule = new KernelModule(bind => {
+export const coreModule = new ContainerModule(bind => {
   // bind(new TypeBinding<IConfig>('IConfig', ConfigImpl, TypeBindingScopeEnum.Singleton));
   bind<Homenet.IStatsManager>('IStatsManager').to(StatsManager).inSingletonScope(); //.inTransientScope();
   bind<Homenet.ILogger>('ILogger').to(CoreLogger).inSingletonScope(); //.inTransientScope();

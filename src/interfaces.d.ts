@@ -434,6 +434,7 @@ declare namespace Homenet {
     emit(source: string, name: string, value: any)
     on(source: string, name: string, cb: Function)
     onAny(cb: Function)
+    removeListener(source:string, event:string, registeredCb:Function)
   }
 
 
