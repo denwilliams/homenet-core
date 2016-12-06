@@ -62,7 +62,7 @@ export class ValuesManager implements Homenet.IValuesManager {
 
   getInstances(type: string) : Homenet.IValueStore[] {
     return this.getAllInstances().filter(i => {
-      return i.id.startsWith(type);
+      return (i.id.indexOf(type) === 0);
     });
   }
 
