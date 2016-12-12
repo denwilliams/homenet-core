@@ -20,13 +20,15 @@ export class PresenceManager implements Homenet.IPresenceManager {
   private _children = {};
   private _logger: Homenet.ILogger;
   private _eventBus: Homenet.IEventBus;
-  private _events: EventEmitter = new EventEmitter();
+  private _events: EventEmitter;
 
   constructor(
             @inject('IEventBus') eventBus: Homenet.IEventBus,
             @inject('ILogger') logger: Homenet.ILogger) {
     this._eventBus = eventBus;
     this._logger = logger;
+    this._events = new EventEmitter();
+    this._events.setMaxListeners(50);
   }
 
   public on(event: string, listener: Function) {
