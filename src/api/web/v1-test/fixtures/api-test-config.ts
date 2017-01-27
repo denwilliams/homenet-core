@@ -4,19 +4,19 @@ export const config: Homenet.IConfig = {
       id: 'one',
       class: 'light',
       type: 'test',
-      options: {id: 1}
+      options: {id: 1, zone: 'simple'}
     },
     {
       id: 'two',
       class: 'light',
       type: 'test',
-      options: {id: 2}
+      options: {id: 2, zone: 'simple'}
     },
     {
       id: 'three',
       class: 'light',
       type: 'test',
-      options: {id: 3}
+      options: {id: 3, zone: 'child'}
     },
     {
       id: 'generic',
@@ -24,7 +24,8 @@ export const config: Homenet.IConfig = {
       type: 'test',
       options: {
         isValue: true,
-        isToggle: true
+        isToggle: true,
+        zone: 'simple'
       }
     },
     {
@@ -32,7 +33,8 @@ export const config: Homenet.IConfig = {
       class: 'sensor',
       type: 'test-value',
       options: {
-        isValue: true
+        isValue: true,
+        zone: 'simple'
       }
     },
     {
@@ -40,7 +42,8 @@ export const config: Homenet.IConfig = {
       class: 'sensor',
       type: 'test-value',
       options: {
-        isValue: true
+        isValue: true,
+        zone: 'child'
       }
     },
     {
@@ -48,7 +51,8 @@ export const config: Homenet.IConfig = {
       class: 'sensor',
       type: 'test-trigger',
       options: {
-        isTrigger: true
+        isTrigger: true,
+        zone: 'child'
       }
     }
   ],

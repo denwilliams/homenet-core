@@ -25,7 +25,6 @@ declare namespace Homenet {
     start() : void
   }
 
-
   interface IPlugins {
     add(loader: IPluginLoader)
     loadAll() : void
@@ -75,9 +74,7 @@ declare namespace Homenet {
     getLogger(name: string) : ILogger
   }
 
-  interface ISwitch extends IEventSource {
-    get() : any
-    set(value: any) : void
+  interface ISwitch extends ISettable, IEventSource {
   }
 
   interface ICommander {
@@ -94,30 +91,25 @@ declare namespace Homenet {
     addClass<T>(classId: string, classFactory: IClassFactory<T>) : void
     addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void
     getInstance<T>(classId: string, instanceId: InstanceOrFactory<T>) : T
+    getInstances() : any[]
+    getInstancesDetails() : any[]
     initializeAll() : void
   }
 
   interface ISwitchManager {
-    addType(typeId: string, switchFactory: ISwitchFactory) : void
-    addInstance(typeId: string, instanceId: string, opts: any) : void
+    addInstance(id: string, sw: ISwitch) : void
     getAllInstances() : Dict<ISwitch>
-    getInstance(typeIdOrFullId: string, instanceId?: string): ISwitch
-    set(typeId: string, instanceId: string, value: boolean|string|number) : any
-    get(typeId: string, instanceId: string) : boolean|string|number
-    // emitValue(typeId: string, instanceId: string, value: boolean|string|number) : void
+    getInstance(id: string): ISwitch
+    set(id: string, value: boolean|string|number) : any
+    get(id: string) : boolean|string|number
   }
 
   interface ICommandManager {
-    addType(typeId: string, factory: ICommanderFactory, meta: ICommandTypeMeta) : void
-    addInstance(typeId: string, instanceId: string, opts: any) : void
-    getInstance(fullId: string) : Homenet.ICommander
-    getInstance(typeId: string, instanceId: string) : Homenet.ICommander
+    addInstance(id: string, commander: ICommander, meta: Homenet.ICommandTypeMeta) : void
+    getInstance(id: string) : Homenet.ICommander
     getAll(): Homenet.Dict<Homenet.ICommander>
-    getMeta(fullId: string): Homenet.ICommandTypeMeta
-    getMeta(typeId: string, instanceId: string): Homenet.ICommandTypeMeta
-    getTypeMeta(typeId) : Homenet.ICommandTypeMeta
-    getType(typeId: string) : Homenet.ICommanderFactory
-    run(typeId: string, instanceId: string, command: string, args?: any[]): Promise<any>
+    getMeta(id: string): Homenet.ICommandTypeMeta
+    run(id: string, command: string, args?: any[]): Promise<any>
   }
 
   interface IStateManager {
@@ -153,20 +145,20 @@ declare namespace Homenet {
 
   interface IClassManager<T> {
     getInstance(instanceId: string) : T
-    getAllInstances(): Dict<Func<T>>
+    getAllInstances(): Dict<T>
   }
 
   interface IClassTypeManager<T> extends IClassManager<T> {
     addType(typeId: string, factory: IClassTypeFactory<T>) : void
   }
 
-  interface ISwitchInstanceProvider {
-    () : ISwitch
-  }
+  // interface ISwitchInstanceProvider {
+  //   () : ISwitch
+  // }
 
-  interface ISwitchFactory {
-    (opts: any) : ISwitch
-  }
+  // interface ISwitchFactory {
+  //   (opts: any) : ISwitch
+  // }
 
   interface ICommanderFactory {
     (opts: any) : ICommander
@@ -264,11 +256,24 @@ declare namespace Homenet {
     unlock() : void
   }
 
-  interface ILight extends ISwitch {
+  interface ILight extends ISwitch, ILightCommander {
+  }
+
+  interface ILightSwitch extends ISettable {
+    /**
+     * Get the current state of the light switch
+     */
     get() : string
+    /**
+     * Sets the state of the light switch.
+     * Typically called with a string state, but can be called with a boolean to turn the light on/off.
+     */
     set(value: string|boolean) : void
-    turnOn() : void
-    turnOff() : void
+  }
+
+  interface ISettable {
+    get() : any
+    set(value: any) : void
   }
 
   interface ILightCommander extends ICommander {
@@ -276,8 +281,8 @@ declare namespace Homenet {
     turnOff() : void
   }
 
-  interface ILightFactory {
-    (id : string, opts : any): ILight
+  interface ILightSwitchFactory {
+    (id : string, opts : any): ILightSwitch
   }
 
   interface ILockManager extends IClassTypeManager<ILock> {
@@ -285,6 +290,7 @@ declare namespace Homenet {
     // addType(typeId: string, type: ILockType) : void
     // getType(typeId: string): ILockType
     setLock(lockId: string, value: boolean) : void
+    addSettableType(typeId: string, factory: Homenet.IClassTypeFactory<Homenet.ISettable>): void
   }
 
   interface ISomeLock extends ISwitch {
@@ -325,7 +331,7 @@ declare namespace Homenet {
   export type InstanceOrFactory<T> = T | Factory<T>;
 
   interface IClassFactory<T> {
-    (instanceId: string, typeId: string, opts: any) :  T|Func<T>
+    (instanceId: string, typeId: string, opts: any) : T
   }
 
   interface IClassTypeFactory<T> {
@@ -472,7 +478,7 @@ declare namespace Homenet {
   }
 
   interface ILightsManager {
-    addType(typeId: string, factory: ILightFactory): void
+    addType(typeId: string, factory: ILightSwitchFactory): void
     getInstance(instanceId: string): ILight
   }
 
@@ -668,6 +674,7 @@ declare namespace Homenet {
   }
 
   export interface IWebDependencies {
+    classesManager: IClassesManager,
     logger: ILogger;
     config: IConfig;
     triggers: ITriggerManager;

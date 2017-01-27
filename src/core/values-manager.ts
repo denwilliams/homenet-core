@@ -39,9 +39,10 @@ export class ValuesManager implements Homenet.IValuesManager {
   * @param {string} instanceId - unique ID for this instance
   * @param {Array<string>|string} types - array of switch type IDs to be applied to this instance
   */
-  addInstance(typeId: string, instanceId: string) {
+  addInstance(typeId: string, instanceId: string) : Homenet.IValueStore {
     var id = this._getId(typeId, instanceId);
-    var instance = this._instances[id] = new ValueStore(id, this._eventBus, this._persistence);
+    var instance = new ValueStore(id, this._eventBus, this._persistence);
+    this._instances[id] = instance;
     return instance;
   }
 

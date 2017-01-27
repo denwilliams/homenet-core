@@ -56,12 +56,14 @@ class ConsoleLogger implements Homenet.ILogTarget {
 
 @injectable()
 class CoreLogger implements Homenet.ILogger {
-  private _events: EventEmitter = new EventEmitter();
+  private _events: EventEmitter;
 
   /**
    * Constructor
    */
   constructor(@multiInject('ILogTarget') loggers: Homenet.ILogTarget[]) {
+    this._events = new EventEmitter();
+    this._events.setMaxListeners(50);
     loggers.forEach(logger => {
       this._bindLogger(logger);
     });
@@ -113,7 +115,7 @@ class CoreLogger implements Homenet.ILogger {
 @injectable()
 class StatsManager implements Homenet.IStatsManager {
   private _eventBus: Homenet.IEventBus;
-  private _events: EventEmitter = new EventEmitter();
+  private _events: EventEmitter;
 
   /**
    * Constructor
@@ -122,6 +124,8 @@ class StatsManager implements Homenet.IStatsManager {
         @inject('IEventBus') eventBus: Homenet.IEventBus,
         @multiInject('IStatsTarget') targets: Homenet.IStatsTarget[]
         ) {
+    this._events = new EventEmitter();
+    this._events.setMaxListeners(50);
     targets.forEach(target => {
       this._bindTarget(target);
     });

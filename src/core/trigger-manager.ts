@@ -39,7 +39,12 @@ export class TriggerManager implements Homenet.ITriggerManager {
   add(typeId: string, instanceId: string, emitter: Homenet.IEventEmitter) {
     const id = typeId + '.' + instanceId;
     const uid = 'trigger.' + id;
-    const instance = this.instances[id] = new Trigger(id, emitter || new EventEmitter());
+    if (!emitter) {
+      const e = new EventEmitter();
+      e.setMaxListeners(50);
+      emitter = e;
+    }
+    const instance = this.instances[id] = new Trigger(id, emitter);
     instance.onTrigger(data => {
       this._eventBus.emit(uid, 'triggered', data);
       this._statsManager.counter(uid, data);

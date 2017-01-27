@@ -1,49 +1,35 @@
-/// <reference path="../interfaces.d.ts"/>
-
+import { factory } from './../api/web/v1-test/fixtures/sensors';
 import { injectable, inject } from 'inversify';
-// import {Homenet} from '../interfaces.d.ts';
 import chalk = require('chalk');
 
-import { ClassTypeManager } from '../utils/class-type-manager';
+import { SettableClassTypeManager } from '../utils/settable-class-type-manager';
+import { Lock } from './models/lock';
 
 const CLASS_ID = 'lock';
+const AVAILABLE_COMMANDS = {
+  'lock': {
+    "title": "Lock",
+    "comment": "Lock the device"
+  },
+  'unlock': {
+    "title": "Unlock",
+    "comment": "Unlock the device"
+  }
+};
 
 @injectable()
-export class LockManager extends ClassTypeManager<Homenet.ILock> implements Homenet.ILockManager {
-
-  private _switches: Homenet.ISwitchManager;
-  private _commands: Homenet.ICommandManager;
-  private _instances: Homenet.Dict<Homenet.ILock> = {};
-
-  // /**
-  //  * All lock IDs registered
-  //  * @member {Array<string>} LockManager#ids
-  //  */
-  // ids: string[] = [];
-
-  // /**
-  //  * All locks
-  //  * @member {Array<Lock>} LockManager#all
-  //  */
-  // all: ILock[] = [];
-
-  // locks: Dict<ILock> = {};
-
+export class LockManager extends SettableClassTypeManager<Homenet.ILock> implements Homenet.ILockManager {
   constructor(
-      @inject('IClassesManager') classes: Homenet.IClassesManager,
-      @inject('ISwitchManager') switches: Homenet.ISwitchManager,
-      @inject('ICommandManager') commands: Homenet.ICommandManager,
-      @inject('IConfig') config: Homenet.IConfig,
-      @inject('ILogger') logger: Homenet.ILogger
+      @inject('IClassesManager') private classes: Homenet.IClassesManager,
+      @inject('ISwitchManager') private switches: Homenet.ISwitchManager,
+      @inject('ICommandManager') private commands: Homenet.ICommandManager,
+      @inject('IEventBus') private eventBus: Homenet.IEventBus,
+      @inject('IConfig') private config: Homenet.IConfig,
+      @inject('ILogger') private logger: Homenet.ILogger
     ) {
     super(CLASS_ID, logger);
 
     this.addToClasses(classes);
-    this._bindSwitches(switches);
-    this._bindCommands(commands);
-
-    this._switches = switches;
-    this._commands = commands;
     logger.info('Started lock manager');
   }
 
@@ -51,40 +37,13 @@ export class LockManager extends ClassTypeManager<Homenet.ILock> implements Home
     this.getInstance(lockId).set(value);
   }
 
-  protected onAddInstance(instance: Homenet.Func<Homenet.ILock>, instanceId: string, typeId: string, opts: any) : void {
-    this._switches.addInstance(CLASS_ID, instanceId, {id: instanceId});
-    this._commands.addInstance(CLASS_ID, instanceId, {id: instanceId});
+  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILock {
+    return new Lock(id, settable, this.eventBus, this._logger);
   }
 
-  private _bindSwitches(switches: Homenet.ISwitchManager) {
-    const self: LockManager = this;
-    switches.addType(CLASS_ID, function(opts: {id: string}) : Homenet.ISwitch {
-      return self.getInstance(opts.id);
-    });
+  protected onAddInstance(instance: Homenet.ILock, instanceId: string, typeId: string, opts: any) : void {
+    const fullId = `${CLASS_ID}.${instanceId}`;
+    this.switches.addInstance(fullId, instance);
+    this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
   }
-
-  private _bindCommands(commands: Homenet.ICommandManager) {
-    const self: LockManager = this;
-    commands.addType(CLASS_ID, function(opts) {
-      var instance : Homenet.ILock = self.getInstance(opts.id);
-      return {
-        lock: function() {
-          instance.set(true);
-        },
-        unlock: function() {
-          instance.set(false);
-        }
-      };
-    }, {
-      'lock': {
-        "title": "Lock",
-        "comment": "Lock the device"
-      },
-      'unlock': {
-        "title": "Unlock",
-        "comment": "Unlock the device"
-      }
-    });
-  }
-
 }

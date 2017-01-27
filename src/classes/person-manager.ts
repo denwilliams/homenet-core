@@ -1,9 +1,23 @@
 import { injectable, inject } from 'inversify';
 
 import { Person } from './models/person';
-var ROOT_PRESNCE = 'person.any';
-var PRESENCE_CATEGORY = 'person';
-var PRESENCE_PREFIX = PRESENCE_CATEGORY + '.';
+const ROOT_PRESNCE = 'person.any';
+const PRESENCE_CATEGORY = 'person';
+const PRESENCE_PREFIX = PRESENCE_CATEGORY + '.';
+const AVAILABLE_COMMANDS = {
+  'bump': {
+    "title": "Bump Presence",
+    "comment": ""
+  },
+  'present': {
+    "title": "Make Present",
+    "comment": ""
+  },
+  'away': {
+    "title": "Make Away",
+    "comment": ""
+  }
+};
 
 @injectable()
 export class PersonManager implements Homenet.IPersonManager {
@@ -25,37 +39,6 @@ export class PersonManager implements Homenet.IPersonManager {
     this._commands = commands;
     this._logger = logger;
     var people = this._people = {};
-
-    switches.addType('person', function(opts) {
-      return people[opts.id];
-    });
-    commands.addType('person', function(opts) {
-      var person = people[opts.id];
-      return {
-        bump: function() {
-          person.bump();
-        },
-        present: function() {
-          person.set(true);
-        },
-        away: function() {
-          person.set(false);
-        }
-      };
-    }, {
-      'bump': {
-        "title": "Bump Presence",
-        "comment": ""
-      },
-      'present': {
-        "title": "Make Present",
-        "comment": ""
-      },
-      'away': {
-        "title": "Make Away",
-        "comment": ""
-      }
-    });
 
     var rootPresence = presence.add(ROOT_PRESNCE, {category:'person', name:'Anyone'});
 
@@ -83,8 +66,8 @@ export class PersonManager implements Homenet.IPersonManager {
   }
 
   onAddPerson(person: Person): void {
-    this._switches.addInstance('person', person.id, {id: person.id});
-    this._commands.addInstance('person', person.id, {id: person.id});
+    this._switches.addInstance(`person.${person.id}`, person);
+    this._commands.addInstance(`person.${person.id}`, person, AVAILABLE_COMMANDS);
   }
 
   get(id): Person {

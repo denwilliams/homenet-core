@@ -11,7 +11,7 @@ export const config: Homenet.IConfig = {
   ]
 }
 
-export function create() : Homenet.IClassTypeFactory<Homenet.ILock> {
+export function create() : Homenet.IClassTypeFactory<Homenet.ISettable> {
   return (id : string, opts : any): Homenet.ILock => {
     return new TestLock(id, opts);
   };

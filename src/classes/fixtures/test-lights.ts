@@ -23,7 +23,7 @@ export const config: Homenet.IConfig = {
   ]
 }
 
-export function create() : Homenet.ILightFactory {
+export function create() : Homenet.ILightSwitchFactory {
   return (id : string, opts : any): Homenet.ILight => {
     return new TestLight(id, opts);
   };

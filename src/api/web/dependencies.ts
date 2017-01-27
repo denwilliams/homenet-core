@@ -6,6 +6,7 @@ import {injectable, inject} from 'inversify';
 @injectable()
 export class WebDependencies implements Homenet.IWebDependencies {
 
+  classesManager: Homenet.IClassesManager;
   logger: Homenet.ILogger;
   config: Homenet.IConfig;
   triggers: Homenet.ITriggerManager;
@@ -39,7 +40,8 @@ export class WebDependencies implements Homenet.IWebDependencies {
     @inject('ISceneManager') scene: Homenet.ISceneManager,
     @inject('IValuesManager') values: Homenet.IValuesManager,
     @inject('IZoneManager') zones: Homenet.IZoneManager,
-    @inject('IAuthorizer') authorization: Homenet.IAuthorizer
+    @inject('IAuthorizer') authorization: Homenet.IAuthorizer,
+    @inject('IClassesManager') classesManager: Homenet.IClassesManager
     // utils: Utils
   ) {
     this.logger = logger;
@@ -57,6 +59,7 @@ export class WebDependencies implements Homenet.IWebDependencies {
     this.zones = zones;
     this.values =  values;
     this.authorization = authorization;
+    this.classesManager = classesManager;
     // this.utils = utils;
   }
 }

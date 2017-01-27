@@ -15,7 +15,6 @@ const meta = {
 test.beforeEach(t => {
   const kernel = createKernel();
   const commandManager = kernel.get<Homenet.ICommandManager>('ICommandManager');
-  commandManager.addType('test', factory, meta);
   t.context.commandManager = commandManager;
 });
 
@@ -24,7 +23,7 @@ test('#addInstance adds a new instance', t => {
   const commandManager: Homenet.ICommandManager = t.context.commandManager;
 
   // ACT
-  commandManager.addInstance('test', '1', 1);
+  commandManager.addInstance('test.1', 1, {});
 
   // ASSERT
   t.is(Object.keys(commandManager.getAll()).length, 1);
@@ -33,10 +32,10 @@ test('#addInstance adds a new instance', t => {
 test('#getInstance returns an added instance', t => {
   // ARRANGE
   const commandManager: Homenet.ICommandManager = t.context.commandManager;
-  commandManager.addInstance('test', '1', 1);
+  commandManager.addInstance('test.1', 1, {});
 
   // ACT
-  const commander: Homenet.ICommander = commandManager.getInstance('test', '1');
+  const commander: Homenet.ICommander = commandManager.getInstance('test.1');
 
   // ASSERT
   t.truthy(commander);
@@ -47,45 +46,35 @@ test('#getInstance returns null if no instance', t => {
   const commandManager: Homenet.ICommandManager = t.context.commandManager;
 
   // ACT
-  const commander: Homenet.ICommander = commandManager.getInstance('test', '1');
+  const commander: Homenet.ICommander = commandManager.getInstance('test.1');
 
   // ASSERT
   t.is(commander, null);
 });
 
-test('#run returns null if no instance', async (t) => {
+test('#run returns result of command', async (t) => {
   // ARRANGE
   const commandManager: Homenet.ICommandManager = t.context.commandManager;
-  commandManager.addInstance('test', '1', 1);
+  const commander = {
+    add(a, b) { return a + b; }
+  };
+  commandManager.addInstance('test.1', commander, {});
 
   // ACT
-  const result = await commandManager.run('test', '1', 'add', [2, 3]);
+  const result = await commandManager.run('test.1', 'add', [2, 3]);
 
   // ASSERT
   t.is(result, 5);
 });
 
-test('#getTypeMeta gets metadata for a command type', t => {
-  // ARRANGE
-  const commandManager: Homenet.ICommandManager = t.context.commandManager;
-
-  // ACT
-  const meta = commandManager.getTypeMeta('test');
-
-  // ASSERT
-  t.truthy(meta['add']);
-  t.is(meta['add'].title, 'Add');
-});
-
 test('#getMeta gets metadata for an instances type', t => {
   // ARRANGE
   const commandManager: Homenet.ICommandManager = t.context.commandManager;
-  commandManager.addInstance('test', '1', 1);
+  commandManager.addInstance('test.1', {}, {testmeta: true});
 
   // ACT
-  const meta = commandManager.getMeta('test', '1');
+  const meta = commandManager.getMeta('test.1');
 
   // ASSERT
-  t.truthy(meta['add']);
-  t.is(meta['add'].title, 'Add');
+  t.truthy(meta['testmeta']);
 });

@@ -22,7 +22,7 @@ export class Sunlight implements Homenet.ISunlight {
   private _latitude: number;
   private _longitude: number;
   private _state: boolean;
-  private _events: EventEmitter = new EventEmitter();
+  private _events: EventEmitter;
 
   constructor(
         @inject('ILogger') logger: Homenet.ILogger,
@@ -33,6 +33,8 @@ export class Sunlight implements Homenet.ISunlight {
     this._logger = logger;
     this._latitude = location.latitude;
     this._longitude = location.longitude;
+    this._events = new EventEmitter();
+    this._events.setMaxListeners(50);
 
     this.init();
 

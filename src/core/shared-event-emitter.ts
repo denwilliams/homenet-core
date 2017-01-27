@@ -19,7 +19,7 @@ export class SharedEventEmitter implements Homenet.IEventBus {
     this._logger = logger;
     this._e = new EventEmitter2({
       wildcard:true,
-      maxListeners: 50
+      maxListeners: 100
     });
   }
 

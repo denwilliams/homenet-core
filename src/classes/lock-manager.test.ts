@@ -8,7 +8,7 @@ test.beforeEach(t => {
   kernel.bind<Homenet.IConfig>('IConfig').toConstantValue(config);
   const locks = kernel.get<Homenet.ILockManager>('ILockManager');
   const instanceLoader = kernel.get<Homenet.IInstanceLoader>('IInstanceLoader');
-  locks.addType('test', create())
+  locks.addSettableType('test', create())
   t.context.locks = locks;
   t.context.config = config;
   t.context.instanceLoader = instanceLoader;
@@ -40,7 +40,7 @@ test('can lock with commands', async (t) => {
   t.is(lock1.get(), false);
 
   // ACT
-  commandManager.run('lock', 'one', 'lock');
+  commandManager.run('lock.one', 'lock');
 
   // ASSERT
   t.is(lock1.get(), true);
@@ -57,7 +57,7 @@ test('can unlock with commands', async (t) => {
   t.is(lock1.get(), true);
 
   // ACT
-  commandManager.run('lock', 'one', 'unlock');
+  commandManager.run('lock.one', 'unlock');
 
   // ASSERT
   t.is(lock1.get(), false);
@@ -73,7 +73,7 @@ test('can lock with switch', async (t) => {
   t.is(lock1.get(), false);
 
   // ACT
-  switchManager.set('lock', 'one', true);
+  switchManager.set('lock.one', true);
 
   // ASSERT
   t.is(lock1.get(), true);
@@ -90,7 +90,7 @@ test('can unlock with switch', async (t) => {
   t.is(lock1.get(), true);
 
   // ACT
-  switchManager.set('lock', 'one', false);
+  switchManager.set('lock.one', false);
 
   // ASSERT
   t.is(lock1.get(), false);

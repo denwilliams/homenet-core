@@ -33,6 +33,7 @@ function monitorSun(options) {
   var longitude = options.longitude;
 
   var evt = new EventEmitter();
+  evt.setMaxListeners(50);
   var state;
 
   if (!latitude || !longitude) {
@@ -43,7 +44,7 @@ function monitorSun(options) {
   }
 
   function init() {
-    
+
     /**
       * Gets a value indicating the current light state - either "light" or "dark"
       * @member current
@@ -55,8 +56,8 @@ function monitorSun(options) {
         return { isLight: isLight(), primaryState: currentLight() };
       }
     });
-    
-  
+
+
     /**
     * Returns true if the monitored coordinates are currently dark
     * @method isDark
@@ -64,7 +65,7 @@ function monitorSun(options) {
     * @returns {Boolean}
     */
     evt.isDark = isDark;
-  
+
     /**
     * Returns true if the monitored coordinates are currently light
     * @method isLight
@@ -72,7 +73,7 @@ function monitorSun(options) {
     * @returns {Boolean}
     */
     evt.isLight = isLight;
-    
+
     evt.refresh = refresh;
 
     var d = domain.create();
@@ -102,7 +103,7 @@ function monitorSun(options) {
       var stateName = (state ? 'dark' : 'light');
       evt.emit('light', {value:stateName});
       //mqtt.publish('environment/light', {value: stateName});
-      //mqtt.publishNotification('light',stateName,'yellow');   
+      //mqtt.publishNotification('light',stateName,'yellow');
     }
   }
 
@@ -124,10 +125,10 @@ function monitorSun(options) {
   function currentLight() {
     return isLight() ? 'light' : 'dark';
   }
-  
+
   init();
-  
-  return evt;  
+
+  return evt;
 }
 
 function dateDiff(d1, d2) {
