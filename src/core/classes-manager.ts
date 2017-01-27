@@ -13,11 +13,16 @@ export class ClassesManager implements Homenet.IClassesManager {
   private _classes : Homenet.Dict<Homenet.IClassFactory<any>>;
   private _logger : Homenet.ILogger;
   private _instances : Homenet.InstancesDict<any>;
+  private _zones : Homenet.IZoneManager;
 
-  constructor(@inject('ILogger') logger : Homenet.ILogger) {
+  constructor(
+      @inject('ILogger') logger : Homenet.ILogger,
+      @inject('IZoneManager') zones: Homenet.IZoneManager
+      ) {
     this._classes = {};
     this._instances = {};
     this._logger = logger;
+    this._zones = zones;
   }
 
   /**
@@ -43,8 +48,22 @@ export class ClassesManager implements Homenet.IClassesManager {
     if (typeof factory !== 'function') {
       throw new Error('No class factory found for ' + classId + ' (' + typeId + '/' + instanceId +')');
     }
-    var id: string = classId + '.' + instanceId;
-    this._instances[id] = factory(instanceId, typeId, opts);
+    var key: string = classId + '.' + instanceId;
+    const inst = factory(instanceId, typeId, opts);
+    const instance = {
+      class: classId,
+      type: typeId,
+      id: instanceId,
+      key: key,
+      zone: opts && (opts.zone || opts.zoneId) || undefined,
+      // command: details.command,
+      // switch: details.switch,
+      // trigger: details.trigger,
+      // value: details.value,
+      instance: inst
+    };
+
+    this._instances[key] = instance;
   }
 
   /**
@@ -56,12 +75,27 @@ export class ClassesManager implements Homenet.IClassesManager {
   getInstance<T>(classId: string, instanceId: Homenet.InstanceOrFactory<T>) : T {
     var id: string = classId + '.' + instanceId;
     var instance = this._instances[id];
-    if (!instance) {
+    if (!instance || !instance.instance) {
       this._logger.warn('No instance with ID ' + id);
     }
-    if (typeof instance === 'function') return (<() => T>instance)();
-    return instance;
+    if (typeof instance.instance === 'function') return (<() => T>instance.instance)();
+    return instance.instance;
   }
+
+  /**
+   * Gets all existing instances
+   */
+  getInstances() : any[] {
+    return _.map(this._instances, (i) => typeof i.instance === 'function' ? i.instance() : i.instance);
+  }
+
+  /**
+   * Gets all existing instances
+   */
+  getInstancesDetails() : {key: string, class: string, type: string, id: string, value: any}[] {
+    return _.values(this._instances);
+  }
+
   //
   //
   // /**
@@ -86,11 +120,10 @@ export class ClassesManager implements Homenet.IClassesManager {
    * If the instance has a `.initialize()` method it will be called.
    */
   initializeAll() {
-    var self = this;
-    self._logger.info('Initializing all class instances...');
-    _.each(self._instances, function(factory, key) {
-      self._logger.info('Initializing ' + key);
-      var instance : any = (typeof factory === 'function') ? (<Homenet.InstanceOrFactory<any>>factory)() : factory;
+    this._logger.info('Initializing all class instances...');
+    _.each(this._instances, (factory, key) => {
+      this._logger.info('Initializing ' + key);
+      const instance : any = (typeof factory === 'function') ? (<Homenet.InstanceOrFactory<any>>factory)() : factory;
       //if (typeof instance.initialize === 'function') instance.initialize();
     });
     this._logger.info('Done initializing');

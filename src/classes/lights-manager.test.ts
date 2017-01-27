@@ -40,7 +40,7 @@ test('can turn on with commands', async (t) => {
   t.is(light1.get(), 'unknown');
 
   // ACT
-  commandManager.run('light', 'one', 'turnOn');
+  commandManager.run('light.one', 'turnOn');
 
   // ASSERT
   t.is(light1.get(), 'on');
@@ -56,7 +56,7 @@ test('can turn off with commands', async (t) => {
   t.is(light1.get(), 'unknown');
 
   // ACT
-  commandManager.run('light', 'one', 'turnOff');
+  commandManager.run('light.one', 'turnOff');
 
   // ASSERT
   t.is(light1.get(), 'off');
@@ -72,7 +72,7 @@ test('can turn on with switch', async (t) => {
   t.is(light1.get(), 'unknown');
 
   // ACT
-  switchManaager.set('light', 'one', 'on');
+  switchManaager.set('light.one', 'on');
 
   // ASSERT
   t.is(light1.get(), 'on');
@@ -88,7 +88,7 @@ test('can turn off with switch', async (t) => {
   t.is(light1.get(), 'unknown');
 
   // ACT
-  switchManaager.set('light', 'one', 'off');
+  switchManaager.set('light.one', 'off');
 
   // ASSERT
   t.is(light1.get(), 'off');

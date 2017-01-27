@@ -25,6 +25,14 @@ export class Person extends EventEmitter implements Homenet.IPerson {
     this._presence.bump();
   }
 
+  present() : void {
+    this.set(true);
+  }
+
+  away() : void {
+    this.set(false);
+  }
+
   /**
    * @implements Switch#set
    */

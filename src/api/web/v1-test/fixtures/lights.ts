@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-export const factory: Homenet.ILightFactory = (id : string, opts : any): Homenet.ILight => {
+export const factory: Homenet.ILightSwitchFactory = (id : string, opts : any): Homenet.ILight => {
   return new TestLight(id, opts);
 };
 

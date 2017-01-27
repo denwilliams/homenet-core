@@ -2,7 +2,7 @@ const EVENT_TYPE: string = 'switch';
 
 import chalk = require('chalk');
 import _ = require('lodash');
-import { SwitchWrapper } from './models/switch-wrapper';
+// import { SwitchWrapper } from './models/switch-wrapper';
 import { inject, injectable } from 'inversify';
 // import {Homenet} from '../interfaces.d.ts';
 
@@ -16,27 +16,13 @@ import { inject, injectable } from 'inversify';
  */
 @injectable()
 export class SwitchManager implements Homenet.ISwitchManager {
-
-  types: Homenet.Dict<Homenet.ISwitchFactory>
-  instances: Homenet.Dict<Homenet.ISwitch>
-  categories: Homenet.Dict<any>
-
+  private _instances: Homenet.Dict<Homenet.ISwitch>
   private _logger: Homenet.ILogger;
-  private _eventBus: Homenet.IEventBus;
 
   constructor(
-        @inject('IEventBus') eventBus: Homenet.IEventBus,
         @inject('ILogger') logger: Homenet.ILogger) {
     this._logger = logger;
-    this._eventBus = eventBus;
-
-    this.types = {};
-    this.instances = {};
-    this.categories = {};
-  }
-
-  _wrap(id: string, instance: Homenet.ISwitchInstanceProvider) : SwitchWrapper {
-    return new SwitchWrapper(id, instance, this._eventBus, this._logger);
+    this._instances = {};
   }
 
   /**
@@ -67,43 +53,30 @@ export class SwitchManager implements Homenet.ISwitchManager {
   */
 
   /**
-  * Adds a switch type.
-  * @param {string} typeId - identifier for the type
-  * @param {SwitchManager~switchFactory} switchFactory - get and set implementations, and optional categories
-  */
-  addType(typeId: string, switchFactory: Homenet.ISwitchFactory): void {
-    this._logger.info('Adding switch type ' + typeId);
-    this.types[typeId] = switchFactory;
-  };
-
-  /**
   * Adds a new instance to the manager
   * @param {string} instanceId - unique ID for this instance
   * @param {string} typeId - type ID to be applied to this instance
   */
-  addInstance(typeId: string, instanceId: string, opts: any): void {
-    var id: string = getId(typeId, instanceId);
-    this._logger.debug('Adding switch ' + chalk.green(instanceId) + ' of type ' + chalk.cyan(typeId));
-    this.instances[id] = this._createInterfaceWrapper(typeId, instanceId, opts);
+  // addInstance(typeId: string, instanceId: string, opts: any): void {
+  addInstance(id: string, sw: Homenet.ISwitch): void {
+    // var id: string = getId(typeId, instanceId);
+    this._logger.debug('Adding switch ' + chalk.green(id));
+    this._instances[id] = sw;
   };
 
   /**
   * Gets all instances
   */
   getAllInstances(): Homenet.Dict<Homenet.ISwitch> {
-    return this.instances;
+    return this._instances;
   };
 
   /**
   * Gets switch instance
   * @returns {SwitchWrapper}
   */
-  getInstance(typeIdOrFullId: string, instanceId?: string): Homenet.ISwitch {
-    var id = getId(typeIdOrFullId, instanceId);
-    var switchWrapper = this.instances[id];
-    if (switchWrapper) return switchWrapper;
-    this._logger.warn(chalk.red('No instance found') + ' for switch: ' + chalk.green(id));
-    return null;
+  getInstance(id: string): Homenet.ISwitch {
+    return this._instances[id] || null;
   };
 
   /**
@@ -111,14 +84,10 @@ export class SwitchManager implements Homenet.ISwitchManager {
   * @param  {string} instanceId - the ID of the instance to set
   * @param  {*} value  - the new value
   */
-  set(typeId: string, instanceId: string, value: boolean|string|number): any {
-    var instance: Homenet.ISwitch = this.getInstance(typeId, instanceId);
-    if (!instance) throw new Error(`No instance found for ${typeId}.${instanceId}`)
-    var result = instance.set(value);
-    // if (instance.emitOnSet) {
-    //   this.emitValue(typeId, instanceId, value);
-    // }
-    return result;
+  set(id: string, value: boolean|string|number): any {
+    const instance: Homenet.ISwitch = this.getInstance(id);
+    if (!instance) throw new Error(`No instance found for ${id}`)
+    return instance.set(value);
   };
 
   /**
@@ -126,43 +95,9 @@ export class SwitchManager implements Homenet.ISwitchManager {
   * @param  {string} instanceId - the ID of the instance to run a command on
   * @return {*} the most recent value
   */
-  get(typeId: string, instanceId: string): boolean|string|number {
-    var instance = this.getInstance(typeId, instanceId);
+  get(id: string): boolean|string|number {
+    const instance = this.getInstance(id);
+    if (!instance) throw new Error(`No instance found for ${id}`)
     return instance.get();
-  };
-
-  // emitValue(typeId: string, instanceId: string, value: boolean|string|number) {
-  //   var instance: ISwitch = this.getInstance(typeId, instanceId);
-  //   if (!instance) {
-  //     this._logger.warn('');
-  //     return;
-  //   }
-  //   return instance.emitValue(value);
-  // };
-
-
-  _getType(typeId: string): Homenet.ISwitchFactory {
-    return this.types[typeId];
-  };
-
-  _createInterfaceWrapper(typeId: string, id: string, opts: any) : SwitchWrapper {
-    var factory: Homenet.ISwitchFactory = this._getType(typeId);
-    var lazyInstance: Homenet.ISwitchInstanceProvider = lazy(factory, id, opts);
-    var wrapper = this._wrap(getId(typeId, id), lazyInstance);
-    // todo: add to categories based on type
-    return wrapper;
-  };
-}
-
-function getId(typeId: string, instanceId?: string) : any {
-  if (instanceId) return typeId+'.'+instanceId;
-  return typeId;
-}
-
-function lazy(factory: Homenet.ISwitchFactory, id: string, opts: any): Homenet.ISwitchInstanceProvider {
-  var instance: Homenet.ISwitch;
-  return function() {
-    if (!instance) instance = factory(opts);
-    return instance;
   };
 }

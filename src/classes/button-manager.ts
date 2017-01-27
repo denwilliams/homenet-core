@@ -9,24 +9,21 @@ export class ButtonManager extends ClassTypeManager<Homenet.IButton> implements 
 
   constructor(
         @inject('IClassesManager') classes: Homenet.IClassesManager,
-        @inject('IEventBus') eventBus: Homenet.IEventBus,
-        @inject('IConfig') config: Homenet.IConfig,
-        @inject('ILogger') logger: Homenet.ILogger) {
+        @inject('IEventBus') private eventBus: Homenet.IEventBus,
+        @inject('ILogger') private logger: Homenet.ILogger) {
     super(CLASS_ID, logger);
-    this._eventBus = eventBus;
     this.addToClasses(classes);
   }
 
-  protected onAddInstance(instanceFn: Homenet.Func<Homenet.IButton>, instanceId: string, typeId: string, opts: any) : void {
-    const button = instanceFn();
+  protected onAddInstance(instance: Homenet.IButton, instanceId: string, typeId: string, opts: any) : void {
     const guid = `button.${instanceId}`;
-    button.onClick(() => {
+    instance.onClick(() => {
       this._eventBus.emit(guid, 'click', { timestamp: new Date() });
     });
-    button.onDoubleClick(() => {
+    instance.onDoubleClick(() => {
       this._eventBus.emit(guid, 'doubleclick', { timestamp: new Date() });
     });
-    button.onHold(() => {
+    instance.onHold(() => {
       this._eventBus.emit(guid, 'hold', { timestamp: new Date() });
     });
   }

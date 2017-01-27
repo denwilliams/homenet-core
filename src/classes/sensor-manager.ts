@@ -26,9 +26,7 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
       this._presence = presence;
     }
 
-  protected onAddInstance(instanceFn: Homenet.Func<Homenet.ISensor>, instanceId: string, typeId: string, opts: any) : void {
-    const sensor = instanceFn();
-
+  protected onAddInstance(sensor: Homenet.ISensor, instanceId: string, typeId: string, opts: any) : void {
     let sensorPresence = null;
     const guid = `sensor.${instanceId}`;
     if (sensor.isTrigger || sensor.isToggle) {

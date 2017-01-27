@@ -16,7 +16,7 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
   private _addInstance: Homenet.IClassFactory<T>;
 
   classId: string;
-  instances: Homenet.Dict<Homenet.Func<T>>;
+  instances: Homenet.Dict<T>;
   types: Homenet.Dict<Homenet.IClassTypeFactory<T>>;
 
   constructor(classId: string, logger: Homenet.ILogger) {
@@ -25,7 +25,7 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
     if (!classId) throw new Error('classId cannot be null');
     if (!logger) throw new Error('logger cannot be null');
 
-    const instances: Homenet.Dict<Homenet.Func<T>> = {};
+    const instances: Homenet.Dict<T> = {};
     const types: Homenet.Dict<any> = {};
 
     this.classId = classId;
@@ -35,18 +35,18 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
     this._logger = logger;
     this._addInstance = addInstance;
 
-    logger.info('Starting '+classId+' manager');
+    logger.info(`Starting ${classId} manager`);
 
-    function addInstance(instanceId: string, typeId: string, opts: any) : T|Homenet.Func<T> {
-      logger.debug('Creating ' + chalk.cyan(classId) + ' with ID ' + chalk.green(instanceId) + ' of type ' + chalk.cyan(typeId));
-      var instance: Homenet.Func<T> = eagerSingleton(createInstance, [typeId, instanceId, opts], null);
+    function addInstance(instanceId: string, typeId: string, opts: any) : T {
+      logger.debug(`Creating ${chalk.cyan(classId)} with ID ${chalk.green(instanceId)} of type ${chalk.cyan(typeId)}`);
+      var instance: T = createInstance(typeId, instanceId, opts);
       instances[instanceId] = instance;
       self.onAddInstance(instance, instanceId, typeId, opts);
       return instance;
     }
 
     function createInstance(typeId: string, instanceId: string, opts: any) : T {
-      logger.info('Creating ' + chalk.cyan(classId) + ' instance of type ' + chalk.cyan(typeId) + ' with ID ' + chalk.green(instanceId));
+      logger.info(`Creating ${chalk.cyan(classId)} instance of type ${chalk.cyan(typeId)} with ID ${chalk.green(instanceId)}`);
       var typeFactory: Homenet.IClassTypeFactory<T> = types[typeId];
       return typeFactory(instanceId, opts);
     }
@@ -76,8 +76,8 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
    * @return {*} the instance
    */
   getInstance(instanceId: string) : T {
-    var singletonProvider: Homenet.Func<T> = this.instances[instanceId];
-    if (singletonProvider) return singletonProvider();
+    const instance = this.instances[instanceId];
+    if (instance) return instance;
     this._logger.warn('Cannot find instance ' + instanceId);
     return null;
   }
@@ -87,17 +87,17 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
    * @return {Object<string,*>} an array of instances
    * @todo call factory methods
    */
-  getAllInstances(): Homenet.Dict<Homenet.Func<T>> {
+  getAllInstances(): Homenet.Dict<T> {
     return this.instances;
   }
 
   /**
-    * Called after an instance has been added by a class type manager.
-    * @callback ClassTypeManager.onAddInstance
-    * @param {*} instance
-    * @param {string} instanceId
-    * @param {string} typeId
-    * @param {Object} opts
-    */
-  protected abstract onAddInstance(instance: Homenet.Func<T>, instanceId: string, typeId: string, opts: any): void;
+   * Called after an instance has been added by a class type manager.
+   * @callback ClassTypeManager.onAddInstance
+   * @param {*} instance
+   * @param {string} instanceId
+   * @param {string} typeId
+   * @param {Object} opts
+   */
+  protected abstract onAddInstance(instance: T, instanceId: string, typeId: string, opts: any): void;
 }

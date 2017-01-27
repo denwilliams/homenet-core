@@ -7,7 +7,7 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
 
 export function createApi(commands: Homenet.ICommandManager) : express.Router {
 
-  var app = express();
+  const app = express();
 
   app.get('/', function (req, res) {
     res.json(_.map(commands.getAll(), (obj, id) => {
@@ -16,24 +16,24 @@ export function createApi(commands: Homenet.ICommandManager) : express.Router {
   });
 
   app.get('/:id', function (req, res) {
-    var id = req.params.id;
-    var meta = commands.getMeta(id);
+    const id = req.params.id;
+    const meta = commands.getMeta(id);
     res.json({ id: id, commands: commands.getMeta(id) });
   });
 
   app.get('/:id/:cmd', function (req, res) {
-    var id = req.params.id;
-    var cmd = req.params.cmd;
-    var meta = commands.getMeta(id);
+    const id = req.params.id;
+    const cmd = req.params.cmd;
+    const meta = commands.getMeta(id);
     res.json(meta && meta[cmd]);
   });
 
   app.post('/:id/:cmd', function (req, res) {
-    var id = req.params.id;
-    var cmd = req.params.cmd;
-    var instance = commands.getInstance(id);
-    var command = instance[cmd];
-    var response = command(req.body);
+    const id = req.params.id;
+    const cmd = req.params.cmd;
+    const instance = commands.getInstance(id);
+    const command = instance[cmd].bind(instance);
+    const response = command(req.body);
     if (!response  || !response.then) {
       res.json(response);
       return;
@@ -43,7 +43,3 @@ export function createApi(commands: Homenet.ICommandManager) : express.Router {
 
   return app;
 }
-
-// function mapSwitch(s) {
-//   return s.get();
-// }
