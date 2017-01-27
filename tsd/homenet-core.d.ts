@@ -222,7 +222,6 @@ declare module 'homenet-core' {
     start() : void
   }
 
-
   interface IPlugins {
     add(loader: IPluginLoader)
     loadAll() : void
@@ -272,9 +271,7 @@ declare module 'homenet-core' {
     getLogger(name: string) : ILogger
   }
 
-  interface ISwitch extends IEventSource {
-    get() : any
-    set(value: any) : void
+  interface ISwitch extends ISettable, IEventSource {
   }
 
   interface ICommander {
@@ -291,30 +288,25 @@ declare module 'homenet-core' {
     addClass<T>(classId: string, classFactory: IClassFactory<T>) : void
     addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void
     getInstance<T>(classId: string, instanceId: InstanceOrFactory<T>) : T
+    getInstances() : any[]
+    getInstancesDetails() : any[]
     initializeAll() : void
   }
 
   interface ISwitchManager {
-    addType(typeId: string, switchFactory: ISwitchFactory) : void
-    addInstance(typeId: string, instanceId: string, opts: any) : void
+    addInstance(id: string, sw: ISwitch) : void
     getAllInstances() : Dict<ISwitch>
-    getInstance(typeIdOrFullId: string, instanceId?: string): ISwitch
-    set(typeId: string, instanceId: string, value: boolean|string|number) : any
-    get(typeId: string, instanceId: string) : boolean|string|number
-    // emitValue(typeId: string, instanceId: string, value: boolean|string|number) : void
+    getInstance(id: string): ISwitch
+    set(id: string, value: boolean|string|number) : any
+    get(id: string) : boolean|string|number
   }
 
   interface ICommandManager {
-    addType(typeId: string, factory: ICommanderFactory, meta: ICommandTypeMeta) : void
-    addInstance(typeId: string, instanceId: string, opts: any) : void
-    getInstance(fullId: string) : ICommander
-    getInstance(typeId: string, instanceId: string) : ICommander
+    addInstance(id: string, commander: ICommander, meta: ICommandTypeMeta) : void
+    getInstance(id: string) : ICommander
     getAll(): Dict<ICommander>
-    getMeta(fullId: string): ICommandTypeMeta
-    getMeta(typeId: string, instanceId: string): ICommandTypeMeta
-    getTypeMeta(typeId) : ICommandTypeMeta
-    getType(typeId: string) : ICommanderFactory
-    run(typeId: string, instanceId: string, command: string, args?: any[]): Promise<any>
+    getMeta(id: string): ICommandTypeMeta
+    run(id: string, command: string, args?: any[]): Promise<any>
   }
 
   interface IStateManager {
@@ -350,20 +342,20 @@ declare module 'homenet-core' {
 
   interface IClassManager<T> {
     getInstance(instanceId: string) : T
-    getAllInstances(): Dict<Func<T>>
+    getAllInstances(): Dict<T>
   }
 
   interface IClassTypeManager<T> extends IClassManager<T> {
     addType(typeId: string, factory: IClassTypeFactory<T>) : void
   }
 
-  interface ISwitchInstanceProvider {
-    () : ISwitch
-  }
+  // interface ISwitchInstanceProvider {
+  //   () : ISwitch
+  // }
 
-  interface ISwitchFactory {
-    (opts: any) : ISwitch
-  }
+  // interface ISwitchFactory {
+  //   (opts: any) : ISwitch
+  // }
 
   interface ICommanderFactory {
     (opts: any) : ICommander
@@ -395,17 +387,18 @@ declare module 'homenet-core' {
      * @param  {String} msgTxt    - The message as text
      * @param  {String} [msgHtml] - The message as html
      */
-    send(severity: string, msgTxt: string, msgHtml?: string) : void
+    send(severity: string, msgTxt: string, msgHtml: [string]) : void
   }
 
   interface INotifier {
-    notify(severity: string, msgTxt: string, msgHtml?: string) : void;
+    notify(severity: string, msgTxt: string, msgHtml: [string]) : void;
   }
 
   type SensorEvent = 'trigger' | 'active' | 'value';
 
   interface ISensorOpts {
-    zoneId?: string;
+    zoneId?: string; // deprecated
+    zone?: string;
     timeout?: number;
   }
 
@@ -427,32 +420,13 @@ declare module 'homenet-core' {
     set(key, value) : void;
     onTrigger(cb: Function) : void;
     removeOnTriggerListener(cb: Function) : void;
-
-    // trigger() {
-    //   if (!this._trigger) return;
-    //   this._trigger.trigger();
-    // };
-
-    // on() {
-    //   if (!this._presence) return;
-    //   this._presence.set();
-    // };
-
-    // off() {
-    //   if (!this._presence) return;
-    //   this._presence.clear();
-    // };
-
-    // get(key) {
-    //   if (!this._values) return;
-    //   return this._values.get(key);
-    // };
-
-    // getAll() {
-    //   return this._values.getAll();
-    // };
   }
 
+  interface IButton {
+    onClick(cb: Function)
+    onDoubleClick(cb: Function)
+    onHold(cb: Function)
+  }
 
   interface IBaseSensorArgs {
 
@@ -469,15 +443,6 @@ declare module 'homenet-core' {
     data: any
   }
 
-  interface IButton {
-    onClick(cb: Function)
-    onDoubleClick(cb: Function)
-    onHold(cb: Function)
-  }
-
-  interface IButtonManager extends IClassTypeManager<IButton> {
-  }
-
   interface ILock extends ISwitch {
     // get() : boolean
     // set(value: boolean) : void
@@ -488,11 +453,24 @@ declare module 'homenet-core' {
     unlock() : void
   }
 
-  interface ILight extends ISwitch {
+  interface ILight extends ISwitch, ILightCommander {
+  }
+
+  interface ILightSwitch extends ISettable {
+    /**
+     * Get the current state of the light switch
+     */
     get() : string
+    /**
+     * Sets the state of the light switch.
+     * Typically called with a string state, but can be called with a boolean to turn the light on/off.
+     */
     set(value: string|boolean) : void
-    turnOn() : void
-    turnOff() : void
+  }
+
+  interface ISettable {
+    get() : any
+    set(value: any) : void
   }
 
   interface ILightCommander extends ICommander {
@@ -500,8 +478,8 @@ declare module 'homenet-core' {
     turnOff() : void
   }
 
-  interface ILightFactory {
-    (id : string, opts : any): ILight
+  interface ILightSwitchFactory {
+    (id : string, opts : any): ILightSwitch
   }
 
   interface ILockManager extends IClassTypeManager<ILock> {
@@ -509,6 +487,7 @@ declare module 'homenet-core' {
     // addType(typeId: string, type: ILockType) : void
     // getType(typeId: string): ILockType
     setLock(lockId: string, value: boolean) : void
+    addSettableType(typeId: string, factory: IClassTypeFactory<ISettable>): void
   }
 
   interface ISomeLock extends ISwitch {
@@ -549,7 +528,7 @@ declare module 'homenet-core' {
   export type InstanceOrFactory<T> = T | Factory<T>;
 
   interface IClassFactory<T> {
-    (instanceId: string, typeId: string, opts: any) :  T|Func<T>
+    (instanceId: string, typeId: string, opts: any) : T
   }
 
   interface IClassTypeFactory<T> {
@@ -558,6 +537,9 @@ declare module 'homenet-core' {
 
   interface ISensorManager extends IClassTypeManager<ISensor> {
     // trigger(sensorId: string) : void
+  }
+
+  interface IButtonManager extends IClassTypeManager<IButton> {
   }
 
 
@@ -578,6 +560,7 @@ declare module 'homenet-core' {
     hue?: any,
     instances?: InstanceConfig[],
     zones?: IZoneConfig[],
+    scenes?: ISceneConfig[],
     locks?: ILockConfig[],
     people?: IPersonConfig[],
     dataPath?: string,
@@ -605,6 +588,11 @@ declare module 'homenet-core' {
     faIcon: string;
     parent: string;
     timeout: number;
+  }
+
+  interface ISceneConfig {
+    id: string;
+    name?: string;
   }
 
   interface IPersonConfig {
@@ -687,7 +675,7 @@ declare module 'homenet-core' {
   }
 
   interface ILightsManager {
-    addType(typeId: string, factory: ILightFactory): void
+    addType(typeId: string, factory: ILightSwitchFactory): void
     getInstance(instanceId: string): ILight
   }
 
@@ -883,6 +871,7 @@ declare module 'homenet-core' {
   }
 
   export interface IWebDependencies {
+    classesManager: IClassesManager,
     logger: ILogger;
     config: IConfig;
     triggers: ITriggerManager;
