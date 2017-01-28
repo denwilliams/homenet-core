@@ -13,8 +13,8 @@ test.beforeEach(t => {
   kernel.bind<Homenet.IConfig>('IConfig').toConstantValue(config);
   const api = kernel.get<Homenet.IWebApi>('IWebApi');
   const lights = kernel.get<Homenet.ILightsManager>('ILightsManager');
-  lights.addType('test', lightFactory);
   const sensors = kernel.get<Homenet.ISensorManager>('ISensorManager');
+  lights.addType('test', lightFactory);
   sensors.addType('test', sensorFactory);
   sensors.addType('test-value', sensorFactory);
   sensors.addType('test-trigger', sensorFactory);

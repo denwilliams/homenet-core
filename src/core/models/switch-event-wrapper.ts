@@ -1,42 +1,37 @@
 const EVENT_TYPE: string = 'switch';
 const EVENT_PREFIX: string = `${EVENT_TYPE}.`;
-import {EventEmitter} from 'events';
 
-export class SwitchEventWrapper extends EventEmitter implements Homenet.ISwitch {
-  id: string;
+/**
+ * Relays `update` events to the event bus.
+ */
+export class SwitchEventWrapper implements Homenet.ISwitch {
+  private guid;
 
-  private _logger : Homenet.ILogger;
-  private _eventBus: Homenet.IEventBus;
-  private _instance: Homenet.ISettable;
-
-  constructor(id: string, instance: Homenet.ISettable, eventBus: Homenet.IEventBus, logger: Homenet.ILogger) {
-    super();
-
-    this.id = id;
-    this._logger = logger;
-    this._eventBus = eventBus;
-    this._instance = instance;
-
+  constructor(public id: string, private instance: Homenet.ISettable, private eventBus: Homenet.IEventBus, private logger: Homenet.ILogger) {
+    this.guid = `${EVENT_PREFIX}${this.id}`;
     logger.debug(`Creating a new SwitchEventWrapper: ${id}`);
+    instance.on('update', value => this.emitUpdateToEventBus(value));
   }
 
   set(value) : any {
-    this._logger.info(`Setting switch ${this.id} : ${value}`);
-    const instance = this._instance;
-    const result = instance.set.apply(instance, arguments);
-    this.emitValue(value);
-    return result;
+    this.logger.info(`Setting switch ${this.id} : ${value}`);
+    return this.instance.set.apply(this.instance, arguments);
   };
 
   get() : any {
-    this._logger.debug(`Getting switch ${this.id}`);
-    const instance = this._instance;
-    const result = instance.get.apply(instance, arguments);
-    return result;
+    this.logger.debug(`Getting switch ${this.id}`);
+    return this.instance.get.apply(this.instance, arguments);
   };
 
-  emitValue(value: boolean|string|number) : void {
-    this.emit('updated', value);
-    this._eventBus.emit(`${EVENT_PREFIX}${this.id}`, null, value);
+  on(event: 'update', handler: (value: any) => void) {
+    return this.instance.on(event, handler);
+  }
+
+  removeListener(event: 'update', handler: (value: any) => void) {
+    return this.instance.removeListener(event, handler);
+  }
+
+  private emitUpdateToEventBus(value: boolean|string|number) : void {
+    this.eventBus.emit(`${this.guid}`, 'update', value);
   }
 }

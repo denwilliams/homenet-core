@@ -5,12 +5,12 @@ import chalk = require('chalk');
 import BaseSwitch = require('../../core/models/base-switch');
 
 function createFactory(eventBus: Homenet.IEventBus) {
-  return function factory(id: string, opts: any) : Homenet.ILock {
+  return function factory(id: string, opts: any) : Homenet.ISettable {
     return new VirtualLock(id, opts, eventBus);
   }
 }
 
-class VirtualLock extends BaseSwitch<boolean> implements Homenet.ILock {
+class VirtualLock extends BaseSwitch<boolean> implements Homenet.ISettable {
 
   private _controller: string;
 

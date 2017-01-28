@@ -6,24 +6,14 @@ const CLASS_ID = 'sensor';
 
 @injectable()
 export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements Homenet.ISensorManager {
-  private _triggers: Homenet.ITriggerManager;
-  private _values: Homenet.IValuesManager;
-  private _presence: Homenet.IPresenceManager;
-
   constructor(
         @inject('IClassesManager') classes: Homenet.IClassesManager,
-        @inject('ITriggerManager') triggers: Homenet.ITriggerManager,
-        @inject('IValuesManager') values: Homenet.IValuesManager,
-        @inject('IPresenceManager') presence: Homenet.IPresenceManager,
+        @inject('ITriggerManager') private triggers: Homenet.ITriggerManager,
+        @inject('IValuesManager') private values: Homenet.IValuesManager,
+        @inject('IPresenceManager') private presence: Homenet.IPresenceManager,
         @inject('IConfig') config: Homenet.IConfig,
         @inject('ILogger') logger: Homenet.ILogger) {
-      super(CLASS_ID, logger);
-
-      this.addToClasses(classes);
-
-      this._triggers = triggers;
-      this._values = values;
-      this._presence = presence;
+      super(CLASS_ID, classes, logger);
     }
 
   protected onAddInstance(sensor: Homenet.ISensor, instanceId: string, typeId: string, opts: any) : void {
@@ -32,7 +22,7 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
     if (sensor.isTrigger || sensor.isToggle) {
       const zoneId = sensor.opts.zoneId || sensor.opts.zone;
       const parent : string = zoneId ? `zone.${zoneId}` : null;
-      sensorPresence = this._presence.add(
+      sensorPresence = this.presence.add(
         guid,
         { category: 'sensor', timeout: sensor.opts.timeout, parent, name: guid }
       );
@@ -40,7 +30,7 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
 
     if (sensor.isTrigger) {
       // allow trigger
-      let trigger = this._triggers.add(CLASS_ID, instanceId);
+      let trigger = this.triggers.add(CLASS_ID, instanceId);
       sensor.on('trigger', () => {
         trigger.trigger();
       });
@@ -57,7 +47,7 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
     }
     if (sensor.isValue) {
       // allow values
-      let valueStore = this._values.addInstance(CLASS_ID, instanceId);
+      let valueStore = this.values.addInstance(CLASS_ID, instanceId);
       sensor.on('value', (key: string, value: any) => {
         valueStore.set(key, value);
       });
