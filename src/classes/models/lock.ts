@@ -1,28 +1,21 @@
-import { SwitchEventWrapper } from '../../core/models/switch-event-wrapper';
-
 export class Lock implements Homenet.ILock {
-  private _switch: Homenet.ISwitch;
-  private _eventBus: Homenet.IEventBus;
-
-  constructor(id: string, lightSwitch: Homenet.ILightSwitch, eventBus: Homenet.IEventBus, logger: Homenet.ILogger) {
-    this._switch = new SwitchEventWrapper(id, lightSwitch, eventBus, logger);
-    this._eventBus = eventBus;
+  constructor(public id: string, private settable: Homenet.ISettable) {
   }
 
   set(value) {
-    return this._switch.set(value);
+    return this.settable.set(value);
   }
 
   get() {
-    return this._switch.get();
+    return this.settable.get();
   }
 
-  on(event: string, handler: Function) {
-    return this._switch.on(event, handler);
+  on(event: 'update', handler: (value: any) => void) {
+    return this.settable.on(event, handler);
   }
 
-  removeListener(event: string, handler: Function) {
-    return this._switch.removeListener(event, handler);
+  removeListener(event: 'update', handler: (value: any) => void) {
+    return this.settable.removeListener(event, handler);
   }
 
   lock() {

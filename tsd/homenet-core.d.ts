@@ -197,6 +197,7 @@ declare module 'homenet-core' {
     }
   }
 
+
   export interface IServiceContext {
     get<T>(type: string) : T
   }
@@ -271,11 +272,9 @@ declare module 'homenet-core' {
     getLogger(name: string) : ILogger
   }
 
-  interface ISwitch extends ISettable, IEventSource {
-  }
+  interface ISwitch extends ISettable {}
 
-  interface ICommander {
-  }
+  interface ICommander {}
 
   interface ITrigger {
     lastTriggered: Date
@@ -326,18 +325,11 @@ declare module 'homenet-core' {
     getAvailable(): string[];
   }
 
-  // interface TypeStateProvider<T> extends IStateProvider {
-  //   getCurrent() : T;
-  //   setCurrent(state:string|T) : void;
-  // }
-
   interface ISceneManager {
-
     current : IScene;
 
     set(name: string) : void;
     onChanged(callback : Function) : void;
-
   }
 
   interface IClassManager<T> {
@@ -349,13 +341,9 @@ declare module 'homenet-core' {
     addType(typeId: string, factory: IClassTypeFactory<T>) : void
   }
 
-  // interface ISwitchInstanceProvider {
-  //   () : ISwitch
-  // }
-
-  // interface ISwitchFactory {
-  //   (opts: any) : ISwitch
-  // }
+  interface ISettableClassTypeManager<T> extends IClassTypeManager<T> {
+    addSettableType(typeId: string, factory: IClassTypeFactory<ISettable>): void
+  }
 
   interface ICommanderFactory {
     (opts: any) : ICommander
@@ -428,9 +416,7 @@ declare module 'homenet-core' {
     onHold(cb: Function)
   }
 
-  interface IBaseSensorArgs {
-
-  }
+  interface IBaseSensorArgs {}
 
   interface ISensorEventArgs {
     deviceName: string
@@ -443,9 +429,11 @@ declare module 'homenet-core' {
     data: any
   }
 
-  interface ILock extends ISwitch {
-    // get() : boolean
-    // set(value: boolean) : void
+  interface ISettable {
+    get() : any
+    set(value: any) : void
+    on(name: 'update', cb: (value: any) => void) : void;
+    removeListener(name: 'update', cb: (value: any) => void) : void;
   }
 
   interface ILockCommander extends ICommander {
@@ -453,45 +441,17 @@ declare module 'homenet-core' {
     unlock() : void
   }
 
-  interface ILight extends ISwitch, ILightCommander {
-  }
-
-  interface ILightSwitch extends ISettable {
-    /**
-     * Get the current state of the light switch
-     */
-    get() : string
-    /**
-     * Sets the state of the light switch.
-     * Typically called with a string state, but can be called with a boolean to turn the light on/off.
-     */
-    set(value: string|boolean) : void
-  }
-
-  interface ISettable {
-    get() : any
-    set(value: any) : void
-  }
+  interface ILock extends ISwitch, ILockCommander {}
 
   interface ILightCommander extends ICommander {
     turnOn() : void
     turnOff() : void
   }
 
-  interface ILightSwitchFactory {
-    (id : string, opts : any): ILightSwitch
-  }
+  interface ILight extends ISwitch, ILightCommander {}
 
-  interface ILockManager extends IClassTypeManager<ILock> {
-    // getInstance(id: string) : ISomeLock
-    // addType(typeId: string, type: ILockType) : void
-    // getType(typeId: string): ILockType
+  interface ILockManager extends ISettableClassTypeManager<ILock> {
     setLock(lockId: string, value: boolean) : void
-    addSettableType(typeId: string, factory: IClassTypeFactory<ISettable>): void
-  }
-
-  interface ISomeLock extends ISwitch {
-    set(value: boolean) : void
   }
 
   export interface ILockType {
@@ -508,9 +468,7 @@ declare module 'homenet-core' {
     name : string;
   }
 
-  interface ICommandTypeMeta {
-
-  }
+  interface ICommandTypeMeta {}
 
   interface ScenesDict extends Dict<IScene> {}
 
@@ -539,22 +497,7 @@ declare module 'homenet-core' {
     // trigger(sensorId: string) : void
   }
 
-  interface IButtonManager extends IClassTypeManager<IButton> {
-  }
-
-
-  // THIS IS NOW IN ClassTypeManager
-  // /**
-  //   * Called after an instance has been added by a class type manager.
-  //   * @callback ClassTypeManager.onAddInstance
-  //   * @param {*} instance
-  //   * @param {string} instanceId
-  //   * @param {string} typeId
-  //   * @param {Object} opts
-  //   */
-  // interface IOnAddInstanceCallback<T> {
-  //   (instance: Func<T>, instanceId: string, typeId: string, opts: any): void
-  // }
+  interface IButtonManager extends IClassTypeManager<IButton> {}
 
   interface IConfig {
     hue?: any,
@@ -674,34 +617,25 @@ declare module 'homenet-core' {
     get(id: string) : IZone
   }
 
-  interface ILightsManager {
-    addType(typeId: string, factory: ILightSwitchFactory): void
-    getInstance(instanceId: string): ILight
-  }
+  /**
+   * The easiest way to implement a light provider/type is to implement an ISettable.
+   *
+   * The ISettable should provide functions to `set` and `get` the current light state.
+   * It should also emit an `update` event when the light state changes.
+   * For simple providers this may just occur when `set` is called.
+   * For more advanced providers this may occur by reading the state of the actual device.
+   * This allows for homenet to update it's state when a light is set through a physical
+   * switch or unrelated app.
+   * ILightsManager will automatically provide `turnOn` and `turnOff` commands which will
+   * proxy to the ISettable's `set` method with a value of true or false respectively.
+   * Include an ISettable light type by calling `addSettableType`.
+   *
+   * Alternatively, a custom `turnOn` and `turnOff` command can be implemented as an ILight.
+   * Include an ILight light type by calling `addType`.
+   */
+  interface ILightsManager extends ISettableClassTypeManager<ILight> {}
 
-  interface IStorageManager {
-
-  }
-
-  // /**
-  //  * @interface StateProvider
-  //  */
-  // interface StateProvider {
-  //   /**
-  //    * @member StateProvider#getCurrent
-  //    */
-  //    getCurrent();
-  //
-  //   /**
-  //    * @member StateProvider#setCurrent
-  //    */
-  //   setCurrent();
-  //
-  //   /**
-  //    * @member StateProvider#getAvailable
-  //    */
-  //   getAvailable();
-  // }
+  interface IStorageManager {}
 
   interface IValueStore {
     id: string
@@ -780,16 +714,6 @@ declare module 'homenet-core' {
      */
     current: string;
   }
-
-
-
-
-
-
-  // interface ISunlightState {
-  //   isLight: boolean;
-  //   primaryState: string;
-  // }
 
   interface IValueStore {}
 

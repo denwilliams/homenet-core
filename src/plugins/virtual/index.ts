@@ -22,7 +22,7 @@ export class VirtualPluginLoader implements Homenet.IPluginLoader {
     this._logger = logger;
     sensors.addType('virtual', createSensorsFactory())
     lights.addType('virtual', lightFactory);
-    locks.addType('virtual', createLockFactory(eventBus));
+    locks.addSettableType('virtual', createLockFactory(eventBus));
   }
 
   load() : void {

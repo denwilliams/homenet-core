@@ -1,4 +1,4 @@
-import {lazySingleton, eagerSingleton} from './lifecycle';
+import { lazySingleton, eagerSingleton } from './lifecycle';
 import chalk = require('chalk');
 import { injectable } from 'inversify';
 
@@ -12,14 +12,10 @@ import { injectable } from 'inversify';
 @injectable()
 export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T> {
 
-  protected _logger: Homenet.ILogger;
-  private _addInstance: Homenet.IClassFactory<T>;
+  private instances: Homenet.Dict<T>;
+  protected types: Homenet.Dict<Homenet.IClassTypeFactory<T>>;
 
-  classId: string;
-  instances: Homenet.Dict<T>;
-  types: Homenet.Dict<Homenet.IClassTypeFactory<T>>;
-
-  constructor(classId: string, logger: Homenet.ILogger) {
+  constructor(public classId: string, classes: Homenet.IClassesManager, protected logger: Homenet.ILogger) {
     const self = this;
 
     if (!classId) throw new Error('classId cannot be null');
@@ -28,28 +24,11 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
     const instances: Homenet.Dict<T> = {};
     const types: Homenet.Dict<any> = {};
 
-    this.classId = classId;
     this.types = types;
     this.instances = instances;
 
-    this._logger = logger;
-    this._addInstance = addInstance;
-
     logger.info(`Starting ${classId} manager`);
-
-    function addInstance(instanceId: string, typeId: string, opts: any) : T {
-      logger.debug(`Creating ${chalk.cyan(classId)} with ID ${chalk.green(instanceId)} of type ${chalk.cyan(typeId)}`);
-      var instance: T = createInstance(typeId, instanceId, opts);
-      instances[instanceId] = instance;
-      self.onAddInstance(instance, instanceId, typeId, opts);
-      return instance;
-    }
-
-    function createInstance(typeId: string, instanceId: string, opts: any) : T {
-      logger.info(`Creating ${chalk.cyan(classId)} instance of type ${chalk.cyan(typeId)} with ID ${chalk.green(instanceId)}`);
-      var typeFactory: Homenet.IClassTypeFactory<T> = types[typeId];
-      return typeFactory(instanceId, opts);
-    }
+    this.addToClasses(classes);
   }
 
   /**
@@ -57,7 +36,7 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
    * @param {ClassesManager} classes - classes module
    */
   addToClasses(classes: Homenet.IClassesManager) {
-    classes.addClass(this.classId, this._addInstance);
+    classes.addClass(this.classId, this.addInstance.bind(this));
   }
 
   /**
@@ -66,7 +45,7 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
    * @param {function} factory -
    */
   addType(typeId: string, factory: Homenet.IClassTypeFactory<T>) {
-    this._logger.info('Adding ' + chalk.blue(this.classId) + ' type ' + chalk.cyan(typeId));
+    this.logger.info('Adding ' + chalk.blue(this.classId) + ' type ' + chalk.cyan(typeId));
     this.types[typeId] = factory;
   }
 
@@ -78,7 +57,7 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
   getInstance(instanceId: string) : T {
     const instance = this.instances[instanceId];
     if (instance) return instance;
-    this._logger.warn('Cannot find instance ' + instanceId);
+    this.logger.warn('Cannot find instance ' + instanceId);
     return null;
   }
 
@@ -100,4 +79,18 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
    * @param {Object} opts
    */
   protected abstract onAddInstance(instance: T, instanceId: string, typeId: string, opts: any): void;
+
+  private createInstance(typeId: string, instanceId: string, opts: any) : T {
+    this.logger.info(`Creating ${chalk.cyan(this.classId)} instance of type ${chalk.cyan(typeId)} with ID ${chalk.green(instanceId)}`);
+    const typeFactory: Homenet.IClassTypeFactory<T> = this.types[typeId];
+    return typeFactory(instanceId, opts);
+  }
+
+  private addInstance(instanceId: string, typeId: string, opts: any) : T {
+    this.logger.debug(`Creating ${chalk.cyan(this.classId)} with ID ${chalk.green(instanceId)} of type ${chalk.cyan(typeId)}`);
+    var instance: T = this.createInstance(typeId, instanceId, opts);
+    this.instances[instanceId] = instance;
+    this.onAddInstance(instance, instanceId, typeId, opts);
+    return instance;
+  }
 }

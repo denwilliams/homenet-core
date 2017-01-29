@@ -12,12 +12,12 @@ export const config: Homenet.IConfig = {
 }
 
 export function create() : Homenet.IClassTypeFactory<Homenet.ISettable> {
-  return (id : string, opts : any): Homenet.ILock => {
+  return (id : string, opts : any): Homenet.ISettable => {
     return new TestLock(id, opts);
   };
 }
 
-class TestLock extends EventEmitter implements Homenet.ILock {
+class TestLock extends EventEmitter implements Homenet.ISettable {
   public calls: string[] = [];
   public state: boolean = false;
   public id: string;

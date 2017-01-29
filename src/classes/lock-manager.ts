@@ -25,11 +25,9 @@ export class LockManager extends SettableClassTypeManager<Homenet.ILock> impleme
       @inject('ICommandManager') private commands: Homenet.ICommandManager,
       @inject('IEventBus') private eventBus: Homenet.IEventBus,
       @inject('IConfig') private config: Homenet.IConfig,
-      @inject('ILogger') private logger: Homenet.ILogger
+      @inject('ILogger') logger: Homenet.ILogger
     ) {
-    super(CLASS_ID, logger);
-
-    this.addToClasses(classes);
+    super(CLASS_ID, classes, logger);
     logger.info('Started lock manager');
   }
 
@@ -38,7 +36,7 @@ export class LockManager extends SettableClassTypeManager<Homenet.ILock> impleme
   }
 
   protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILock {
-    return new Lock(id, settable, this.eventBus, this._logger);
+    return new Lock(id, settable);
   }
 
   protected onAddInstance(instance: Homenet.ILock, instanceId: string, typeId: string, opts: any) : void {

@@ -10,19 +10,15 @@ import chalk = require('chalk');
 @injectable()
 export class ClassesManager implements Homenet.IClassesManager {
 
-  private _classes : Homenet.Dict<Homenet.IClassFactory<any>>;
-  private _logger : Homenet.ILogger;
-  private _instances : Homenet.InstancesDict<any>;
-  private _zones : Homenet.IZoneManager;
+  private classes : Homenet.Dict<Homenet.IClassFactory<any>>;
+  private instances : Homenet.InstancesDict<any>;
 
   constructor(
-      @inject('ILogger') logger : Homenet.ILogger,
-      @inject('IZoneManager') zones: Homenet.IZoneManager
+      @inject('ILogger') private logger: Homenet.ILogger,
+      @inject('IZoneManager') private  zones: Homenet.IZoneManager
       ) {
-    this._classes = {};
-    this._instances = {};
-    this._logger = logger;
-    this._zones = zones;
+    this.classes = {};
+    this.instances = {};
   }
 
   /**
@@ -31,8 +27,8 @@ export class ClassesManager implements Homenet.IClassesManager {
    * @param {ClassesManager.classFactory} classFactory - factory for creating instances
    */
   addClass<T>(classId: string, classFactory: Homenet.IClassFactory<T>) : void {
-    this._logger.info('Adding class ' + chalk.cyan(classId));
-    this._classes[classId] = classFactory;
+    this.logger.info('Adding class ' + chalk.cyan(classId));
+    this.classes[classId] = classFactory;
   };
 
   /**
@@ -43,8 +39,8 @@ export class ClassesManager implements Homenet.IClassesManager {
    * @param {*} opts
    */
   addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void {
-    this._logger.debug('Adding instance of class ' + chalk.cyan(classId) + ' with ID ' + chalk.magenta(instanceId));
-    var factory : Homenet.IClassFactory<T> = this._classes[classId];
+    this.logger.debug('Adding instance of class ' + chalk.cyan(classId) + ' with ID ' + chalk.magenta(instanceId));
+    var factory : Homenet.IClassFactory<T> = this.classes[classId];
     if (typeof factory !== 'function') {
       throw new Error('No class factory found for ' + classId + ' (' + typeId + '/' + instanceId +')');
     }
@@ -63,7 +59,7 @@ export class ClassesManager implements Homenet.IClassesManager {
       instance: inst
     };
 
-    this._instances[key] = instance;
+    this.instances[key] = instance;
   }
 
   /**
@@ -74,9 +70,9 @@ export class ClassesManager implements Homenet.IClassesManager {
    */
   getInstance<T>(classId: string, instanceId: Homenet.InstanceOrFactory<T>) : T {
     var id: string = classId + '.' + instanceId;
-    var instance = this._instances[id];
+    var instance = this.instances[id];
     if (!instance || !instance.instance) {
-      this._logger.warn('No instance with ID ' + id);
+      this.logger.warn('No instance with ID ' + id);
     }
     if (typeof instance.instance === 'function') return (<() => T>instance.instance)();
     return instance.instance;
@@ -86,14 +82,14 @@ export class ClassesManager implements Homenet.IClassesManager {
    * Gets all existing instances
    */
   getInstances() : any[] {
-    return _.map(this._instances, (i) => typeof i.instance === 'function' ? i.instance() : i.instance);
+    return _.map(this.instances, (i) => typeof i.instance === 'function' ? i.instance() : i.instance);
   }
 
   /**
    * Gets all existing instances
    */
   getInstancesDetails() : {key: string, class: string, type: string, id: string, value: any}[] {
-    return _.values(this._instances);
+    return _.values(this.instances);
   }
 
   //
@@ -120,13 +116,13 @@ export class ClassesManager implements Homenet.IClassesManager {
    * If the instance has a `.initialize()` method it will be called.
    */
   initializeAll() {
-    this._logger.info('Initializing all class instances...');
-    _.each(this._instances, (factory, key) => {
-      this._logger.info('Initializing ' + key);
+    this.logger.info('Initializing all class instances...');
+    _.each(this.instances, (factory, key) => {
+      this.logger.info('Initializing ' + key);
       const instance : any = (typeof factory === 'function') ? (<Homenet.InstanceOrFactory<any>>factory)() : factory;
       //if (typeof instance.initialize === 'function') instance.initialize();
     });
-    this._logger.info('Done initializing');
+    this.logger.info('Done initializing');
   }
 
 }
