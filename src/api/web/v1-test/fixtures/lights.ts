@@ -1,10 +1,10 @@
 import { EventEmitter } from 'events';
 
-export const factory: Homenet.IClassTypeFactory<Homenet.ILight> = (id : string, opts : any): Homenet.ILight => {
+export const factory: Homenet.IClassTypeFactory<Homenet.ISettable> = (id : string, opts : any): Homenet.ISettable => {
   return new TestLight(id, opts);
 };
 
-class TestLight extends EventEmitter implements Homenet.ILight {
+class TestLight extends EventEmitter implements Homenet.ISettable {
   public calls: string[] = [];
   public state: string = 'unknown';
   public id: string;
@@ -25,13 +25,6 @@ class TestLight extends EventEmitter implements Homenet.ILight {
     this.calls.push('set');
     const newState: string = <string> (value === true ? 'on' : value === false ? 'off' : value);
     this.state = newState;
-  }
-
-  turnOn() : void {
-    this.calls.push('turnOn');
-  }
-
-  turnOff() : void {
-    this.calls.push('turnOff');
+    this.emit('update', newState);
   }
 }

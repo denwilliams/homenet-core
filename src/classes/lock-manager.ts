@@ -36,7 +36,7 @@ export class LockManager extends SettableClassTypeManager<Homenet.ILock> impleme
   }
 
   protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILock {
-    return new Lock(id, settable, this.eventBus, this.logger);
+    return new Lock(id, settable);
   }
 
   protected onAddInstance(instance: Homenet.ILock, instanceId: string, typeId: string, opts: any) : void {

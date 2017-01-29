@@ -14,7 +14,7 @@ test.beforeEach(t => {
   const api = kernel.get<Homenet.IWebApi>('IWebApi');
   const lights = kernel.get<Homenet.ILightsManager>('ILightsManager');
   const sensors = kernel.get<Homenet.ISensorManager>('ISensorManager');
-  lights.addType('test', lightFactory);
+  lights.addSettableType('test', lightFactory);
   sensors.addType('test', sensorFactory);
   sensors.addType('test-value', sensorFactory);
   sensors.addType('test-trigger', sensorFactory);

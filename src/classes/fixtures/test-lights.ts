@@ -23,13 +23,13 @@ export const config: Homenet.IConfig = {
   ]
 }
 
-export function create() : Homenet.IClassTypeFactory<Homenet.ILight> {
-  return (id : string, opts : any): Homenet.ILight => {
+export function create() : Homenet.IClassTypeFactory<Homenet.ISettable> {
+  return (id : string, opts : any): Homenet.ISettable => {
     return new TestLight(id, opts);
   };
 }
 
-class TestLight extends EventEmitter implements Homenet.ILight {
+class TestLight extends EventEmitter implements Homenet.ISettable {
   public calls: string[] = [];
   public state: string = 'unknown';
   public id: string;
@@ -50,13 +50,6 @@ class TestLight extends EventEmitter implements Homenet.ILight {
     this.calls.push('set');
     const newState: string = <string> (value === true ? 'on' : value === false ? 'off' : value);
     this.state = newState;
-  }
-
-  turnOn() : void {
-    this.calls.push('turnOn');
-  }
-
-  turnOff() : void {
-    this.calls.push('turnOff');
+    this.emit('update', newState);
   }
 }

@@ -1,4 +1,5 @@
 const EVENT_TYPE: string = 'switch';
+const EVENT_PREFIX: string = `${EVENT_TYPE}.`;
 
 import chalk = require('chalk');
 import _ = require('lodash');
@@ -16,13 +17,12 @@ import { inject, injectable } from 'inversify';
  */
 @injectable()
 export class SwitchManager implements Homenet.ISwitchManager {
-  private _instances: Homenet.Dict<Homenet.ISwitch>
-  private _logger: Homenet.ILogger;
+  private instances: Homenet.Dict<Homenet.ISwitch>
 
   constructor(
-        @inject('ILogger') logger: Homenet.ILogger) {
-    this._logger = logger;
-    this._instances = {};
+        @inject('IEventBus') private eventBus: Homenet.IEventBus,
+        @inject('ILogger') private logger: Homenet.ILogger) {
+    this.instances = {};
   }
 
   /**
@@ -60,15 +60,19 @@ export class SwitchManager implements Homenet.ISwitchManager {
   // addInstance(typeId: string, instanceId: string, opts: any): void {
   addInstance(id: string, sw: Homenet.ISwitch): void {
     // var id: string = getId(typeId, instanceId);
-    this._logger.debug('Adding switch ' + chalk.green(id));
-    this._instances[id] = sw;
+    this.logger.debug('Adding switch ' + chalk.green(id));
+    this.instances[id] = sw;
+    const guid = `${EVENT_PREFIX}${id}`;
+    sw.on('update', value => {
+      this.eventBus.emit(`${guid}`, 'update', value);
+    })
   };
 
   /**
   * Gets all instances
   */
   getAllInstances(): Homenet.Dict<Homenet.ISwitch> {
-    return this._instances;
+    return this.instances;
   };
 
   /**
@@ -76,7 +80,7 @@ export class SwitchManager implements Homenet.ISwitchManager {
   * @returns {SwitchWrapper}
   */
   getInstance(id: string): Homenet.ISwitch {
-    return this._instances[id] || null;
+    return this.instances[id] || null;
   };
 
   /**

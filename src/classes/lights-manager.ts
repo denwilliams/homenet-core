@@ -1,5 +1,4 @@
 import { injectable, inject } from 'inversify';
-import { SwitchEventWrapper } from '../core/models/switch-event-wrapper';
 import { Light } from './models/light';
 import { SettableClassTypeManager } from '../utils/settable-class-type-manager';
 
@@ -37,11 +36,14 @@ export class LightsManager extends SettableClassTypeManager<Homenet.ILight> impl
   }
 
   protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILight {
-    return new Light(id, settable, this.eventBus, this.logger);
+    return new Light(id, settable);
   }
 
   protected onAddInstance(light: Homenet.ILight, instanceId: string, typeId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
+    light.on('update', () => {
+
+    });
     this.switches.addInstance(fullId, light);
     this.commands.addInstance(fullId, light, AVAILABLE_COMMANDS);
   }

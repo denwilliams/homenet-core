@@ -8,7 +8,7 @@ test.beforeEach(t => {
   kernel.bind<Homenet.IConfig>('IConfig').toConstantValue(config);
   const lights = kernel.get<Homenet.ILightsManager>('ILightsManager');
   const instanceLoader = kernel.get<Homenet.IInstanceLoader>('IInstanceLoader');
-  lights.addType('test', create())
+  lights.addSettableType('test', create())
   t.context.lights = lights;
   t.context.config = config;
   t.context.instanceLoader = instanceLoader;

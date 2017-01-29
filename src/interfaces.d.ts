@@ -419,6 +419,22 @@ declare namespace Homenet {
     get(id: string) : IZone
   }
 
+  /**
+   * The easiest way to implement a light provider/type is to implement an ISettable.
+   *
+   * The ISettable should provide functions to `set` and `get` the current light state.
+   * It should also emit an `update` event when the light state changes.
+   * For simple providers this may just occur when `set` is called.
+   * For more advanced providers this may occur by reading the state of the actual device.
+   * This allows for homenet to update it's state when a light is set through a physical
+   * switch or unrelated app.
+   * ILightsManager will automatically provide `turnOn` and `turnOff` commands which will
+   * proxy to the ISettable's `set` method with a value of true or false respectively.
+   * Include an ISettable light type by calling `addSettableType`.
+   *
+   * Alternatively, a custom `turnOn` and `turnOff` command can be implemented as an ILight.
+   * Include an ILight light type by calling `addType`.
+   */
   interface ILightsManager extends ISettableClassTypeManager<ILight> {}
 
   interface IStorageManager {}
