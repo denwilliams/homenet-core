@@ -6,7 +6,7 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
 
   var app : express.Router = express();
 
-  app.get('/', function(req, res) {
+  app.get('/', (req, res) => {
     res.json(classesManager.getInstancesDetails().map(toApiInstance));
   });
 
