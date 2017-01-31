@@ -41,9 +41,6 @@ export class LightsManager extends SettableClassTypeManager<Homenet.ILight> impl
 
   protected onAddInstance(light: Homenet.ILight, instanceId: string, typeId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
-    light.on('update', () => {
-
-    });
     this.switches.addInstance(fullId, light);
     this.commands.addInstance(fullId, light, AVAILABLE_COMMANDS);
   }
