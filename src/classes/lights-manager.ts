@@ -1,20 +1,10 @@
 import { injectable, inject } from 'inversify';
-import { Light } from './models/light';
+import { Light, AVAILABLE_COMMANDS } from './models/light';
 import { SettableClassTypeManager } from '../utils/settable-class-type-manager';
 
 import chalk = require('chalk');
 
 const CLASS_ID = 'light';
-const AVAILABLE_COMMANDS = {
-  'turnOn': {
-    "title": "Turn On",
-    "comment": "Turns on the light"
-  },
-  'turnOff': {
-    "title": "Turn Off",
-    "comment": "Turns off the light"
-  }
-};
 
 @injectable()
 export class LightsManager extends SettableClassTypeManager<Homenet.ILight> implements Homenet.ILightsManager {

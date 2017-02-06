@@ -1,6 +1,7 @@
 import _ = require('lodash');
 import { inject, injectable } from 'inversify';
 import chalk = require('chalk');
+import { Instance } from './models/instance';
 
 /**
  * Container for managing/holding class contructors/factories and class instances
@@ -39,27 +40,15 @@ export class ClassesManager implements Homenet.IClassesManager {
    * @param {*} opts
    */
   addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void {
-    this.logger.debug('Adding instance of class ' + chalk.cyan(classId) + ' with ID ' + chalk.magenta(instanceId));
+    this.logger.debug(`Adding instance of class ${chalk.cyan(classId)} with ID ${chalk.magenta(instanceId)}`);
     var factory : Homenet.IClassFactory<T> = this.classes[classId];
     if (typeof factory !== 'function') {
       throw new Error('No class factory found for ' + classId + ' (' + typeId + '/' + instanceId +')');
     }
-    var key: string = classId + '.' + instanceId;
-    const inst = factory(instanceId, typeId, opts);
-    const instance = {
-      class: classId,
-      type: typeId,
-      id: instanceId,
-      key: key,
-      zone: opts && (opts.zone || opts.zoneId) || undefined,
-      // command: details.command,
-      // switch: details.switch,
-      // trigger: details.trigger,
-      // value: details.value,
-      instance: inst
-    };
-
-    this.instances[key] = instance;
+    const zone = opts && (opts.zone || opts.zoneId) || undefined;
+    const classInstance = factory(instanceId, typeId, opts);
+    const instance = new Instance(instanceId, classId, typeId, classInstance, zone);
+    this.instances[instance.key] = instance;
   }
 
   /**

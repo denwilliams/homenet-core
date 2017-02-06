@@ -19,6 +19,10 @@ function toApiInstance(src) {
     key: src.key,
     class: src.class,
     id: src.id,
-    zone: src.zone
+    zone: src.zone,
+    switchId: src.switchId,
+    commandId: src.commandId,
+    commandMeta: src.commandMeta,
+    valueId: src.valueId
   };
 }
