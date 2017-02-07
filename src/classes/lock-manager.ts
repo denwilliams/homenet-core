@@ -3,19 +3,9 @@ import { injectable, inject } from 'inversify';
 import chalk = require('chalk');
 
 import { SettableClassTypeManager } from '../utils/settable-class-type-manager';
-import { Lock } from './models/lock';
+import { Lock, AVAILABLE_COMMANDS } from './models/lock';
 
 const CLASS_ID = 'lock';
-const AVAILABLE_COMMANDS = {
-  'lock': {
-    "title": "Lock",
-    "comment": "Lock the device"
-  },
-  'unlock': {
-    "title": "Unlock",
-    "comment": "Unlock the device"
-  }
-};
 
 @injectable()
 export class LockManager extends SettableClassTypeManager<Homenet.ILock> implements Homenet.ILockManager {

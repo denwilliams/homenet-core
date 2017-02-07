@@ -1,4 +1,4 @@
-declare module 'homenet-core' {
+declare module '@homenet/core' {
   export function plugin(): (typeConstructor: any) => void;
   export function service(serviceIdentifier: (string)): (target: any, targetKey: string, index?: number) => any;
   export function init(RED: any, config: IConfig): IRuntime;
@@ -375,11 +375,11 @@ declare module 'homenet-core' {
      * @param  {String} msgTxt    - The message as text
      * @param  {String} [msgHtml] - The message as html
      */
-    send(severity: string, msgTxt: string, msgHtml: [string]) : void
+    send(severity: string, msgTxt: string, msgHtml?: string) : void
   }
 
   interface INotifier {
-    notify(severity: string, msgTxt: string, msgHtml: [string]) : void;
+    notify(severity: string, msgTxt: string, msgHtml?: string) : void;
   }
 
   type SensorEvent = 'trigger' | 'active' | 'value';

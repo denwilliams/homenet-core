@@ -177,11 +177,11 @@ declare namespace Homenet {
      * @param  {String} msgTxt    - The message as text
      * @param  {String} [msgHtml] - The message as html
      */
-    send(severity: string, msgTxt: string, msgHtml: [string]) : void
+    send(severity: string, msgTxt: string, msgHtml?: string) : void
   }
 
   interface INotifier {
-    notify(severity: string, msgTxt: string, msgHtml: [string]) : void;
+    notify(severity: string, msgTxt: string, msgHtml?: string) : void;
   }
 
   type SensorEvent = 'trigger' | 'active' | 'value';

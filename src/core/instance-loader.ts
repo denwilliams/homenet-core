@@ -5,25 +5,19 @@ import chalk = require('chalk');
 @injectable()
 export class InstanceLoader implements Homenet.IInstanceLoader {
 
-  private _classes : Homenet.IClassesManager;
-  private _logger: Homenet.ILogger;
-
   constructor(
-        @inject('IClassesManager') classes: Homenet.IClassesManager,
-        @inject('ILogger') logger: Homenet.ILogger) {
-    this._logger = logger;
-    this._classes = classes;
+        @inject('IClassesManager') private classes: Homenet.IClassesManager,
+        @inject('ILogger') private logger: Homenet.ILogger) {
   }
 
   loadInstances(config: Homenet.IConfig) : void {
-    this._logger.info('Loading instances from config...');
-    const classes = this._classes;
+    this.logger.info('Loading instances from config...');
     if (config.instances) {
       config.instances.forEach(instance => {
-        this._logger.info('Loading ' + chalk.green(instance.class + '/' + instance.type + '/' + instance.id));
-        classes.addInstance(instance.class, instance.id, instance.type, instance.options);
+        this.logger.info('Loading ' + chalk.green(instance.class + '/' + instance.type + '/' + instance.id));
+        this.classes.addInstance(instance.class, instance.id, instance.type, instance.options);
       });
     }
-    classes.initializeAll();
+    this.classes.initializeAll();
   }
 }

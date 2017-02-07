@@ -6,7 +6,7 @@ export function create(services: Homenet.IWebDependencies) : express.Router {
 
   var app : express.Router = express();
 
-  app.get('/', function(req, res) {
+  app.get('/', (req, res) => {
     res.json(classesManager.getInstancesDetails().map(toApiInstance));
   });
 
@@ -19,6 +19,10 @@ function toApiInstance(src) {
     key: src.key,
     class: src.class,
     id: src.id,
-    zone: src.zone
+    zone: src.zone,
+    switchId: src.switchId,
+    commandId: src.commandId,
+    commandMeta: src.commandMeta,
+    valueId: src.valueId
   };
 }

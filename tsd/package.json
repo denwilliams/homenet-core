@@ -1,6 +1,6 @@
 {
-  "name": "homenet-core-tsd",
-  "version": "4.0.0-beta.8",
+  "name": "@homenet/core-tsd",
+  "version": "4.0.0-beta.8b",
   "description": "Typescript definition for homenet-core",
   "scripts": {
     "test": ""
