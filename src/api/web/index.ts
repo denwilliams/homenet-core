@@ -1,6 +1,6 @@
 /// <reference path="../../interfaces.d.ts"/>
 
-import WebApiDependencies = require('./dependencies');
+import WebApiDependencies = require('../dependencies');
 import express = require('express');
 import cors = require('cors');
 import bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ import * as v1 from './routes/v1/index';
 import {injectable, inject} from 'inversify';
 
 @injectable()
-export class WebApi implements Homenet.IWebApi {
+export class WebApi implements Homenet.IApi {
 
   public app: express.Router;
 

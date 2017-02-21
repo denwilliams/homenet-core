@@ -16,7 +16,8 @@ class WebServer implements Homenet.IWebServer {
   constructor(
         // @inject('ILogger') logger: ILogger,
         @inject('IConfig') config: Homenet.IConfig,
-        @inject('IWebApi') webApi: Homenet.IWebApi) {
+        @inject('IGraphQLApi') gqlApi: Homenet.IApi,
+        @inject('IWebApi') webApi: Homenet.IApi) {
     // if (!logger) throw new Error('Logger required');
     if (!config) throw new Error('Config required');
     if (!webApi) throw new Error('Web API required');
@@ -28,6 +29,7 @@ class WebServer implements Homenet.IWebServer {
     app.use(basicAuth());
 
   	app.use('/api', webApi.app);
+  	app.use('/graphql', gqlApi.app);
 
   	// app.use('/sensor', services.sensors.app);
   	// app.use('/people', services.people.app);

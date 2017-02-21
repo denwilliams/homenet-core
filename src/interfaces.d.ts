@@ -30,7 +30,7 @@ declare namespace Homenet {
     loadAll() : void
   }
 
-  interface IWebApi {
+  interface IApi {
     app: any;
   }
 

@@ -1,5 +1,5 @@
 import express  = require('express');
-import WebApiDependencies = require('../../dependencies');
+import WebApiDependencies = require('../../../dependencies');
 import triggers = require('./triggers');
 import zones = require('./zones');
 import states = require('./states');

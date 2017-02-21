@@ -4,17 +4,12 @@ import { inject, injectable } from 'inversify';
 
 @injectable()
 export class StateManager implements Homenet.IStateManager {
-
   private _types : any;
-  private _eventBus : Homenet.IEventBus;
-  private _logger : Homenet.ILogger;
 
   constructor(
-        @inject('IEventBus') eventBus: Homenet.IEventBus,
-        @inject('ILogger') logger: Homenet.ILogger) {
+        @inject('IEventBus') private eventBus: Homenet.IEventBus,
+        @inject('ILogger') private logger: Homenet.ILogger) {
     this._types = {};
-    this._eventBus = eventBus;
-    this._logger = logger;
   }
 
   /**
@@ -24,7 +19,7 @@ export class StateManager implements Homenet.IStateManager {
    */
   addType(typeId: string, provider: Homenet.IStateProvider) : void {
     this._types[typeId] = provider;
-    this._logger.debug('Defined state type: '+typeId);
+    this.logger.debug('Defined state type: '+typeId);
   }
 
   getType(typeId: string) : Homenet.IStateProvider {
@@ -38,10 +33,10 @@ export class StateManager implements Homenet.IStateManager {
   setCurrent(typeId: string, state: string) : Promise<string> {
     return Promise.resolve()
     .then(() => {
-      this._logger.info('Setting ' + typeId + ' state to ' + state);
+      this.logger.info('Setting ' + typeId + ' state to ' + state);
       var type = this.getType(typeId);
       if (!type.setCurrent) {
-        this._logger.warn('Could not set state for type ' + typeId + ' - no setCurrent method defined');
+        this.logger.warn('Could not set state for type ' + typeId + ' - no setCurrent method defined');
         return;
       }
       var result = type.setCurrent(state);
@@ -53,7 +48,7 @@ export class StateManager implements Homenet.IStateManager {
   }
 
   emitState(typeId: string, state: string) : void {
-    this._eventBus.emit('state.' + typeId, 'changed', state);
+    this.eventBus.emit('state.' + typeId, 'changed', state);
   }
 
   getCurrent(typeId: string) : Promise<string> {

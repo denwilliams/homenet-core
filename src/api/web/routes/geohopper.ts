@@ -1,6 +1,6 @@
 /// <reference path="../../../interfaces.d.ts"/>
 
-import WebApiDependencies = require('../dependencies');
+import WebApiDependencies = require('../../dependencies');
 
 // import { Homenet } from '../../../interfaces.d.ts';
 

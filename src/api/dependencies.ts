@@ -1,4 +1,4 @@
-/// <reference path="../../interfaces.d.ts"/>
+/// <reference path="../interfaces.d.ts"/>
 
 import {injectable, inject} from 'inversify';
 // import {Homenet} from '../../interfaces.d.ts';
