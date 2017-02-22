@@ -13,8 +13,13 @@ type Query {
 }
 
 type Mutation {
-  runCommand(id: String!, command: String!, jsonArgs: String): Boolean!
-  setSwitch(id: String!, value: Primitive!): Boolean
+  runCommand(id: String!, command: String!, jsonArgs: String): BasicResult!
+  setSwitch(id: String!, value: Primitive!): BasicResult!BasicResult
+  setState(type: String!, state: String!): BasicResult!
+}
+
+type BasicResult {
+  success: Boolean!
 }
 
 type State {

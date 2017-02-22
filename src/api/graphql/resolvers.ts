@@ -1,5 +1,7 @@
 import { GraphQLScalarType } from 'graphql';
 
+const BASIC_RESULT = { success: true };
+
 const Primitive = new GraphQLScalarType({
   name: 'Primitive',
   description: 'A Primitive can be either a string, number, or boolean',
@@ -42,12 +44,17 @@ const Mutation = {
     let args = jsonArgs ? JSON.parse(jsonArgs) : null;
     if (jsonArgs && !Array.isArray(jsonArgs)) jsonArgs = [jsonArgs];
     return Promise.resolve(commands.run(id, command, jsonArgs))
-    .then(() => true);
+    .then(() => BASIC_RESULT);
   },
   setSwitch(_, { id, value }, ctx) {
     const switches: Homenet.ISwitchManager = ctx.switches;
     return Promise.resolve(switches.set(id, value))
-    .then(() => true);
+    .then(() => BASIC_RESULT);
+  },
+  setState(_, { type, state }, ctx) {
+    const states: Homenet.IStateManager = ctx.states;
+    return states.setCurrent(type, state)
+    .then(() => BASIC_RESULT)
   }
 };
 
