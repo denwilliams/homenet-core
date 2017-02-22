@@ -14,7 +14,7 @@ type Query {
 
 type Mutation {
   runCommand(id: String!, command: String!, jsonArgs: String): BasicResult!
-  setSwitch(id: String!, value: Primitive!): BasicResult!BasicResult
+  setSwitch(id: String!, value: Primitive!): BasicResult!
   setState(type: String!, state: String!): BasicResult!
 }
 
