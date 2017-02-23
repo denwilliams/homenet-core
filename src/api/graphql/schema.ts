@@ -10,7 +10,7 @@ type Query {
   # Available zones
   zones: [Zone]
   state(type: String!): State
-  config : Config!
+  config: Config!
 }
 
 type Mutation {
@@ -20,10 +20,12 @@ type Mutation {
 }
 
 type Config {
-  coords {
-    lat: Float
-    lng: Float
-  }
+  coords: Coords
+}
+
+type Coords {
+  lat: Float
+  lng: Float
 }
 
 type BasicResult {
@@ -102,5 +104,4 @@ type ValueItem {
   bvalue: Boolean
   fvalue: Float
 }
-
 `;
