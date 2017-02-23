@@ -35,6 +35,15 @@ const Query = {
   state(_, { type }, ctx) {
     const states: Homenet.IStateManager = ctx.states;
     return states.getType(type);
+  },
+  config(_, args, ctx) {
+    const config: Homenet.IConfig = ctx.config;
+    return {
+      coords: {
+        lat: config.location.latitude,
+        lng: config.location.longitude
+      }
+    };
   }
 };
 
