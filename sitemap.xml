@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,25 +13,25 @@
         
     <url>
      <loc>/basics/customizing/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/redis/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/requirements/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/starting/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -41,67 +41,67 @@
         
     <url>
      <loc>/core/_people/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/_scenes/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/_sunlight/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/classes/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/commands/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/events/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/presence/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/switches/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/triggers/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/values/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/zones/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -117,37 +117,37 @@
         
     <url>
      <loc>/plugins/buttons/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/lights/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/locks/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/nodered/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/sensors/</loc>
-     <lastmod>2017-02-22</lastmod>
+     <lastmod>2017-05-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
