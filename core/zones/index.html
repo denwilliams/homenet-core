@@ -124,6 +124,25 @@
     <a class="current" href="./">Zones</a>
     <ul class="subnav">
             
+    <li class="toctree-l3"><a href="#zones">Zones</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#fields">Fields</a></li>
+        
+            <li><a class="toctree-l4" href="#temperature">temperature</a></li>
+        
+            <li><a class="toctree-l4" href="#humidity">humidity</a></li>
+        
+            <li><a class="toctree-l4" href="#luminosity">luminosity</a></li>
+        
+            <li><a class="toctree-l4" href="#zone-instance-members">Zone Instance Members</a></li>
+        
+            <li><a class="toctree-l4" href="#presence">Presence</a></li>
+        
+        </ul>
+    
+
     </ul>
                 </li>
                 <li class="">
@@ -154,6 +173,10 @@
                 <li class="">
                     
     <a class="" href="../../plugins/buttons/">Buttons</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../plugins/hvac/">Hvac</a>
                 </li>
                 <li class="">
                     
@@ -214,7 +237,50 @@
           <div role="main">
             <div class="section">
               
-                
+                <h1 id="zones">Zones</h1>
+<p>Zones represent a geographic grouping of resources such as lights and locks.</p>
+<p>Zones are configured in the configuration file:</p>
+<pre><code class="json">{
+    &quot;zones&quot;: [
+        {&quot;id&quot;:&quot;lounge&quot;, &quot;name&quot;:&quot;Lounge Room&quot;, &quot;parent&quot;:&quot;living&quot;, &quot;temperature&quot;:&quot;sensor.lounge-temperature&quot;},
+        {&quot;id&quot;:&quot;kitchen&quot;, &quot;name&quot;:&quot;Kitchen&quot;, &quot;parent&quot;:&quot;living&quot;},
+        {&quot;id&quot;:&quot;bedroom&quot;, &quot;name&quot;:&quot;Bedroom&quot;},
+        {&quot;id&quot;:&quot;living&quot;, &quot;name&quot;:&quot;Living Area&quot;}
+    ]
+}
+</code></pre>
+
+<h2 id="fields">Fields</h2>
+<h3 id="id">id</h3>
+<p><em>Required</em></p>
+<p>Unique ID or key for this zone.</p>
+<h3 id="name">name</h3>
+<p><em>Required</em></p>
+<p>Display name for the zone.</p>
+<h3 id="parent">parent</h3>
+<p>A zone heirarchy will be set up if parents are defined.</p>
+<p>Presence in parent zones is controlled by the child zones (presence in 1 or more child zones = presence in parent zone).</p>
+<h2 id="temperature">temperature</h2>
+<p>Reference to a value that represents the temperature for this zone.</p>
+<p>In the format <code>value_key:field</code>, eg: <code>sensor.hallway:temperature</code>.</p>
+<h2 id="humidity">humidity</h2>
+<p>Reference to a value that represents the humidity for this zone.</p>
+<p>In the format <code>value_key:field</code>, eg: <code>sensor.hallway:humidity</code>.</p>
+<h2 id="luminosity">luminosity</h2>
+<p>Reference to a value that represents the luminosity for this zone.</p>
+<p>In the format <code>value_key:field</code>, eg: <code>sensor.hallway:luminosity</code>.</p>
+<h2 id="zone-instance-members">Zone Instance Members</h2>
+<p>Instances of lights, locks, etc can be placed in a zone by setting the <code>zoneId</code> option.</p>
+<p>For example:</p>
+<pre><code>{
+    {class: 'light', id: 'hallway', type: 'hue', options: {zoneId:'hallway', groupId:9, hub:'main'}},
+    {class: 'sensor', id: 'hallway', type: 'ninja', options: {zoneId:'hallway', bridge:'main', deviceName:'hallway'}},
+}
+</code></pre>
+
+<h2 id="presence">Presence</h2>
+<p>Zone presence can be automatically controlled by placing motion or presence sensors in the zone.</p>
+<p>If a zone heirarchy is defined, presence is also controlled by child zones.</p>
               
             </div>
           </div>

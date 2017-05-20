@@ -102,7 +102,7 @@
         }, 
         {
             "location": "/core/classes/", 
-            "text": "Classes\n\n\nClasses represent common interactable objects in domotics.\n\n\nStandard Classes\n\n\nCore defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n\n\nClass Types\n\n\nLights, locks and sensors are all \ntyped\n classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for \nLights\n.\n\n\nAdding Custom Classes\n\n\n\n\nUse \nClassesManager\n to add class\n\n\nExtend \nClassTypeManager\n to easily add typed classes\n\n\nUse instances in \nIConfig\n to add instances", 
+            "text": "Classes\n\n\nClasses represent common interactable objects in domotics.\n\n\nStandard Classes\n\n\nCore defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n- HVAC\n\n\nClass Types\n\n\nLights, locks and sensors are all \ntyped\n classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for \nLights\n.\n\n\nSee \nPlugins\n for more info on these.\n\n\nAdding Custom Classes\n\n\n\n\nUse \nClassesManager\n to add class\n\n\nExtend \nClassTypeManager\n to easily add typed classes\n\n\nUse instances in \nIConfig\n to add instances", 
             "title": "Classes"
         }, 
         {
@@ -112,12 +112,12 @@
         }, 
         {
             "location": "/core/classes/#standard-classes", 
-            "text": "Core defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors", 
+            "text": "Core defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n- HVAC", 
             "title": "Standard Classes"
         }, 
         {
             "location": "/core/classes/#class-types", 
-            "text": "Lights, locks and sensors are all  typed  classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for  Lights .", 
+            "text": "Lights, locks and sensors are all  typed  classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for  Lights .  See  Plugins  for more info on these.", 
             "title": "Class Types"
         }, 
         {
@@ -182,8 +182,58 @@
         }, 
         {
             "location": "/core/zones/", 
-            "text": "", 
+            "text": "Zones\n\n\nZones represent a geographic grouping of resources such as lights and locks.\n\n\nZones are configured in the configuration file:\n\n\n{\n    \nzones\n: [\n        {\nid\n:\nlounge\n, \nname\n:\nLounge Room\n, \nparent\n:\nliving\n, \ntemperature\n:\nsensor.lounge-temperature\n},\n        {\nid\n:\nkitchen\n, \nname\n:\nKitchen\n, \nparent\n:\nliving\n},\n        {\nid\n:\nbedroom\n, \nname\n:\nBedroom\n},\n        {\nid\n:\nliving\n, \nname\n:\nLiving Area\n}\n    ]\n}\n\n\n\n\nFields\n\n\nid\n\n\nRequired\n\n\nUnique ID or key for this zone.\n\n\nname\n\n\nRequired\n\n\nDisplay name for the zone.\n\n\nparent\n\n\nA zone heirarchy will be set up if parents are defined.\n\n\nPresence in parent zones is controlled by the child zones (presence in 1 or more child zones = presence in parent zone).\n\n\ntemperature\n\n\nReference to a value that represents the temperature for this zone.\n\n\nIn the format \nvalue_key:field\n, eg: \nsensor.hallway:temperature\n.\n\n\nhumidity\n\n\nReference to a value that represents the humidity for this zone.\n\n\nIn the format \nvalue_key:field\n, eg: \nsensor.hallway:humidity\n.\n\n\nluminosity\n\n\nReference to a value that represents the luminosity for this zone.\n\n\nIn the format \nvalue_key:field\n, eg: \nsensor.hallway:luminosity\n.\n\n\nZone Instance Members\n\n\nInstances of lights, locks, etc can be placed in a zone by setting the \nzoneId\n option.\n\n\nFor example:\n\n\n{\n    {class: 'light', id: 'hallway', type: 'hue', options: {zoneId:'hallway', groupId:9, hub:'main'}},\n    {class: 'sensor', id: 'hallway', type: 'ninja', options: {zoneId:'hallway', bridge:'main', deviceName:'hallway'}},\n}\n\n\n\n\nPresence\n\n\nZone presence can be automatically controlled by placing motion or presence sensors in the zone.\n\n\nIf a zone heirarchy is defined, presence is also controlled by child zones.", 
             "title": "Zones"
+        }, 
+        {
+            "location": "/core/zones/#zones", 
+            "text": "Zones represent a geographic grouping of resources such as lights and locks.  Zones are configured in the configuration file:  {\n     zones : [\n        { id : lounge ,  name : Lounge Room ,  parent : living ,  temperature : sensor.lounge-temperature },\n        { id : kitchen ,  name : Kitchen ,  parent : living },\n        { id : bedroom ,  name : Bedroom },\n        { id : living ,  name : Living Area }\n    ]\n}", 
+            "title": "Zones"
+        }, 
+        {
+            "location": "/core/zones/#fields", 
+            "text": "", 
+            "title": "Fields"
+        }, 
+        {
+            "location": "/core/zones/#id", 
+            "text": "Required  Unique ID or key for this zone.", 
+            "title": "id"
+        }, 
+        {
+            "location": "/core/zones/#name", 
+            "text": "Required  Display name for the zone.", 
+            "title": "name"
+        }, 
+        {
+            "location": "/core/zones/#parent", 
+            "text": "A zone heirarchy will be set up if parents are defined.  Presence in parent zones is controlled by the child zones (presence in 1 or more child zones = presence in parent zone).", 
+            "title": "parent"
+        }, 
+        {
+            "location": "/core/zones/#temperature", 
+            "text": "Reference to a value that represents the temperature for this zone.  In the format  value_key:field , eg:  sensor.hallway:temperature .", 
+            "title": "temperature"
+        }, 
+        {
+            "location": "/core/zones/#humidity", 
+            "text": "Reference to a value that represents the humidity for this zone.  In the format  value_key:field , eg:  sensor.hallway:humidity .", 
+            "title": "humidity"
+        }, 
+        {
+            "location": "/core/zones/#luminosity", 
+            "text": "Reference to a value that represents the luminosity for this zone.  In the format  value_key:field , eg:  sensor.hallway:luminosity .", 
+            "title": "luminosity"
+        }, 
+        {
+            "location": "/core/zones/#zone-instance-members", 
+            "text": "Instances of lights, locks, etc can be placed in a zone by setting the  zoneId  option.  For example:  {\n    {class: 'light', id: 'hallway', type: 'hue', options: {zoneId:'hallway', groupId:9, hub:'main'}},\n    {class: 'sensor', id: 'hallway', type: 'ninja', options: {zoneId:'hallway', bridge:'main', deviceName:'hallway'}},\n}", 
+            "title": "Zone Instance Members"
+        }, 
+        {
+            "location": "/core/zones/#presence", 
+            "text": "Zone presence can be automatically controlled by placing motion or presence sensors in the zone.  If a zone heirarchy is defined, presence is also controlled by child zones.", 
+            "title": "Presence"
         }, 
         {
             "location": "/core/rules/custom-nodes/", 
@@ -206,8 +256,13 @@
             "title": "Buttons"
         }, 
         {
+            "location": "/plugins/hvac/", 
+            "text": "", 
+            "title": "Hvac"
+        }, 
+        {
             "location": "/plugins/", 
-            "text": "Plugins\n\n\nHomenet Plugins\n\n\nHomenet Plugins provide vendor specific implementations for core classes.\n\n\nPlugins can provide implementations for the following classes:\n\n\n\n\nLights\n\n\nLocks\n\n\nSensors\n including motion sensors and temperature sensors\n\n\nButtons\n\n\n\n\nNode RED Plugins\n\n\nIn addition to Homenet plugins, \nNode RED plugins can also be used\n.\n\n\nNode RED plugins can be used within any rule, but are not available via the API.", 
+            "text": "Plugins\n\n\nHomenet Plugins\n\n\nHomenet Plugins provide vendor specific implementations for core classes.\n\n\nPlugins can provide implementations for the following classes:\n\n\n\n\nLights\n\n\nLocks\n\n\nSensors\n including motion sensors and temperature sensors\n\n\nButtons\n\n\nHVAC\n\n\n\n\nNode RED Plugins\n\n\nIn addition to Homenet plugins, \nNode RED plugins can also be used\n.\n\n\nNode RED plugins can be used within any rule, but are not available via the API.", 
             "title": "Home"
         }, 
         {
@@ -217,7 +272,7 @@
         }, 
         {
             "location": "/plugins/#homenet-plugins", 
-            "text": "Homenet Plugins provide vendor specific implementations for core classes.  Plugins can provide implementations for the following classes:   Lights  Locks  Sensors  including motion sensors and temperature sensors  Buttons", 
+            "text": "Homenet Plugins provide vendor specific implementations for core classes.  Plugins can provide implementations for the following classes:   Lights  Locks  Sensors  including motion sensors and temperature sensors  Buttons  HVAC", 
             "title": "Homenet Plugins"
         }, 
         {
