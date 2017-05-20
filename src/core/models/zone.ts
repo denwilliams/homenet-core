@@ -53,7 +53,7 @@ class Zone implements Homenet.IZone {
   private getValue(path: string) : any {
     if (!path) return null;
     
-    const parts = this.zoneConf.temperature.split(':');
+    const parts = path.split(':');
     const instance = this.values.getInstance(parts[0]);
     if (!instance) return null;
 
