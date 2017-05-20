@@ -333,6 +333,18 @@ declare namespace Homenet {
     faIcon: string;
     parent: string;
     timeout: number;
+    /**
+     * Path to temperature value, eg: 'lounge-sensor:temperatue'
+     */
+    temperature: string;
+    /**
+     * Path to humidity value, eg: 'lounge-sensor:humidity'
+     */
+    humidity: string;
+    /**
+     * Path to string value, eg: 'lounge-sensor:luminosity'
+     */
+    luminosity: string;
   }
 
   interface ISceneConfig {

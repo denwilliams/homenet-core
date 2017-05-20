@@ -14,11 +14,7 @@ class Zone implements Homenet.IZone {
   parent: Zone;
   children: Zone[];
 
-  get presence() {
-    return this._presence.isPresent;
-  }
-
-  constructor(presence: Homenet.IPresenceManager, zoneConf: Homenet.IZoneConfig) {
+  constructor(presence: Homenet.IPresenceManager, private values: Homenet.IValuesManager, private zoneConf: Homenet.IZoneConfig) {
     var c = zoneConf;
 
     this.id = c.id;
@@ -36,6 +32,32 @@ class Zone implements Homenet.IZone {
       timeout: c.timeout || -1,
       parent: parentZone
     });
+  }
+
+  get presence() {
+    return this._presence.isPresent;
+  }
+
+  get temperature() {
+    return this.getValue(this.zoneConf.temperature);
+  }
+
+  get humidity() {
+    return this.getValue(this.zoneConf.humidity);
+  }
+
+  get luminosity() {
+    return this.getValue(this.zoneConf.luminosity);
+  }
+
+  private getValue(path: string) : any {
+    if (!path) return null;
+    
+    const parts = this.zoneConf.temperature.split(':');
+    const instance = this.values.getInstance(parts[0]);
+    if (!instance) return null;
+
+    return instance.get(parts[1]);
   }
 }
 
