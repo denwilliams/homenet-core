@@ -330,21 +330,21 @@ declare namespace Homenet {
   interface IZoneConfig {
     id: string;
     name: string;
-    faIcon: string;
-    parent: string;
-    timeout: number;
+    faIcon?: string;
+    parent?: string;
+    timeout?: number;
     /**
      * Path to temperature value, eg: 'lounge-sensor:temperatue'
      */
-    temperature: string;
+    temperature?: string;
     /**
      * Path to humidity value, eg: 'lounge-sensor:humidity'
      */
-    humidity: string;
+    humidity?: string;
     /**
      * Path to string value, eg: 'lounge-sensor:luminosity'
      */
-    luminosity: string;
+    luminosity?: string;
   }
 
   interface ISceneConfig {
