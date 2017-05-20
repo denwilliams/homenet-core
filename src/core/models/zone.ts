@@ -46,8 +46,8 @@ class Zone implements Homenet.IZone {
     return this.getValue(this.zoneConf.humidity);
   }
 
-  get luminosity() {
-    return this.getValue(this.zoneConf.luminosity);
+  get luminescence() {
+    return this.getValue(this.zoneConf.luminescence);
   }
 
   private getValue(path: string) : any {

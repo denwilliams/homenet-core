@@ -47,11 +47,11 @@ Reference to a value that represents the humidity for this zone.
 
 In the format `value_key:field`, eg: `sensor.hallway:humidity`.
 
-## luminosity
+## luminescence
 
-Reference to a value that represents the luminosity for this zone.
+Reference to a value that represents the luminescence for this zone.
 
-In the format `value_key:field`, eg: `sensor.hallway:luminosity`.
+In the format `value_key:field`, eg: `sensor.hallway:luminescence`.
 
 
 ## Zone Instance Members

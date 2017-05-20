@@ -525,12 +525,25 @@ declare module '@homenet/core' {
     lockId: string
   }
 
+
   interface IZoneConfig {
     id: string;
     name: string;
-    faIcon: string;
-    parent: string;
-    timeout: number;
+    faIcon?: string;
+    parent?: string;
+    timeout?: number;
+    /**
+     * Path to temperature value, eg: 'lounge-sensor:temperatue'
+     */
+    temperature?: string;
+    /**
+     * Path to humidity value, eg: 'lounge-sensor:humidity'
+     */
+    humidity?: string;
+    /**
+     * Path to string value, eg: 'lounge-sensor:luminescence'
+     */
+    luminescence?: string;
   }
 
   interface ISceneConfig {

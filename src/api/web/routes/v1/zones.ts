@@ -27,6 +27,6 @@ function toApiZone(zone) {
     parent: zone.parentId,
     temperature: zone.temperature,
     humidity: zone.humidity,
-    luminosity: zone.luminosity
+    luminescence: zone.luminescence
   };
 }

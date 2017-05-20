@@ -342,9 +342,9 @@ declare namespace Homenet {
      */
     humidity?: string;
     /**
-     * Path to string value, eg: 'lounge-sensor:luminosity'
+     * Path to string value, eg: 'lounge-sensor:luminescence'
      */
-    luminosity?: string;
+    luminescence?: string;
   }
 
   interface ISceneConfig {
