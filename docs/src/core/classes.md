@@ -10,11 +10,14 @@ These cannot be removed:
 - Lights
 - Locks
 - Sensors
+- HVAC
 
 ## Class Types
 
 Lights, locks and sensors are all *typed* classes, which essentially mean that the class is abstract and requires implementations for each type.
 Typically this corresponds to specific brands or products, for example Hue or LIFX for `Lights`.
+
+See [Plugins](../plugins/index.md) for more info on these.
 
 ## Adding Custom Classes
 

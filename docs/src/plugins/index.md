@@ -10,6 +10,7 @@ Plugins can provide implementations for the following classes:
 - [Locks](locks.md)
 - [Sensors](sensors.md) including motion sensors and temperature sensors
 - [Buttons](buttons.md)
+- [HVAC](hvac.md)
 
 ## Node RED Plugins
 
