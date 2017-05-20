@@ -12,10 +12,11 @@ export class ZoneManager implements Homenet.IZoneManager {
 
   constructor(
         @inject('IPresenceManager') presence: Homenet.IPresenceManager,
+        @inject('IValuesManager') values: Homenet.IValuesManager,
         @inject('IConfig') config: Homenet.IConfig,
         @inject('ILogger') logger: Homenet.ILogger) {
     this._zonesArr = (config.zones || []).map(function(zoneConf) {
-      return new Zone(presence, zoneConf);
+      return new Zone(presence, values, zoneConf);
     });
     this._zoneHeirarchy = this._buildHeirarchy(this._zonesArr);
     //zones.api = buildApi(zones);
