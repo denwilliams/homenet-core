@@ -66,7 +66,6 @@ test('can turn off with commands', async (t) => {
 test('can turn on with switch', async (t) => {
   // ARRANGE
   const hvacManager: Homenet.IHvacManager = t.context.hvacManager;
-  const hvacManager: Homenet.IHvacManager = t.context.hvacManager;
   const instanceLoader: Homenet.IInstanceLoader = t.context.instanceLoader;
   instanceLoader.loadInstances(t.context.config);
   const hvac1 = hvacManager.getInstance('one');
