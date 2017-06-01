@@ -57,7 +57,7 @@ test('can turn off with commands', async (t) => {
   t.is(hvac1.get(), 'unknown');
 
   // ACT
-  commandManager.run('light.one', 'turnOff');
+  commandManager.run('hvac.one', 'turnOff');
 
   // ASSERT
   t.is(hvac1.get(), 'off');
@@ -66,32 +66,32 @@ test('can turn off with commands', async (t) => {
 test('can turn on with switch', async (t) => {
   // ARRANGE
   const hvacManager: Homenet.IHvacManager = t.context.hvacManager;
-  const lights: Homenet.ILightsManager = t.context.lights;
+  const hvacManager: Homenet.IHvacManager = t.context.hvacManager;
   const instanceLoader: Homenet.IInstanceLoader = t.context.instanceLoader;
   instanceLoader.loadInstances(t.context.config);
-  const light1 = lights.getInstance('one');
+  const hvac1 = hvacManager.getInstance('one');
   const switchManaager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
-  t.is(light1.get(), 'unknown');
+  t.is(hvac1.get(), 'unknown');
 
   // ACT
-  switchManaager.set('light.one', 'on');
+  switchManaager.set('hvac.one', 'on');
 
   // ASSERT
-  t.is(light1.get(), 'on');
+  t.is(hvac1.get(), 'on');
 });
 
 test('can turn off with switch', async (t) => {
   // ARRANGE
-  const lights: Homenet.ILightsManager = t.context.lights;
+  const hvacManager: Homenet.IHvacManager = t.context.hvacManager;
   const instanceLoader: Homenet.IInstanceLoader = t.context.instanceLoader;
   instanceLoader.loadInstances(t.context.config);
-  const light1 = lights.getInstance('one');
+  const hvac1 = hvacManager.getInstance('one');
   const switchManaager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
-  t.is(light1.get(), 'unknown');
+  t.is(hvac1.get(), 'unknown');
 
   // ACT
-  switchManaager.set('light.one', 'off');
+  switchManaager.set('hvac.one', 'off');
 
   // ASSERT
-  t.is(light1.get(), 'off');
+  t.is(hvac1.get(), 'off');
 });
