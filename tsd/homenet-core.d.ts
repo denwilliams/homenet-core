@@ -443,6 +443,13 @@ declare module '@homenet/core' {
 
   interface ILock extends ISwitch, ILockCommander {}
 
+  interface IHvacCommander extends ICommander {
+    turnOn() : void
+    turnOff() : void
+  }
+
+  interface IHvac extends ISwitch, IHvacCommander {}
+
   interface ILightCommander extends ICommander {
     turnOn() : void
     turnOff() : void
@@ -647,6 +654,8 @@ declare module '@homenet/core' {
    * Include an ILight light type by calling `addType`.
    */
   interface ILightsManager extends ISettableClassTypeManager<ILight> {}
+
+  interface IHvacManager extends ISettableClassTypeManager<IHvac> {}
 
   interface IStorageManager {}
 
