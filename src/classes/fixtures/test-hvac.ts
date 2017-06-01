@@ -25,11 +25,11 @@ export const config: Homenet.IConfig = {
 
 export function create() : Homenet.IClassTypeFactory<Homenet.ISettable> {
   return (id : string, opts : any): Homenet.ISettable => {
-    return new TestLight(id, opts);
+    return new TestHvac(id, opts);
   };
 }
 
-class TestLight extends EventEmitter implements Homenet.ISettable {
+class TestHvac extends EventEmitter implements Homenet.ISettable {
   public calls: string[] = [];
   public state: string = 'unknown';
   public id: string;
