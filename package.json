@@ -8,6 +8,9 @@
   "engines": {
     "node": ">=4"
   },
+  "bin": {
+    "homenet4": "bin/homenet4"
+  },
   "scripts": {
     "build": "tsc --sourceMap",
     "builddocs": "aglio --theme-variables streak --theme-template triple -i docs/api.apib -o docs/api.html",
@@ -36,11 +39,12 @@
     "error-builder": "^1.1.0",
     "eventemitter2": "^2.2.1",
     "express": "^4.11.2",
-    "express-graphql": "^0.6.3",
-    "graphql": "^0.9.1",
+    "express-graphql": "^0.6.6",
+    "graphql": "^0.10.1",
     "graphql-tools": "^0.10.0",
     "inversify": "3.1.0",
     "lodash": "^4.12.0",
+    "module-finder": "^4.0.1",
     "node-red-contrib-scenes": "^0.1.8",
     "q": "^1.4.1",
     "redis": "^2.5.3",
