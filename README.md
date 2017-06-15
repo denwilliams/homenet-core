@@ -22,6 +22,8 @@ homenet4 /path/to/my/config.json
 
 ## Adding Plugins
 
+> [Search for plugins on NPM](https://www.npmjs.com/search?q=homenet4-plugin)
+
 `homenet-core` doesn't do much without plugins. Install plugins globally and they will be automatically discovered. Eg:
 
 ```
