@@ -4,7 +4,7 @@
 
 ## Documentation
 
-[Click here to view documentation]()
+[Click here to view documentation](http://www.denwilliams.net/homenet-core/)
 
 ## Clone and Build Locally
 
