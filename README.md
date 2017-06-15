@@ -11,7 +11,7 @@
 The best way to use now is to install globally:
 
 ```
-npm install -g homenet-core
+npm install -g @homenet/core
 ```
 
 Then to run:
@@ -25,7 +25,7 @@ homenet4
 `homenet-core` doesn't do much without plugins. Install plugins globally and they will be automatically discovered. Eg:
 
 ```
-npm install -g homenet-plugin-hue
+npm install -g @homenet/plugin-hue
 ```
 
 Plugins are discovered by searching global and local `node_modules` for modules with the keyword `homenet4-plugin`.
