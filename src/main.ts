@@ -1,3 +1,4 @@
+import * as core from './index';
 import { init as initCore, plugin, registerStats } from './index';
 import * as moduleFinder from 'module-finder';
 import * as RED from 'node-red';
@@ -37,7 +38,10 @@ moduleFinder({
   modules.forEach(m => {
     console.log(`Found ${m.pkg.name} v${m.pkg.version}`);
 
-    const loadedModule = require(m.path.replace('/package.json', ''));
+    let loadedModule = require(m.path.replace('/package.json', ''));
+    if (typeof loadedModule === 'function') {
+      loadedModule = loadedModule(core);
+    }
     m.pkg.homenet4.plugins.forEach(pluginName => {
       const plugin = loadedModule[pluginName];
       console.log(`Loading plugin ${m.pkg.name} -> ${pluginName}`);

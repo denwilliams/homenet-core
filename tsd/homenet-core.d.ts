@@ -205,7 +205,11 @@ declare module '@homenet/core' {
   export interface IRuntime {
     start() : void
     get<T>(type: string) : T
-    loadPlugin<T extends IPluginLoader>(ctor: IPluginCtor<T>)
+    loadPlugin<T extends IPluginLoader>(ctor: IPluginCtor<T>): void
+  }
+  export interface IPluginAnnotate {
+    plugin(): (typeConstructor: any) => void;
+    service(serviceIdentifier: (string)): (target: any, targetKey: string, index?: number) => any;
   }
 
   export interface IPluginCtor<T extends IPluginLoader> {
