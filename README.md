@@ -6,7 +6,7 @@
 
 [Click here to view documentation](http://www.denwilliams.net/homenet-core/)
 
-## Installing
+## Installing and Running
 
 The best way to use now is to install globally:
 
@@ -17,7 +17,7 @@ npm install -g @homenet/core
 Then to run:
 
 ```
-homenet4
+homenet4 /path/to/my/config.json
 ```
 
 ## Adding Plugins
