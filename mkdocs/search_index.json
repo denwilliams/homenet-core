@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Homenet Core\n\n\nWIP...\n\n\nThe Basics\n\n\n\n\nRequirements\n\n\nRedis persistence\n\n\nStarting\n\n\nCustomizing\n\n\n\n\nCore Concepts\n\n\n\n\nNode RED rule system\n\n\nCustom nodes\n\n\nClasses\n\n\nPeople\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\nZones\n\n\nEnvironment\n\n\nSunlight\n\n\nCore Components\n\n\nCommands\n\n\nEvents\n\n\nPresence\n\n\nSwitches\n\n\nTriggers\n\n\nValues\n\n\n\n\nPlugins\n\n\n\n\nNode RED plugins\n\n\nHomenet plugins\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\nAPI\n\n\n\n\nAuthentication\n\n\nDocumentation", 
+            "text": "Homenet Core\n\n\nThe Basics\n\n\n\n\nRequirements\n\n\nRedis persistence\n\n\nStarting\n\n\nCustomizing\n\n\n\n\nCore Concepts\n\n\n\n\nNode RED rule system\n\n\nCustom nodes\n\n\nGlobal context\n\n\nScenes\n\n\nZones\n\n\nEnvironment\n\n\nSunlight\n\n\nCore Components\n\n\nCommands\n\n\nEvents\n\n\nPresence\n\n\nSwitches\n\n\nTriggers\n\n\nValues\n\n\nClasses\n\n\nPeople\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\nPlugins\n\n\n\n\nNode RED plugins\n\n\nHomenet plugins\n\n\nButtons\n\n\nHVAC\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\nAPI\n\n\n\n\nAuthentication: TBD\n\n\nDocumentation: TBD", 
             "title": "Home"
         }, 
         {
             "location": "/#homenet-core", 
-            "text": "WIP...", 
+            "text": "", 
             "title": "Homenet Core"
         }, 
         {
@@ -17,17 +17,17 @@
         }, 
         {
             "location": "/#core-concepts", 
-            "text": "Node RED rule system  Custom nodes  Classes  People  Lights  Locks  Sensors  Zones  Environment  Sunlight  Core Components  Commands  Events  Presence  Switches  Triggers  Values", 
+            "text": "Node RED rule system  Custom nodes  Global context  Scenes  Zones  Environment  Sunlight  Core Components  Commands  Events  Presence  Switches  Triggers  Values  Classes  People  Lights  Locks  Sensors", 
             "title": "Core Concepts"
         }, 
         {
             "location": "/#plugins", 
-            "text": "Node RED plugins  Homenet plugins  Lights  Locks  Sensors", 
+            "text": "Node RED plugins  Homenet plugins  Buttons  HVAC  Lights  Locks  Sensors", 
             "title": "Plugins"
         }, 
         {
             "location": "/#api", 
-            "text": "Authentication  Documentation", 
+            "text": "Authentication: TBD  Documentation: TBD", 
             "title": "API"
         }, 
         {
@@ -62,123 +62,38 @@
         }, 
         {
             "location": "/basics/requirements/", 
-            "text": "Requirements\n\n\nThere are only 2 requirements:\n\n\n\n\nNode JS v4+ - required to run the core\n\n\nRedis\n - required for persistence for the core (other persistence options TBA)\n\n\n\n\nAlso, you will need to create a Node JS application to \nstart the core\n.\nThis application will require the Node-RED package available on \nNPM\n.\nSee [homenet-app] for an example.\n\n\nTo get the most out of core, you will want to install some plugins for both homenet and for Node-RED.", 
+            "text": "Requirements\n\n\nThere are only 2 requirements:\n\n\n\n\nNode JS v4+\n - required to run the core\n\n\nRedis\n - required for persistence for the core (other persistence options TBA)\n\n\n\n\nTo get the most out of core, you will want to install some plugins for both homenet and for Node-RED.", 
             "title": "Requirements"
         }, 
         {
             "location": "/basics/requirements/#requirements", 
-            "text": "There are only 2 requirements:   Node JS v4+ - required to run the core  Redis  - required for persistence for the core (other persistence options TBA)   Also, you will need to create a Node JS application to  start the core .\nThis application will require the Node-RED package available on  NPM .\nSee [homenet-app] for an example.  To get the most out of core, you will want to install some plugins for both homenet and for Node-RED.", 
+            "text": "There are only 2 requirements:   Node JS v4+  - required to run the core  Redis  - required for persistence for the core (other persistence options TBA)   To get the most out of core, you will want to install some plugins for both homenet and for Node-RED.", 
             "title": "Requirements"
         }, 
         {
             "location": "/basics/starting/", 
-            "text": "Starting Homenet Core\n\n\nconst homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\n\nhomenet.init(RED, config)\n.start()\n.then(() =\n {\n  console.log('Started');\n});\n\n\n\n\nconst homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\nconst myPlugin = require('./plugin');\n\nhomenet.init(RED, config)\n.loadPlugin(myPlugin);\n.start()\n.then(() =\n {\n  console.log('Started');\n});", 
+            "text": "Starting Homenet Core\n\n\nAs a Global Package\n\n\nThe best way to use now is to install globally:\n\n\nnpm install -g @homenet/core\n\n\n\n\nThen install any plugins:\n\n\nnpm install -g @homenet/plugin-hue @homenet/plugin-mqtt\n\n\n\n\nThen create a config file somewhere like \n/etc/homenet/config.json\n.\n\n\nThen to run:\n\n\nhomenet4 /etc/homenet/config.json\n\n\n\n\nAs a Module\n\n\nconst homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\n\nhomenet.init(RED, config)\n.start()\n.then(() =\n {\n  console.log('Started');\n});\n\n\n\n\nconst homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\nconst myPlugin = require('./plugin');\n\nhomenet.init(RED, config)\n.loadPlugin(myPlugin);\n.start()\n.then(() =\n {\n  console.log('Started');\n});", 
             "title": "Starting"
         }, 
         {
             "location": "/basics/starting/#starting-homenet-core", 
-            "text": "const homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\n\nhomenet.init(RED, config)\n.start()\n.then(() =  {\n  console.log('Started');\n});  const homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\nconst myPlugin = require('./plugin');\n\nhomenet.init(RED, config)\n.loadPlugin(myPlugin);\n.start()\n.then(() =  {\n  console.log('Started');\n});", 
+            "text": "", 
             "title": "Starting Homenet Core"
         }, 
         {
-            "location": "/core/_people/", 
-            "text": "Zones", 
-            "title": " people"
+            "location": "/basics/starting/#as-a-global-package", 
+            "text": "The best way to use now is to install globally:  npm install -g @homenet/core  Then install any plugins:  npm install -g @homenet/plugin-hue @homenet/plugin-mqtt  Then create a config file somewhere like  /etc/homenet/config.json .  Then to run:  homenet4 /etc/homenet/config.json", 
+            "title": "As a Global Package"
         }, 
         {
-            "location": "/core/_people/#zones", 
+            "location": "/basics/starting/#as-a-module", 
+            "text": "const homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\n\nhomenet.init(RED, config)\n.start()\n.then(() =  {\n  console.log('Started');\n});  const homenet = require('homenet-core');\nconst RED = require('node-red');\nconst myConfig = require('./config');\nconst myPlugin = require('./plugin');\n\nhomenet.init(RED, config)\n.loadPlugin(myPlugin);\n.start()\n.then(() =  {\n  console.log('Started');\n});", 
+            "title": "As a Module"
+        }, 
+        {
+            "location": "/core/scenes/", 
             "text": "", 
-            "title": "Zones"
-        }, 
-        {
-            "location": "/core/_scenes/", 
-            "text": "", 
-            "title": " scenes"
-        }, 
-        {
-            "location": "/core/_sunlight/", 
-            "text": "", 
-            "title": " sunlight"
-        }, 
-        {
-            "location": "/core/classes/", 
-            "text": "Classes\n\n\nClasses represent common interactable objects in domotics.\n\n\nStandard Classes\n\n\nCore defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n- HVAC\n\n\nClass Types\n\n\nLights, locks and sensors are all \ntyped\n classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for \nLights\n.\n\n\nSee \nPlugins\n for more info on these.\n\n\nAdding Custom Classes\n\n\n\n\nUse \nClassesManager\n to add class\n\n\nExtend \nClassTypeManager\n to easily add typed classes\n\n\nUse instances in \nIConfig\n to add instances", 
-            "title": "Classes"
-        }, 
-        {
-            "location": "/core/classes/#classes", 
-            "text": "Classes represent common interactable objects in domotics.", 
-            "title": "Classes"
-        }, 
-        {
-            "location": "/core/classes/#standard-classes", 
-            "text": "Core defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n- HVAC", 
-            "title": "Standard Classes"
-        }, 
-        {
-            "location": "/core/classes/#class-types", 
-            "text": "Lights, locks and sensors are all  typed  classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for  Lights .  See  Plugins  for more info on these.", 
-            "title": "Class Types"
-        }, 
-        {
-            "location": "/core/classes/#adding-custom-classes", 
-            "text": "Use  ClassesManager  to add class  Extend  ClassTypeManager  to easily add typed classes  Use instances in  IConfig  to add instances", 
-            "title": "Adding Custom Classes"
-        }, 
-        {
-            "location": "/core/commands/", 
-            "text": "Commands\n\n\nCommands represent executable actions for items such as \nclass instances\n.\nFor example lights can \nturnOn\n or \nturnOff\n, locks can \nlock\n and \nunlock\n.", 
-            "title": "Commands"
-        }, 
-        {
-            "location": "/core/commands/#commands", 
-            "text": "Commands represent executable actions for items such as  class instances .\nFor example lights can  turnOn  or  turnOff , locks can  lock  and  unlock .", 
-            "title": "Commands"
-        }, 
-        {
-            "location": "/core/events/", 
-            "text": "", 
-            "title": "Events"
-        }, 
-        {
-            "location": "/core/presence/", 
-            "text": "Presence\n\n\nPresence items represent the presence of something, for example a presence for a motion sensor indicates the detection of an object,\npresnece of a person indicates their presence at the home,\npresence of a zone indicates the occupancy of a zone.\n\n\nEvery presence item exhibits a presence state - \npresent\n or \naway\n.\n\n\nThe presence of a specific item can be regulated in three ways:\n\n\n\n\nBy \nset\ning or \nclear\ning the item's presence. This is typical for a person or zone, or intelligent motion sensors.\n\n\nBy \nbump\ning the presence with a \ntimeout\n interval. This is typical for simple motion sensors that operate on more of a fire-and-forget approach.\n\n\nBy having children, in which case the presence is regulated by the presence of any of the child items. This is typical of zones that are regulated by sensors, or", 
-            "title": "Presence"
-        }, 
-        {
-            "location": "/core/presence/#presence", 
-            "text": "Presence items represent the presence of something, for example a presence for a motion sensor indicates the detection of an object,\npresnece of a person indicates their presence at the home,\npresence of a zone indicates the occupancy of a zone.  Every presence item exhibits a presence state -  present  or  away .  The presence of a specific item can be regulated in three ways:   By  set ing or  clear ing the item's presence. This is typical for a person or zone, or intelligent motion sensors.  By  bump ing the presence with a  timeout  interval. This is typical for simple motion sensors that operate on more of a fire-and-forget approach.  By having children, in which case the presence is regulated by the presence of any of the child items. This is typical of zones that are regulated by sensors, or", 
-            "title": "Presence"
-        }, 
-        {
-            "location": "/core/switches/", 
-            "text": "Switches\n\n\nSwitches represent settable or switchable items such as \nclass instances\n.\nSome classes may provide multiple switches.\n\n\nSwitches can be \nset\n or \nget\n, where \nset\n changes the state (switches) the instance, and \nget\n returns the current state of the switch.\n\n\nFor example setting a light changes it's state (turn on or off, or change colour), setting a lock will lock or unlock the device.\n\n\nMost switches can be set with \ntrue\n or \nfalse\n to toggle the primary values (on/off, enable/disable).\n\n\nSome switches are overloaded and can accept booleans, numbers and strings. For example Hue lights may accept \ntrue\n to turn a light on or \n\"red\"\n to set the light color.", 
-            "title": "Switches"
-        }, 
-        {
-            "location": "/core/switches/#switches", 
-            "text": "Switches represent settable or switchable items such as  class instances .\nSome classes may provide multiple switches.  Switches can be  set  or  get , where  set  changes the state (switches) the instance, and  get  returns the current state of the switch.  For example setting a light changes it's state (turn on or off, or change colour), setting a lock will lock or unlock the device.  Most switches can be set with  true  or  false  to toggle the primary values (on/off, enable/disable).  Some switches are overloaded and can accept booleans, numbers and strings. For example Hue lights may accept  true  to turn a light on or  \"red\"  to set the light color.", 
-            "title": "Switches"
-        }, 
-        {
-            "location": "/core/triggers/", 
-            "text": "Triggers", 
-            "title": "Triggers"
-        }, 
-        {
-            "location": "/core/triggers/#triggers", 
-            "text": "", 
-            "title": "Triggers"
-        }, 
-        {
-            "location": "/core/values/", 
-            "text": "Values", 
-            "title": "Values"
-        }, 
-        {
-            "location": "/core/values/#values", 
-            "text": "", 
-            "title": "Values"
+            "title": "Scenes"
         }, 
         {
             "location": "/core/zones/", 
@@ -234,6 +149,101 @@
             "location": "/core/zones/#presence", 
             "text": "Zone presence can be automatically controlled by placing motion or presence sensors in the zone.  If a zone heirarchy is defined, presence is also controlled by child zones.", 
             "title": "Presence"
+        }, 
+        {
+            "location": "/core/classes/", 
+            "text": "Classes\n\n\nClasses represent common interactable objects in domotics.\n\n\nStandard Classes\n\n\nCore defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n- HVAC\n\n\nClass Types\n\n\nLights, locks and sensors are all \ntyped\n classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for \nLights\n.\n\n\nSee \nPlugins\n for more info on these.\n\n\nAdding Custom Classes\n\n\n\n\nUse \nClassesManager\n to add class\n\n\nExtend \nClassTypeManager\n to easily add typed classes\n\n\nUse instances in \nIConfig\n to add instances", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/core/classes/#classes", 
+            "text": "Classes represent common interactable objects in domotics.", 
+            "title": "Classes"
+        }, 
+        {
+            "location": "/core/classes/#standard-classes", 
+            "text": "Core defines a number of standard classes by default.\nThese cannot be removed:\n- People\n- Lights\n- Locks\n- Sensors\n- HVAC", 
+            "title": "Standard Classes"
+        }, 
+        {
+            "location": "/core/classes/#class-types", 
+            "text": "Lights, locks and sensors are all  typed  classes, which essentially mean that the class is abstract and requires implementations for each type.\nTypically this corresponds to specific brands or products, for example Hue or LIFX for  Lights .  See  Plugins  for more info on these.", 
+            "title": "Class Types"
+        }, 
+        {
+            "location": "/core/classes/#adding-custom-classes", 
+            "text": "Use  ClassesManager  to add class  Extend  ClassTypeManager  to easily add typed classes  Use instances in  IConfig  to add instances", 
+            "title": "Adding Custom Classes"
+        }, 
+        {
+            "location": "/core/classes/people/", 
+            "text": "People", 
+            "title": "People"
+        }, 
+        {
+            "location": "/core/classes/people/#people", 
+            "text": "", 
+            "title": "People"
+        }, 
+        {
+            "location": "/core/components/commands/", 
+            "text": "Commands\n\n\nCommands represent executable actions for items such as \nclass instances\n.\nFor example lights can \nturnOn\n or \nturnOff\n, locks can \nlock\n and \nunlock\n.", 
+            "title": "Commands"
+        }, 
+        {
+            "location": "/core/components/commands/#commands", 
+            "text": "Commands represent executable actions for items such as  class instances .\nFor example lights can  turnOn  or  turnOff , locks can  lock  and  unlock .", 
+            "title": "Commands"
+        }, 
+        {
+            "location": "/core/components/events/", 
+            "text": "", 
+            "title": "Events"
+        }, 
+        {
+            "location": "/core/components/presence/", 
+            "text": "Presence\n\n\nPresence items represent the presence of something, for example a presence for a motion sensor indicates the detection of an object,\npresnece of a person indicates their presence at the home,\npresence of a zone indicates the occupancy of a zone.\n\n\nEvery presence item exhibits a presence state - \npresent\n or \naway\n.\n\n\nThe presence of a specific item can be regulated in three ways:\n\n\n\n\nBy \nset\ning or \nclear\ning the item's presence. This is typical for a person or zone, or intelligent motion sensors.\n\n\nBy \nbump\ning the presence with a \ntimeout\n interval. This is typical for simple motion sensors that operate on more of a fire-and-forget approach.\n\n\nBy having children, in which case the presence is regulated by the presence of any of the child items. This is typical of zones that are regulated by sensors, or", 
+            "title": "Presence"
+        }, 
+        {
+            "location": "/core/components/presence/#presence", 
+            "text": "Presence items represent the presence of something, for example a presence for a motion sensor indicates the detection of an object,\npresnece of a person indicates their presence at the home,\npresence of a zone indicates the occupancy of a zone.  Every presence item exhibits a presence state -  present  or  away .  The presence of a specific item can be regulated in three ways:   By  set ing or  clear ing the item's presence. This is typical for a person or zone, or intelligent motion sensors.  By  bump ing the presence with a  timeout  interval. This is typical for simple motion sensors that operate on more of a fire-and-forget approach.  By having children, in which case the presence is regulated by the presence of any of the child items. This is typical of zones that are regulated by sensors, or", 
+            "title": "Presence"
+        }, 
+        {
+            "location": "/core/components/switches/", 
+            "text": "Switches\n\n\nSwitches represent settable or switchable items such as \nclass instances\n.\nSome classes may provide multiple switches.\n\n\nSwitches can be \nset\n or \nget\n, where \nset\n changes the state (switches) the instance, and \nget\n returns the current state of the switch.\n\n\nFor example setting a light changes it's state (turn on or off, or change colour), setting a lock will lock or unlock the device.\n\n\nMost switches can be set with \ntrue\n or \nfalse\n to toggle the primary values (on/off, enable/disable).\n\n\nSome switches are overloaded and can accept booleans, numbers and strings. For example Hue lights may accept \ntrue\n to turn a light on or \n\"red\"\n to set the light color.", 
+            "title": "Switches"
+        }, 
+        {
+            "location": "/core/components/switches/#switches", 
+            "text": "Switches represent settable or switchable items such as  class instances .\nSome classes may provide multiple switches.  Switches can be  set  or  get , where  set  changes the state (switches) the instance, and  get  returns the current state of the switch.  For example setting a light changes it's state (turn on or off, or change colour), setting a lock will lock or unlock the device.  Most switches can be set with  true  or  false  to toggle the primary values (on/off, enable/disable).  Some switches are overloaded and can accept booleans, numbers and strings. For example Hue lights may accept  true  to turn a light on or  \"red\"  to set the light color.", 
+            "title": "Switches"
+        }, 
+        {
+            "location": "/core/components/triggers/", 
+            "text": "Triggers", 
+            "title": "Triggers"
+        }, 
+        {
+            "location": "/core/components/triggers/#triggers", 
+            "text": "", 
+            "title": "Triggers"
+        }, 
+        {
+            "location": "/core/components/values/", 
+            "text": "Values", 
+            "title": "Values"
+        }, 
+        {
+            "location": "/core/components/values/#values", 
+            "text": "", 
+            "title": "Values"
+        }, 
+        {
+            "location": "/core/environment/sunlight/", 
+            "text": "", 
+            "title": "Sunlight"
         }, 
         {
             "location": "/core/rules/custom-nodes/", 

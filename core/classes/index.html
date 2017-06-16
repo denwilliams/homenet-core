@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Classes - Homenet Docs</title>
+  <title>Home - Homenet Docs</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Classes";
-    var mkdocs_page_input_path = "core/classes.md";
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "core/classes/index.md";
     var mkdocs_page_url = "/core/classes/";
   </script>
   
@@ -81,63 +81,81 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../_people/"> people</a>
+    <a class="" href="../scenes/">Scenes</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../_scenes/"> scenes</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../_sunlight/"> sunlight</a>
+    <a class="" href="../zones/">Zones</a>
                 </li>
                 <li class=" current">
                     
-    <a class="current" href="./">Classes</a>
+    <span class="caption-text">Classes</span>
+    <ul class="subnav">
+                <li class="toctree-l3 current">
+                    
+    <a class="current" href="./">Home</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#classes">Classes</a></li>
+    <li class="toctree-l4"><a href="#classes">Classes</a></li>
     
         <ul>
         
-            <li><a class="toctree-l4" href="#standard-classes">Standard Classes</a></li>
+            <li><a class="toctree-l5" href="#standard-classes">Standard Classes</a></li>
         
-            <li><a class="toctree-l4" href="#class-types">Class Types</a></li>
+            <li><a class="toctree-l5" href="#class-types">Class Types</a></li>
         
-            <li><a class="toctree-l4" href="#adding-custom-classes">Adding Custom Classes</a></li>
+            <li><a class="toctree-l5" href="#adding-custom-classes">Adding Custom Classes</a></li>
         
         </ul>
     
 
     </ul>
                 </li>
-                <li class="">
+                <li class="toctree-l3">
                     
-    <a class="" href="../commands/">Commands</a>
+    <a class="" href="people/">People</a>
+                </li>
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../events/">Events</a>
+    <span class="caption-text">Components</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../components/commands/">Commands</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../components/events/">Events</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../components/presence/">Presence</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../components/switches/">Switches</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../components/triggers/">Triggers</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../components/values/">Values</a>
+                </li>
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="../presence/">Presence</a>
-                </li>
-                <li class="">
+    <span class="caption-text">Environment</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
                     
-    <a class="" href="../switches/">Switches</a>
+    <a class="" href="../environment/sunlight/">Sunlight</a>
                 </li>
-                <li class="">
-                    
-    <a class="" href="../triggers/">Triggers</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../values/">Values</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../zones/">Zones</a>
+    </ul>
                 </li>
                 <li class="">
                     
@@ -220,8 +238,12 @@
           <li>Core &raquo;</li>
         
       
+        
+          <li>Classes &raquo;</li>
+        
+      
     
-    <li>Classes</li>
+    <li>Home</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -244,7 +266,7 @@ These cannot be removed:
 <h2 id="class-types">Class Types</h2>
 <p>Lights, locks and sensors are all <em>typed</em> classes, which essentially mean that the class is abstract and requires implementations for each type.
 Typically this corresponds to specific brands or products, for example Hue or LIFX for <code>Lights</code>.</p>
-<p>See <a href="../../plugins/">Plugins</a> for more info on these.</p>
+<p>See <a href="../plugins/index.md">Plugins</a> for more info on these.</p>
 <h2 id="adding-custom-classes">Adding Custom Classes</h2>
 <ul>
 <li>Use <code>ClassesManager</code> to add class</li>
@@ -258,10 +280,10 @@ Typically this corresponds to specific brands or products, for example Hue or LI
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../commands/" class="btn btn-neutral float-right" title="Commands">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="people/" class="btn btn-neutral float-right" title="People">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../_sunlight/" class="btn btn-neutral" title=" sunlight"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../zones/" class="btn btn-neutral" title="Zones"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -287,10 +309,10 @@ Typically this corresponds to specific brands or products, for example Hue or LI
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../_sunlight/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../zones/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../commands/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="people/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

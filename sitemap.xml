@@ -40,61 +40,7 @@
     
         
     <url>
-     <loc>/core/_people/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/_scenes/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/_sunlight/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/classes/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/commands/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/events/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/presence/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/switches/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/triggers/</loc>
-     <lastmod>2017-06-16</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/core/values/</loc>
+     <loc>/core/scenes/</loc>
      <lastmod>2017-06-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -102,6 +48,24 @@
     <url>
      <loc>/core/zones/</loc>
      <lastmod>2017-06-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc></loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc></loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc></loc>
+     <lastmod></lastmod>
      <changefreq>daily</changefreq>
     </url>
         

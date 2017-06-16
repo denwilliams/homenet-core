@@ -75,6 +75,14 @@
             
     <li class="toctree-l3"><a href="#starting-homenet-core">Starting Homenet Core</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l4" href="#as-a-global-package">As a Global Package</a></li>
+        
+            <li><a class="toctree-l4" href="#as-a-module">As a Module</a></li>
+        
+        </ul>
+    
 
     </ul>
                 </li>
@@ -87,47 +95,65 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../../core/_people/"> people</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/_scenes/"> scenes</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/_sunlight/"> sunlight</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/classes/">Classes</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/commands/">Commands</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/events/">Events</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/presence/">Presence</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/switches/">Switches</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/triggers/">Triggers</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../core/values/">Values</a>
+    <a class="" href="../../core/scenes/">Scenes</a>
                 </li>
                 <li class="">
                     
     <a class="" href="../../core/zones/">Zones</a>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Classes</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/classes/">Home</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/classes/people/">People</a>
+                </li>
+    </ul>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Components</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/components/commands/">Commands</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/components/events/">Events</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/components/presence/">Presence</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/components/switches/">Switches</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/components/triggers/">Triggers</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/components/values/">Values</a>
+                </li>
+    </ul>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Environment</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../../core/environment/sunlight/">Sunlight</a>
+                </li>
+    </ul>
                 </li>
                 <li class="">
                     
@@ -222,6 +248,21 @@
             <div class="section">
               
                 <h1 id="starting-homenet-core">Starting Homenet Core</h1>
+<h2 id="as-a-global-package">As a Global Package</h2>
+<p>The best way to use now is to install globally:</p>
+<pre><code>npm install -g @homenet/core
+</code></pre>
+
+<p>Then install any plugins:</p>
+<pre><code>npm install -g @homenet/plugin-hue @homenet/plugin-mqtt
+</code></pre>
+
+<p>Then create a config file somewhere like <code>/etc/homenet/config.json</code>.</p>
+<p>Then to run:</p>
+<pre><code>homenet4 /etc/homenet/config.json
+</code></pre>
+
+<h2 id="as-a-module">As a Module</h2>
 <pre><code class="js">const homenet = require('homenet-core');
 const RED = require('node-red');
 const myConfig = require('./config');
@@ -252,7 +293,7 @@ homenet.init(RED, config)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../core/_people/" class="btn btn-neutral float-right" title=" people">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../core/scenes/" class="btn btn-neutral float-right" title="Scenes">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../requirements/" class="btn btn-neutral" title="Requirements"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -284,7 +325,7 @@ homenet.init(RED, config)
         <span><a href="../requirements/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../core/_people/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../../core/scenes/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
