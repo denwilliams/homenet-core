@@ -29,6 +29,7 @@ import { ZoneManager } from './core/zone-manager';
 // higher level
 import { SensorManager } from './classes/sensor-manager';
 import { HvacManager } from './classes/hvac-manager';
+import { PowerManager } from './classes/power-manager';
 import { LightsManager } from './classes/lights-manager';
 import { ButtonManager } from './classes/button-manager';
 import { LockManager } from './classes/lock-manager';
@@ -195,6 +196,7 @@ export const coreModule = new ContainerModule(bind => {
   bind<Homenet.IZoneManager>('IZoneManager').to(ZoneManager).inSingletonScope();
   bind<Homenet.IPersonManager>('IPersonManager').to(PersonManager).inSingletonScope();
   bind<Homenet.IHvacManager>('IHvacManager').to(HvacManager).inSingletonScope();
+  bind<Homenet.IPowerManager>('IPowerManager').to(PowerManager).inSingletonScope();
   bind<Homenet.ILightsManager>('ILightsManager').to(LightsManager).inSingletonScope();
   bind<Homenet.ILockManager>('ILockManager').to(LockManager).inSingletonScope();
   bind<Homenet.IButtonManager>('IButtonManager').to(ButtonManager).inSingletonScope();
