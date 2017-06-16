@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Homenet Core\n\n\nThe Basics\n\n\n\n\nRequirements\n\n\nRedis persistence\n\n\nStarting\n\n\nConfiguration\n\n\nCustomizing\n\n\n\n\nCore Concepts\n\n\n\n\nNode RED rule system\n\n\nCustom nodes\n\n\nGlobal context\n\n\nScenes\n\n\nZones\n\n\nEnvironment\n\n\nSunlight\n\n\nCore Components\n\n\nCommands\n\n\nEvents\n\n\nPresence\n\n\nSwitches\n\n\nTriggers\n\n\nValues\n\n\nClasses\n\n\nPeople\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\nPlugins\n\n\n\n\nNode RED plugins\n\n\nHomenet plugins\n\n\nButtons\n\n\nHVAC\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\nAPI\n\n\n\n\nAuthentication: TBD\n\n\nDocumentation: TBD", 
+            "text": "Homenet Core\n\n\nThe Basics\n\n\n\n\nRequirements\n\n\nRedis persistence\n\n\n\n\n\n\nStarting\n\n\nConfiguration\n\n\nCustomizing\n\n\n\n\nCore Concepts\n\n\n\n\nNode RED rule system\n\n\nCustom nodes\n\n\nGlobal context\n\n\n\n\n\n\nScenes\n\n\nZones\n\n\nEnvironment\n\n\nSunlight\n\n\n\n\n\n\nCore Components\n\n\nCommands\n\n\nEvents\n\n\nPresence\n\n\nSwitches\n\n\nTriggers\n\n\nValues\n\n\n\n\n\n\nClasses\n\n\nPeople\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\n\n\n\n\nPlugins\n\n\n\n\nNode RED plugins\n\n\nHomenet plugins\n\n\nButtons\n\n\nHVAC\n\n\nLights\n\n\nLocks\n\n\nSensors\n\n\n\n\n\n\n\n\nAPI\n\n\n\n\nAuthentication: TBD\n\n\nDocumentation: TBD", 
             "title": "Home"
         }, 
         {
@@ -12,12 +12,12 @@
         }, 
         {
             "location": "/#the-basics", 
-            "text": "Requirements  Redis persistence  Starting  Configuration  Customizing", 
+            "text": "Requirements  Redis persistence    Starting  Configuration  Customizing", 
             "title": "The Basics"
         }, 
         {
             "location": "/#core-concepts", 
-            "text": "Node RED rule system  Custom nodes  Global context  Scenes  Zones  Environment  Sunlight  Core Components  Commands  Events  Presence  Switches  Triggers  Values  Classes  People  Lights  Locks  Sensors", 
+            "text": "Node RED rule system  Custom nodes  Global context    Scenes  Zones  Environment  Sunlight    Core Components  Commands  Events  Presence  Switches  Triggers  Values    Classes  People  Lights  Locks  Sensors", 
             "title": "Core Concepts"
         }, 
         {
