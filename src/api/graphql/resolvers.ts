@@ -64,6 +64,16 @@ const Mutation = {
     const states: Homenet.IStateManager = ctx.states;
     return states.setCurrent(type, state)
     .then(() => BASIC_RESULT)
+  },
+  setHome(_, args, ctx) {
+    const people: Homenet.IPersonManager = ctx.people;
+    const person = people.get('');
+    return person.set(true);
+  },
+  setAway(_, args, ctx) {
+    const people: Homenet.IPersonManager = ctx.people;
+    const person = people.get('');
+    return person.set(false);
   }
 };
 

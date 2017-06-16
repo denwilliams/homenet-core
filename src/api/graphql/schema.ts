@@ -17,6 +17,8 @@ type Mutation {
   runCommand(id: String!, command: String!, jsonArgs: String): BasicResult!
   setSwitch(id: String!, value: Primitive!): BasicResult!
   setState(type: String!, state: String!): BasicResult!
+  setHome: BasicResult!
+  setAway: BasicResult!
 }
 
 type Config {
