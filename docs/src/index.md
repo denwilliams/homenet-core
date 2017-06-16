@@ -1,43 +1,46 @@
 # Homenet Core
 
-WIP...
-
 ## The Basics
 
 - [Requirements](basics/requirements.md)
-  - [Redis persistence](basics/redis.md)
+    - [Redis persistence](basics/redis.md)
 - [Starting](basics/starting.md)
+- [Configuration](basics/configuration.md)
 - [Customizing](basics/customizing.md)
 
 ## Core Concepts
 
-- Node RED rule system
-  - Custom nodes
-- Classes
-  - People
-  - Lights
-  - Locks
-  - Sensors
-- Zones
+- [Node RED rule system](core/rules/node-red.md)
+    - [Custom nodes](core/rules/custom-nodes.md)
+    - [Global context](core/rules/global-context.md)
+- [Scenes](core/scenes.md)
+- [Zones](core/zones.md)
 - Environment
-  - Sunlight
+    - [Sunlight](core/environment/sunlight.md)
 - Core Components
-  - Commands
-  - Events
-  - Presence
-  - Switches
-  - Triggers
-  - Values
+    - [Commands](core/components/commands.md)
+    - [Events](core/components/events.md)
+    - [Presence](core/components/presence.md)
+    - [Switches](core/components/switches.md)
+    - [Triggers](core/components/triggers.md)
+    - [Values](core/components/values.md)
+- [Classes](core/classes/index.md)
+    - [People](core/classes/people.md)
+    - [Lights](core/classes/lights.md)
+    - [Locks](core/classes/locks.md)
+    - [Sensors](core/classes/sensors.md)
 
 ## Plugins
 
-- Node RED plugins
-- Homenet plugins
-  - Lights
-  - Locks
-  - Sensors
+- [Node RED plugins](plugins/nodered.md)
+- [Homenet plugins](plugins/index.md)
+    - [Buttons](plugins/buttons.md)
+    - [HVAC](plugins/hvac.md)
+    - [Lights](plugins/lights.md)
+    - [Locks](plugins/locks.md)
+    - [Sensors](plugins/sensors.md)
 
 ## API
 
-- Authentication
-- Documentation
+- Authentication: TBD
+- Documentation: TBD
