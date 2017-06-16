@@ -245,21 +245,6 @@ declare namespace Homenet {
 
   interface ILock extends ISwitch, ILockCommander {}
 
-  interface IHvacCommander extends ICommander {
-    turnOn() : void
-    turnOff() : void
-  }
-
-  interface IHvac extends ISwitch, IHvacCommander {}
-
-
-  interface ILightCommander extends ICommander {
-    turnOn() : void
-    turnOff() : void
-  }
-
-  interface ILight extends ISwitch, ILightCommander {}
-
   interface ILockManager extends ISettableClassTypeManager<ILock> {
     setLock(lockId: string, value: boolean) : void
   }
@@ -456,8 +441,25 @@ declare namespace Homenet {
    * Include an ILight light type by calling `addType`.
    */
   interface ILightsManager extends ISettableClassTypeManager<ILight> {}
+  interface ILightCommander extends ICommander {
+    turnOn() : void
+    turnOff() : void
+  }
+  interface ILight extends ISwitch, ILightCommander {}
 
   interface IHvacManager extends ISettableClassTypeManager<IHvac> {}
+    interface IHvacCommander extends ICommander {
+    turnOn() : void
+    turnOff() : void
+  }
+  interface IHvac extends ISwitch, IHvacCommander {}
+
+  interface IPowerManager extends ISettableClassTypeManager<IPower> {}
+  interface IPowerCommander extends ICommander {
+    turnOn() : void
+    turnOff() : void
+  }
+  interface IPower extends ISwitch, IPowerCommander {}
 
   interface IStorageManager {}
 

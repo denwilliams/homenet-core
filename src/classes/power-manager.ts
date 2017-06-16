@@ -1,13 +1,13 @@
 import { injectable, inject } from 'inversify';
-import { Hvac, AVAILABLE_COMMANDS } from './models/hvac';
+import { Power, AVAILABLE_COMMANDS } from './models/power';
 import { SettableClassTypeManager } from '../utils/settable-class-type-manager';
 
 import chalk = require('chalk');
 
-const CLASS_ID = 'hvac';
+const CLASS_ID = 'power';
 
 @injectable()
-export class HvacManager extends SettableClassTypeManager<Homenet.IHvac> implements Homenet.IHvacManager {
+export class PowerManager extends SettableClassTypeManager<Homenet.IPower> implements Homenet.IPowerManager {
   constructor(
               @inject('IClassesManager') private classes: Homenet.IClassesManager,
               @inject('ISwitchManager') private switches: Homenet.ISwitchManager,
@@ -23,14 +23,14 @@ export class HvacManager extends SettableClassTypeManager<Homenet.IHvac> impleme
     if (!eventBus) throw new Error('eventBus cannot be null');
   }
 
-  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.IHvac {
-    return new Hvac(id, settable);
+  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.IPower {
+    return new Power(id, settable);
   }
 
-  protected onAddInstance(hvac: Homenet.IHvac, instanceId: string, typeId: string, opts: any) : void {
+  protected onAddInstance(power: Homenet.IPower, instanceId: string, typeId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
-    this.switches.addInstance(fullId, hvac);
-    this.commands.addInstance(fullId, hvac, AVAILABLE_COMMANDS);
+    this.switches.addInstance(fullId, power);
+    this.commands.addInstance(fullId, power, AVAILABLE_COMMANDS);
   }
 }
 
