@@ -5,6 +5,7 @@
 - [Requirements](basics/requirements.md)
   - [Redis persistence](basics/redis.md)
 - [Starting](basics/starting.md)
+- [Configuration](basics/configuration.md)
 - [Customizing](basics/customizing.md)
 
 ## Core Concepts
