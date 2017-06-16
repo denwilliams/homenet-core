@@ -282,8 +282,28 @@
         }, 
         {
             "location": "/plugins/hvac/", 
-            "text": "", 
+            "text": "HVAC\n\n\nIHvac Interface\n\n\nSwitch\n\n\nHVAC implements a switch interface, ie:\n\n\nget() : number\nset(value: number|boolean) : void\n\n\n\n\nCommands\n\n\nturnOn(): void\nturnOff(): void", 
             "title": "Hvac"
+        }, 
+        {
+            "location": "/plugins/hvac/#hvac", 
+            "text": "", 
+            "title": "HVAC"
+        }, 
+        {
+            "location": "/plugins/hvac/#ihvac-interface", 
+            "text": "", 
+            "title": "IHvac Interface"
+        }, 
+        {
+            "location": "/plugins/hvac/#switch", 
+            "text": "HVAC implements a switch interface, ie:  get() : number\nset(value: number|boolean) : void", 
+            "title": "Switch"
+        }, 
+        {
+            "location": "/plugins/hvac/#commands", 
+            "text": "turnOn(): void\nturnOff(): void", 
+            "title": "Commands"
         }, 
         {
             "location": "/plugins/", 

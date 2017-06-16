@@ -179,6 +179,15 @@
     <a class="current" href="./">Hvac</a>
     <ul class="subnav">
             
+    <li class="toctree-l3"><a href="#hvac">HVAC</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#ihvac-interface">IHvac Interface</a></li>
+        
+        </ul>
+    
+
     </ul>
                 </li>
                 <li class="">
@@ -240,7 +249,18 @@
           <div role="main">
             <div class="section">
               
-                
+                <h1 id="hvac">HVAC</h1>
+<h2 id="ihvac-interface">IHvac Interface</h2>
+<h3 id="switch">Switch</h3>
+<p>HVAC implements a switch interface, ie:</p>
+<pre><code>get() : number
+set(value: number|boolean) : void
+</code></pre>
+
+<h3 id="commands">Commands</h3>
+<pre><code>turnOn(): void
+turnOff(): void
+</code></pre>
               
             </div>
           </div>
