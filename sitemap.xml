@@ -12,6 +12,12 @@
     
         
     <url>
+     <loc>/basics/configuration/</loc>
+     <lastmod>2017-06-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/basics/customizing/</loc>
      <lastmod>2017-06-16</lastmod>
      <changefreq>daily</changefreq>
