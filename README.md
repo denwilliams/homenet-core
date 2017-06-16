@@ -2,7 +2,7 @@
 
 Home automation system tightly coupled with [Node RED](https://nodered.org) intended for those who like to write their own code.
 
-I'm not a fan of complex web and app interfaces, so the approach is more of a hands off - triggers are automatic or via sensors or buttons. Ideally I'd like to integrate with voice control when that becomes feasible.
+I'm not a fan of complex web and app interfaces, so the approach is more of a hands off - triggers are automatic or via sensors or buttons. There is an Android tablet app in the works that uses multi-finger gestures to control things. Ideally I'd like to integrate with voice control when that becomes feasible.
 
 ## Powerful Rules
 
