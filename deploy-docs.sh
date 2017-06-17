@@ -7,9 +7,6 @@ pip install --user mkdocs
 
 echo CONFIGURING GIT
 
-git config user.name "Travis CI"
-git config user.email "$COMMIT_AUTHOR_EMAIL"
-
 # git remote add gh-token "https://${GH_TOKEN}@github.com/denwilliams/homenet-core.git";
 # git fetch gh-token && git fetch gh-token gh-pages:gh-pages;
 
@@ -31,6 +28,8 @@ typedoc --mode file --out ./gh-pages-docs/tsdoc/ --module commonjs --target ES6 
 echo PUSHING
 
 pushd gh-pages-docs
+    git config user.name "Travis CI"
+    git config user.email "travis@denwilliams.net"
     git add .
     git commit -m "Update docs"
     git push
