@@ -4,8 +4,16 @@ import * as moduleFinder from 'module-finder';
 import * as RED from 'node-red';
 import { join as joinPath } from 'path';
 
-let configFilename = process.argv[process.argv.length - 1];
-if (configFilename[0] !== '/') configFilename = joinPath(process.cwd(), configFilename);
+let configFilename;
+if (process.argv.length > 2) {
+  configFilename = process.argv[process.argv.length - 1];
+  if (configFilename[0] !== '/') {
+    configFilename = joinPath(process.cwd(), configFilename);
+  }
+} else {
+  configFilename = '/etc/homenet4/config.json'
+}
+
 console.log('Loading with config ==> ' + configFilename);
 const config = require(configFilename);
 

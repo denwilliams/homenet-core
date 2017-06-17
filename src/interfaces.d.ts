@@ -325,20 +325,41 @@ declare namespace Homenet {
     lockId: string
   }
 
+  /**
+   * Configuration for a zone
+   * @interface IZoneConfig
+   */
   interface IZoneConfig {
+    /**
+     * Unique zone ID
+     */
     id: string;
+
+    /**
+     * Display name for the zone
+     */
     name: string;
-    faIcon?: string;
+
+    /**
+     * ID of parent zone (for creating zone heirarchy)
+     */
     parent?: string;
+
+    /**
+     * I THINK THIS ISNT USED ANY MORE
+     */
     timeout?: number;
+
     /**
      * Path to temperature value, eg: 'lounge-sensor:temperatue'
      */
     temperature?: string;
+
     /**
      * Path to humidity value, eg: 'lounge-sensor:humidity'
      */
     humidity?: string;
+
     /**
      * Path to string value, eg: 'lounge-sensor:luminescence'
      */
@@ -417,7 +438,6 @@ declare namespace Homenet {
   interface IZone {
     id: string;
     name: string;
-    faIcon: string;
     parent: IZone;
     parentId: string;
     children: IZone[];

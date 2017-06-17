@@ -7,42 +7,36 @@ const config: Homenet.IConfig = {
     {
       id: 'simple',
       name: 'Simple',
-      faIcon: null,
       parent: null,
       timeout: 0
     },
     {
       id: 'parent',
       name: 'Parent',
-      faIcon: null,
       parent: null,
       timeout: 0
     },
     {
       id: 'child',
       name: 'Child',
-      faIcon: null,
       parent: 'parent',
       timeout: 0
     },
     {
       id: 'simple-timeout',
       name: 'Simple Timeout',
-      faIcon: null,
       parent: null,
       timeout: 60000
     },
     {
       id: 'parent-timeout',
       name: 'Parent Timeout',
-      faIcon: null,
       parent: null,
       timeout: 0
     },
     {
       id: 'child-timeout',
       name: 'Child Timeout',
-      faIcon: null,
       parent: 'parent-timeout',
       timeout: 60000
     }

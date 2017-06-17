@@ -540,7 +540,6 @@ declare module '@homenet/core' {
   interface IZoneConfig {
     id: string;
     name: string;
-    faIcon?: string;
     parent?: string;
     timeout?: number;
     /**
@@ -629,7 +628,6 @@ declare module '@homenet/core' {
   interface IZone {
     id: string;
     name: string;
-    faIcon: string;
     parent: IZone;
     parentId: string;
     children: IZone[];

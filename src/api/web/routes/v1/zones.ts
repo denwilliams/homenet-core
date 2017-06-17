@@ -22,7 +22,6 @@ function toApiZone(zone) {
   return {
     id: zone.id,
     name: zone.name,
-    faIcon: zone.faIcon,
     presence: zone.presence,
     parent: zone.parentId,
     temperature: zone.temperature,

@@ -9,7 +9,6 @@ class Zone implements Homenet.IZone {
 
   id: string;
   name: string;
-  faIcon: string;
   parentId: string;
   parent: Zone;
   children: Zone[];
@@ -19,7 +18,6 @@ class Zone implements Homenet.IZone {
 
     this.id = c.id;
     this.name = c.name;
-    this.faIcon = c.faIcon;
     this.parent = null;
     this.children = [];
     this.parentId = c.parent;
@@ -52,7 +50,7 @@ class Zone implements Homenet.IZone {
 
   private getValue(path: string) : any {
     if (!path) return null;
-    
+
     const parts = path.split(':');
     const instance = this.values.getInstance(parts[0]);
     if (!instance) return null;

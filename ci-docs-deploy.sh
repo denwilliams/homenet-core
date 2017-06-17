@@ -7,6 +7,8 @@ TARGET_BRANCH="gh-pages"
 function doCompile {
   pushd docs
   ./ci-build.sh
+  npm i -g typedoc
+  npm run typedoc
   popd
 }
 
