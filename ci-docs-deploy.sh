@@ -7,9 +7,9 @@ TARGET_BRANCH="gh-pages"
 function doCompile {
   pushd docs
   ./ci-build.sh
+  popd
   npm i -g typedoc
   npm run typedoc
-  popd
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
