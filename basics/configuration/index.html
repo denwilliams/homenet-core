@@ -65,6 +65,8 @@
     
         <ul>
         
+            <li><a class="toctree-l4" href="#example">Example</a></li>
+        
             <li><a class="toctree-l4" href="#schema">Schema</a></li>
         
         </ul>
@@ -250,10 +252,84 @@
             <div class="section">
               
                 <h1 id="configuration">Configuration</h1>
-<p>To configure, create a <code>js</code> or <code>json</code> file somewhere, eg <code>/etc/homenet4/config.json</code>.</p>
+<p>To configure, create a <code>js</code> or <code>json</code> file somewhere.</p>
 <p>Pass this in to <code>homenet4</code> as the last argument.</p>
+<p>If no configuration is passed in it uses <code>/etc/homenet4/config.json</code>.</p>
+<h2 id="example">Example</h2>
+<pre><code class="json">{
+  &quot;dataPath&quot;: &quot;&quot;,
+  &quot;webServerPort&quot;: 1234,
+  &quot;location&quot;: {
+    &quot;latitude&quot;: 37.8136,
+    &quot;longitude&quot;: 144.9631
+  },
+  &quot;zones&quot;: [
+    {}
+  ],
+  &quot;scenes&quot;: [
+    {}
+  ],
+  &quot;people&quot;: [
+    {}
+  ],
+  &quot;instances&quot;: [
+    {}
+  ]
+}
+</code></pre>
+
 <h2 id="schema">Schema</h2>
-<p>TBD</p>
+<pre><code class="json">{
+    &quot;$schema&quot;: &quot;http://json-schema.org/draft-04/schema#&quot;,
+    &quot;definitions&quot;: {},
+    &quot;id&quot;: &quot;http://homenet4/api/v1&quot;,
+    &quot;properties&quot;: {
+        &quot;dataPath&quot;: {
+            &quot;id&quot;: &quot;/properties/dataPath&quot;,
+            &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;instances&quot;: {
+            &quot;id&quot;: &quot;/properties/instances&quot;,
+            &quot;items&quot;: {},
+            &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;location&quot;: {
+            &quot;id&quot;: &quot;/properties/location&quot;,
+            &quot;properties&quot;: {
+                &quot;latitude&quot;: {
+                    &quot;id&quot;: &quot;/properties/location/properties/latitude&quot;,
+                    &quot;type&quot;: &quot;number&quot;
+                },
+                &quot;longitude&quot;: {
+                    &quot;id&quot;: &quot;/properties/location/properties/longitude&quot;,
+                    &quot;type&quot;: &quot;number&quot;
+                }
+            },
+            &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;people&quot;: {
+            &quot;id&quot;: &quot;/properties/people&quot;,
+            &quot;items&quot;: {},
+            &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;scenes&quot;: {
+            &quot;id&quot;: &quot;/properties/scenes&quot;,
+            &quot;items&quot;: {},
+            &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;webServerPort&quot;: {
+            &quot;id&quot;: &quot;/properties/webServerPort&quot;,
+            &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;zones&quot;: {
+            &quot;id&quot;: &quot;/properties/zones&quot;,
+            &quot;items&quot;: {},
+            &quot;type&quot;: &quot;array&quot;
+        }
+    },
+    &quot;type&quot;: &quot;object&quot;
+}
+</code></pre>
               
             </div>
           </div>
