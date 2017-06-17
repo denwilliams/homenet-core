@@ -13,7 +13,7 @@ echo CONFIGURING GIT
 echo CLONING
 
 rm -rf ./gh-pages-docs
-git clone -b gh-pages --single-branch https://${GH_TOKEN}@github.com/denwilliams/homenet-core.git gh-pages-docs --depth 1
+git clone -b gh-pages --single-branch https://${GH_TOKEN}@github.com/denwilliams/homenet-core.git gh-pages-docs
 
 echo BUILDING MKDOCS
 
