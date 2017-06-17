@@ -33,8 +33,8 @@ If no configuration is passed in it uses `/etc/homenet4/config.json`.
 
 For more details see:
 
-- [Zone configuration](../../tsdoc/interfaces/homenet.izoneconfig.html)
-- [Scene configuration](../../tsdoc/interfaces/homenet.isceneconfig.html)
+- [Zone configuration](../tsdoc/interfaces/homenet.izoneconfig.html)
+- [Scene configuration](../tsdoc/interfaces/homenet.isceneconfig.html)
 - [Person configuration](../../tsdoc/interfaces/homenet.ipersonconfig.html)
 - [Instance configuration](../../tsdoc/interfaces/homenet.instanceconfig.html)
 
