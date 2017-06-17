@@ -1,0 +1,655 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@homenet/core</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@homenet/core</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @homenet/core</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="homenet-core">Homenet Core</h1>
+				<p>Home automation system tightly coupled with <a href="https://nodered.org">Node RED</a> intended for those who like to write their own code.</p>
+				<p>I&#39;m not a fan of complex web and app interfaces, so the approach is more of a hands off - triggers are automatic or via sensors or buttons. There is an Android tablet app in the works that uses multi-finger gestures to control things. Ideally I&#39;d like to integrate with voice control when that becomes feasible.</p>
+				<h2 id="powerful-rules">Powerful Rules</h2>
+				<ul>
+					<li>Uses <a href="https://nodered.org">Node RED</a> for rule system. Much more powerful than the IFTTT style rules used by others.</li>
+					<li>Infinite number of &quot;scenes&quot;. Each scene is like a clean slate of rules. When the scene changes, so do the Node RED flows. For example have a &quot;day&quot; and &quot;night&quot; scene, one for when you&#39;re &quot;away&quot; from home, one for when you&#39;re watching &quot;movies&quot;, one for when you&#39;re &quot;entertaining&quot;.</li>
+					<li>Common tabs - any Node RED tab that starts with the word &quot;Common&quot; is available in every scene. No need to repeat rules that you always want available.</li>
+					<li><a href="https://www.npmjs.com/package/@homenet/nodes">Custom Node RED nodes</a> are provided for tighter integration with core.</li>
+				</ul>
+				<h2 id="pluggable-architecture">Pluggable Architecture</h2>
+				<p>Core relies on plugins to communicate with external devices and services.</p>
+				<ul>
+					<li>Core plugins can easily be written in Javascript or Typescript (or any other language that compiles to Javascript such as Coffeescript).</li>
+					<li>Core plugins are discovered automatically if installed globally via NPM.</li>
+					<li>Any Node RED plugin can also be used within the rule systems (although they will not be controllable via the HTTP API).</li>
+				</ul>
+				<h2 id="api">API</h2>
+				<p>External applications can interact and control devices via the HTTP APIs. There is both a REST and GraphQL API.</p>
+				<h2 id="documentation">Documentation</h2>
+				<p><a href="http://www.denwilliams.net/homenet-core/">Click here to view documentation</a></p>
+				<h2 id="installing-and-running">Installing and Running</h2>
+				<p>The best way to use now is to install globally:</p>
+				<pre><code><span class="hljs-built_in">npm</span> install -g @homenet/core
+</code></pre><p>Then to run:</p>
+				<pre><code>homenet4 /path/<span class="hljs-keyword">to</span>/<span class="hljs-keyword">my</span>/config.json
+</code></pre><h2 id="adding-plugins">Adding Plugins</h2>
+				<blockquote>
+					<p><a href="https://www.npmjs.com/search?q=homenet4-plugin">Search for plugins on NPM</a></p>
+				</blockquote>
+				<p><code>homenet-core</code> doesn&#39;t do much without plugins. Install plugins globally and they will be automatically discovered. Eg:</p>
+				<pre><code><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">-g</span> @<span class="hljs-keyword">homenet</span>/<span class="hljs-keyword">plugin</span>-<span class="hljs-keyword">hue</span>
+</code></pre><p>Plugins are discovered by searching global and local <code>node_modules</code> for modules with the keyword <code>homenet4-plugin</code>.</p>
+				<p>example <code>package.json</code>:</p>
+				<pre><code class="lang-json">{
+    <span class="hljs-attr">"keywords"</span>: [
+        <span class="hljs-string">"homenet4-plugin"</span>
+    ],
+    <span class="hljs-attr">"homenet4"</span>: {
+        <span class="hljs-attr">"plugins"</span>: [
+            <span class="hljs-string">"MyPluginLoader"</span>
+        ]
+    }
+}
+</code></pre>
+				<h2 id="using-as-a-module">Using as a Module</h2>
+				<p>It is also possible to use as an NPM module inside a project. Docs TBD.</p>
+				<h2 id="developer-help">Developer Help</h2>
+				<h3 id="clone-and-build-locally">Clone and Build Locally</h3>
+				<p>Build using Typescript 2.</p>
+				<pre><code>git clone git@github<span class="hljs-selector-class">.com</span>:denwilliams/homenet-core<span class="hljs-selector-class">.git</span>
+cd homenet-core
+npm install
+npm install -g typescript
+tsc
+</code></pre><h3 id="building-docs-locally">Building Docs Locally</h3>
+				<pre><code><span class="hljs-built_in">npm</span> install -g typedoc
+<span class="hljs-built_in">npm</span> run typedoc
+</code></pre><h3 id="running-tests">Running Tests</h3>
+				<pre><code>npm <span class="hljs-built_in">test</span>
+</code></pre><p>or</p>
+				<pre><code>node_modules<span class="hljs-regexp">/.bin/</span>ava
+</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/__homenet_core_.html">"@homenet/core"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-parent-kind-module tsd-is-not-exported">
+						<a href="modules/__homenet_core_.q.html">"@homenet/core".Q</a>
+					</li>
+					<li class=" tsd-kind-module tsd-parent-kind-module tsd-is-not-exported">
+						<a href="modules/__homenet_core_.when.html">"@homenet/core".<wbr>When</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/_node_red_.html">"node-<wbr>red"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/_node_red_interfaces_.html">"node-<wbr>red-<wbr>interfaces"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/homenet.html">Homenet</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/q.html">Q</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/when.html">When</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/app.html" class="tsd-kind-icon">App</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/authorizer.html" class="tsd-kind-icon">Authorizer</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/baseswitch.html" class="tsd-kind-icon">Base<wbr>Switch</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/buttonmanager.html" class="tsd-kind-icon">Button<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/classtypemanager.html" class="tsd-kind-icon">Class<wbr>Type<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/classesmanager.html" class="tsd-kind-icon">Classes<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/commandmanager.html" class="tsd-kind-icon">Command<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/common.html" class="tsd-kind-icon">Common</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/consolelogger.html" class="tsd-kind-icon">Console<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/consolestats.html" class="tsd-kind-icon">Console<wbr>Stats</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/corelogger.html" class="tsd-kind-icon">Core<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/customstorage.html" class="tsd-kind-icon">Custom<wbr>Storage</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/debugstats.html" class="tsd-kind-icon">Debug<wbr>Stats</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/defaultplugins.html" class="tsd-kind-icon">Default<wbr>Plugins</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/globalcontext.html" class="tsd-kind-icon">Global<wbr>Context</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/graphqlapi.html" class="tsd-kind-icon">GraphQLApi</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/hvac.html" class="tsd-kind-icon">Hvac</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/hvacmanager.html" class="tsd-kind-icon">Hvac<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/inmempersistence.html" class="tsd-kind-icon">In<wbr>Mem<wbr>Persistence</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/instance.html" class="tsd-kind-icon">Instance</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/instanceloader.html" class="tsd-kind-icon">Instance<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/light.html" class="tsd-kind-icon">Light</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/lightsmanager.html" class="tsd-kind-icon">Lights<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/lock.html" class="tsd-kind-icon">Lock</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/lockmanager.html" class="tsd-kind-icon">Lock<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodered.html" class="tsd-kind-icon">Node<wbr>Red</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/nulllogger.html" class="tsd-kind-icon">Null<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/person.html" class="tsd-kind-icon">Person</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/personmanager.html" class="tsd-kind-icon">Person<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/plugins.html" class="tsd-kind-icon">Plugins</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/power.html" class="tsd-kind-icon">Power</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/powermanager.html" class="tsd-kind-icon">Power<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/presencemanager.html" class="tsd-kind-icon">Presence<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/presencestate.html" class="tsd-kind-icon">Presence<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/redispersistence.html" class="tsd-kind-icon">Redis<wbr>Persistence</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scenemanager.html" class="tsd-kind-icon">Scene<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sensormanager.html" class="tsd-kind-icon">Sensor<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/settableclasstypemanager.html" class="tsd-kind-icon">Settable<wbr>Class<wbr>Type<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sharedeventemitter.html" class="tsd-kind-icon">Shared<wbr>Event<wbr>Emitter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/statemanager.html" class="tsd-kind-icon">State<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/statsmanager.html" class="tsd-kind-icon">Stats<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/storagemanager.html" class="tsd-kind-icon">Storage<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sunlight.html" class="tsd-kind-icon">Sunlight</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/switchmanager.html" class="tsd-kind-icon">Switch<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/tespower.html" class="tsd-kind-icon">Tes<wbr>Power</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/testconfig.html" class="tsd-kind-icon">Test<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/testhvac.html" class="tsd-kind-icon">Test<wbr>Hvac</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/testlight.html" class="tsd-kind-icon">Test<wbr>Light</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/testlock.html" class="tsd-kind-icon">Test<wbr>Lock</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/testsensor.html" class="tsd-kind-icon">Test<wbr>Sensor</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/teststateprovider.html" class="tsd-kind-icon">Test<wbr>State<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/testswitch.html" class="tsd-kind-icon">Test<wbr>Switch</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/trigger.html" class="tsd-kind-icon">Trigger</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/triggermanager.html" class="tsd-kind-icon">Trigger<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/valuestore.html" class="tsd-kind-icon">Value<wbr>Store</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/valuesmanager.html" class="tsd-kind-icon">Values<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/virtuallight.html" class="tsd-kind-icon">Virtual<wbr>Light</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/virtuallock.html" class="tsd-kind-icon">Virtual<wbr>Lock</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/virtualpluginloader.html" class="tsd-kind-icon">Virtual<wbr>Plugin<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/virtualsensor.html" class="tsd-kind-icon">Virtual<wbr>Sensor</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/webapi.html" class="tsd-kind-icon">Web<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/webdependencies.html" class="tsd-kind-icon">Web<wbr>Dependencies</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/webserver.html" class="tsd-kind-icon">Web<wbr>Server</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/zone.html" class="tsd-kind-icon">Zone</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/zonemanager.html" class="tsd-kind-icon">Zone<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/redisget.html" class="tsd-kind-icon">Redis<wbr>Get</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/redisset.html" class="tsd-kind-icon">Redis<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#class_id" class="tsd-kind-icon">CLASS_<wbr>ID</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#event_prefix" class="tsd-kind-icon">EVENT_<wbr>PREFIX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#event_type" class="tsd-kind-icon">EVENT_<wbr>TYPE</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#eventemitter" class="tsd-kind-icon">Event<wbr>Emitter</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#eventemitter2" class="tsd-kind-icon">Event<wbr>Emitter2</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#first_interval" class="tsd-kind-icon">FIRST_<wbr>INTERVAL</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#interval" class="tsd-kind-icon">INTERVAL</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#key_prefix" class="tsd-kind-icon">KEY_<wbr>PREFIX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#one_min" class="tsd-kind-icon">ONE_<wbr>MIN</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#presence_category" class="tsd-kind-icon">PRESENCE_<wbr>CATEGORY</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#presence_prefix" class="tsd-kind-icon">PRESENCE_<wbr>PREFIX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#primitive" class="tsd-kind-icon">Primitive</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#root_presnce" class="tsd-kind-icon">ROOT_<wbr>PRESNCE</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#schema" class="tsd-kind-icon">SCHEMA</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#state_type" class="tsd-kind-icon">STATE_<wbr>TYPE</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#suncalc" class="tsd-kind-icon">Sun<wbr>Calc</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#ten_mins" class="tsd-kind-icon">TEN_<wbr>MINS</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#ten_secs" class="tsd-kind-icon">TEN_<wbr>SECS</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#_" class="tsd-kind-icon">_</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#apimodule" class="tsd-kind-icon">api<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#configfilename" class="tsd-kind-icon">config<wbr>Filename</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#coremodule" class="tsd-kind-icon">core<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#domain" class="tsd-kind-icon">domain</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#graphqlhttp" class="tsd-kind-icon">graphqlHTTP</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#kernel" class="tsd-kind-icon">kernel</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#keyby" class="tsd-kind-icon">key<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#makeexecutableschema" class="tsd-kind-icon">make<wbr>Executable<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#pluginsmodule" class="tsd-kind-icon">plugins<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#runtime" class="tsd-kind-icon">runtime</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#schema" class="tsd-kind-icon">schema</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#utilsmodule" class="tsd-kind-icon">utils<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#basicauth" class="tsd-kind-icon">basic<wbr>Auth</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#create" class="tsd-kind-icon">create</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#createapi" class="tsd-kind-icon">create<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createfactory" class="tsd-kind-icon">create<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createkernel" class="tsd-kind-icon">create<wbr>Kernel</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createrouter" class="tsd-kind-icon">create<wbr>Router</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createsensorsfactory" class="tsd-kind-icon">create<wbr>Sensors<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#datediff" class="tsd-kind-icon">date<wbr>Diff</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#eagersingleton" class="tsd-kind-icon">eager<wbr>Singleton</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#eventname" class="tsd-kind-icon">event<wbr>Name</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#factory" class="tsd-kind-icon">factory</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#getid" class="tsd-kind-icon">get<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#handler" class="tsd-kind-icon">handler</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#init" class="tsd-kind-icon">init</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#instance" class="tsd-kind-icon">instance</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#lazysingleton" class="tsd-kind-icon">lazy<wbr>Singleton</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#mappresence" class="tsd-kind-icon">map<wbr>Presence</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#mapswitch" class="tsd-kind-icon">map<wbr>Switch</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#maptrigger" class="tsd-kind-icon">map<wbr>Trigger</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#monitorsun" class="tsd-kind-icon">monitor<wbr>Sun</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#personwithtokenfilter" class="tsd-kind-icon">person<wbr>With<wbr>Token<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#redirecttoui" class="tsd-kind-icon">redirect<wbr>ToUi</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#rediskey" class="tsd-kind-icon">redis<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registerlogger" class="tsd-kind-icon">register<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registerstats" class="tsd-kind-icon">register<wbr>Stats</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#toapiinstance" class="tsd-kind-icon">to<wbr>Api<wbr>Instance</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#toapizone" class="tsd-kind-icon">to<wbr>Api<wbr>Zone</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#available_commands" class="tsd-kind-icon">AVAILABLE_<wbr>COMMANDS</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#basic_result" class="tsd-kind-icon">BASIC_<wbr>RESULT</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#commands" class="tsd-kind-icon">Commands</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#mutation" class="tsd-kind-icon">Mutation</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#query" class="tsd-kind-icon">Query</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#state" class="tsd-kind-icon">State</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#switch" class="tsd-kind-icon">Switch</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#symbols" class="tsd-kind-icon">Symbols</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#values" class="tsd-kind-icon">Values</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#config" class="tsd-kind-icon">config</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#london" class="tsd-kind-icon">london</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#melbourne" class="tsd-kind-icon">melbourne</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#meta" class="tsd-kind-icon">meta</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#newyork" class="tsd-kind-icon">newyork</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#root" class="tsd-kind-icon">root</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
