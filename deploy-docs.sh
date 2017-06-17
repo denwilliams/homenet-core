@@ -1,3 +1,5 @@
+npm install -g typedoc
+npm run typedoc
 cd docs
 
 git config user.name "Travis CI"
