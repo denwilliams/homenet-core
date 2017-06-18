@@ -428,7 +428,7 @@ declare namespace Homenet {
   interface IPresenceManager extends IEventEmitter {
     get(id): IPresence;
     getAll(): IPresence[];
-    add(id: string, opts: IPresenceOpts): void;
+    add(id: string, opts: IPresenceOpts): IPresence;
     bump(id: string): void;
     isPresent(id: string): boolean;
     addParent(childId: string, parentId: string): void;
