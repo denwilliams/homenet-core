@@ -35,7 +35,7 @@ registerStats(ConsoleStats);
 const runtime = initCore(RED, config);
 
 moduleFinder({
-  local: true,
+  local: false,
   global: true,
   recursive: true, // to support @homenet/* plugins
   filter: {
