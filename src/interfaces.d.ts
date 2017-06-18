@@ -1,12 +1,12 @@
 declare namespace Homenet {
 
   export interface IServiceContext {
-    get<T>(type: string) : T
+    get<T>(type: string): T;
   }
 
   export interface IRuntime {
-    start() : void
-    get<T>(type: string) : T
+    start(): void;
+    get<T>(type: string): T;
     loadPlugin<T extends IPluginLoader>(ctor: IPluginCtor<T>): void
   }
 
@@ -20,19 +20,19 @@ declare namespace Homenet {
   }
 
   export interface IPluginLoader {
-    load(): void
+    load(): void;
   }
 
   /**
    * Application
    */
   interface IApp {
-    start() : void
+    start(): void;
   }
 
   interface IPlugins {
-    add(loader: IPluginLoader)
-    loadAll() : void
+    add(loader: IPluginLoader): void;
+    loadAll(): void;
   }
 
   interface IApi {
@@ -40,27 +40,27 @@ declare namespace Homenet {
   }
 
   interface ILogEventMessage {
-    level: string,
-    message: string
+    level: string;
+    message: string;
   }
 
   interface ILogEventHandler {
-    (log: ILogEventMessage) : void
+    (log: ILogEventMessage): void
   }
 
   interface ILogger extends ILogTarget {
-    onLog(handler: ILogEventHandler) : void
-    info(args : any) : void
-    warn(args : any) : void
-    error(args : any) : void
-    debug(args : any) : void
+    onLog(handler: ILogEventHandler): void;
+    info(args : any): void;
+    warn(args : any): void;
+    error(args : any): void;
+    debug(args : any): void;
   }
 
   interface ILogTarget {
-    info(args : any) : void
-    warn(args : any) : void
-    error(args : any) : void
-    debug(args : any) : void
+    info(args : any): void;
+    warn(args : any): void;
+    error(args : any): void;
+    debug(args : any): void;
   }
 
   interface ICommon {
@@ -72,11 +72,11 @@ declare namespace Homenet {
   }
 
   interface IAuthorizer {
-    authorize(token: string) : Q.Promise<string>;
+    authorize(token: string): Q.Promise<string>;
   }
 
   interface ILoggerFactory {
-    getLogger(name: string) : ILogger
+    getLogger(name: string): ILogger;
   }
 
   interface ISwitch extends ISettable {}
@@ -85,80 +85,80 @@ declare namespace Homenet {
 
   interface ITrigger {
     lastTriggered: Date
-    onTrigger(listener: Function) : void
-    removeOnTriggerListener(listener: Function) : void
-    trigger(data?: any) : void
+    onTrigger(listener: Function): void;
+    removeOnTriggerListener(listener: Function): void;
+    trigger(data?: any): void;
   }
 
   interface IClassesManager {
-    addClass<T>(classId: string, classFactory: IClassFactory<T>) : void
-    addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void
-    getInstance<T>(classId: string, instanceId: InstanceOrFactory<T>) : T
-    getInstances() : any[]
-    getInstancesDetails() : any[]
-    initializeAll() : void
+    addClass<T>(classId: string, classFactory: IClassFactory<T>): void;
+    addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any): void;
+    getInstance<T>(classId: string, instanceId: InstanceOrFactory<T>): T;
+    getInstances(): any[];
+    getInstancesDetails(): any[];
+    initializeAll(): void;
   }
 
   interface ISwitchManager {
-    addInstance(id: string, sw: ISwitch) : void
-    getAllInstances() : Dict<ISwitch>
-    getInstance(id: string): ISwitch
-    set(id: string, value: boolean|string|number) : any
-    get(id: string) : boolean|string|number
+    addInstance(id: string, sw: ISwitch): void;
+    getAllInstances(): Dict<ISwitch>;
+    getInstance(id: string): ISwitch;
+    set(id: string, value: boolean|string|number): any;
+    get(id: string): boolean|string|number;
   }
 
   interface ICommandManager {
-    addInstance(id: string, commander: ICommander, meta: ICommandTypeMeta) : void
-    getInstance(id: string) : ICommander
-    getAll(): Dict<ICommander>
-    getMeta(id: string): ICommandTypeMeta
-    run(id: string, command: string, args?: any[]): Promise<any>
+    addInstance(id: string, commander: ICommander, meta: ICommandTypeMeta): void;
+    getInstance(id: string): ICommander;
+    getAll(): Dict<ICommander>;
+    getMeta(id: string): ICommandTypeMeta;
+    run(id: string, command: string, args?: any[]): Promise<any>;
   }
 
   interface IStateManager {
-    addType(typeId: string, provider: IStateProvider) : void
-    getType(typeId: string) : IStateProvider
-    getTypes() : Dict<IStateProvider>
-    emitState(typeId: string, state: string) : void
-    getCurrent(typeId: string) : Promise<string>;
-    setCurrent(typeId: string, state:string) : Promise<string>;
+    addType(typeId: string, provider: IStateProvider): void;
+    getType(typeId: string): IStateProvider;
+    getTypes(): Dict<IStateProvider>;
+    emitState(typeId: string, state: string): void;
+    getCurrent(typeId: string): Promise<string>;
+    setCurrent(typeId: string, state:string): Promise<string>;
     getAvailable(typeId: string): string[];
   }
 
   interface IStateProvider {
     emitOnSet?: boolean;
-    getCurrent() : Promise<string>;
-    setCurrent(state: string) : Promise<string>;
+    getCurrent(): Promise<string>;
+    setCurrent(state: string): Promise<string>;
     getAvailable(): string[];
   }
 
   interface ISceneManager {
     current : IScene;
 
-    set(name: string) : void;
-    onChanged(callback : Function) : void;
+    set(name: string): void;
+    onChanged(callback : Function): void;
   }
 
   interface IClassManager<T> {
-    getInstance(instanceId: string) : T
-    getAllInstances(): Dict<T>
+    getInstance(instanceId: string): T;
+    getAllInstances(): Dict<T>;
   }
 
   interface IClassTypeManager<T> extends IClassManager<T> {
-    addType(typeId: string, factory: IClassTypeFactory<T>) : void
+    addType(typeId: string, factory: IClassTypeFactory<T>): void;
   }
 
   interface ISettableClassTypeManager<T> extends IClassTypeManager<T> {
-    addSettableType(typeId: string, factory: IClassTypeFactory<ISettable>): void
+    addSettableType(typeId: string, factory: IClassTypeFactory<ISettable>): void;
   }
 
   interface ICommanderFactory {
-    (opts: any) : ICommander
+    (opts: any): ICommander;
   }
 
   interface IStatsTarget {
-    gauge(id: string, value: number) : void
-    counter(id: string, increment?: number) : void
+    gauge(id: string, value: number): void;
+    counter(id: string, increment?: number): void;
   }
 
   interface IStatsManager extends IStatsTarget {
@@ -166,7 +166,7 @@ declare namespace Homenet {
      * Registers a new stats target type
      * @param  {IStatsTarget} target
      */
-    // register(target: IStatsTarget) : void
+    // register(target: IStatsTarget): void
   }
 
   interface INotificationsManager {
@@ -174,7 +174,7 @@ declare namespace Homenet {
      * Registers a new notifier type
      * @param  {Notifier} notifier - the notifier to add
      */
-    register(notifier: INotifier) : void
+    register(notifier: INotifier): void;
 
     /**
      * Sends a notification
@@ -182,11 +182,11 @@ declare namespace Homenet {
      * @param  {String} msgTxt    - The message as text
      * @param  {String} [msgHtml] - The message as html
      */
-    send(severity: string, msgTxt: string, msgHtml?: string) : void
+    send(severity: string, msgTxt: string, msgHtml?: string): void;
   }
 
   interface INotifier {
-    notify(severity: string, msgTxt: string, msgHtml?: string) : void;
+    notify(severity: string, msgTxt: string, msgHtml?: string): void;
   }
 
   type SensorEvent = 'trigger' | 'active' | 'value';
@@ -202,19 +202,19 @@ declare namespace Homenet {
     isTrigger: boolean;
     isToggle: boolean;
     isValue: boolean;
-    on(event: SensorEvent, cb: Function) : void;
+    on(event: SensorEvent, cb: Function): void;
   }
 
   interface IValueSensor extends ISensor {
-    get(key: string, value: string) : void
-    set(key: string, value: string) : void
+    get(key: string, value: string): void;
+    set(key: string, value: string): void;
   }
 
   interface ISensorOld {
-    trigger(value?: any) : void;
-    set(key, value) : void;
-    onTrigger(cb: Function) : void;
-    removeOnTriggerListener(cb: Function) : void;
+    trigger(value?: any): void;
+    set(key, value): void;
+    onTrigger(cb: Function): void;
+    removeOnTriggerListener(cb: Function): void;
   }
 
   interface IButton {
@@ -226,37 +226,37 @@ declare namespace Homenet {
   interface IBaseSensorArgs {}
 
   interface ISensorEventArgs {
-    deviceName: string
+    deviceName: string;
   }
 
   interface IDeviceEventArgs {
-    deviceName: string
-    device: string
-    type: string
-    data: any
+    deviceName: string;
+    device: string;
+    type: string;
+    data: any;
   }
 
   interface ISettable {
-    get() : any
-    set(value: any) : void
-    on(name: 'update', cb: (value: any) => void) : void;
-    removeListener(name: 'update', cb: (value: any) => void) : void;
+    get(): any;
+    set(value: any): void;
+    on(name: 'update', cb: (value: any) => void): void;
+    removeListener(name: 'update', cb: (value: any) => void): void;
   }
 
   interface ILockCommander extends ICommander {
-    lock() : void
-    unlock() : void
+    lock(): void;
+    unlock(): void;
   }
 
   interface ILock extends ISwitch, ILockCommander {}
 
   interface ILockManager extends ISettableClassTypeManager<ILock> {
-    setLock(lockId: string, value: boolean) : void
+    setLock(lockId: string, value: boolean): void;
   }
 
   export interface ILockType {
-    setLock(controllerId: string, lockId: string, value: boolean) : void
-    getType() : string
+    setLock(controllerId: string, lockId: string, value: boolean): void;
+    getType(): string;
   }
 
   export enum LockState {
@@ -286,43 +286,43 @@ declare namespace Homenet {
   export type InstanceOrFactory<T> = T | Factory<T>;
 
   interface IClassFactory<T> {
-    (instanceId: string, typeId: string, opts: any) : T
+    (instanceId: string, typeId: string, opts: any): T;
   }
 
   interface IClassTypeFactory<T> {
-    (id : string, opts : any) : T
+    (id : string, opts : any): T;
   }
 
   interface ISensorManager extends IClassTypeManager<ISensor> {
-    // trigger(sensorId: string) : void
+    // trigger(sensorId: string): void
   }
 
   interface IButtonManager extends IClassTypeManager<IButton> {}
 
   interface IConfig {
-    hue?: any,
-    instances?: InstanceConfig[],
-    zones?: IZoneConfig[],
-    scenes?: ISceneConfig[],
-    locks?: ILockConfig[],
-    people?: IPersonConfig[],
-    dataPath?: string,
-    webServerPort?: number,
-    location?: IConfigCoords
+    hue?: any;
+    instances?: InstanceConfig[];
+    zones?: IZoneConfig[];
+    scenes?: ISceneConfig[];
+    locks?: ILockConfig[];
+    people?: IPersonConfig[];
+    dataPath?: string;
+    webServerPort?: number;
+    location?: IConfigCoords;
   }
 
   interface InstanceConfig {
-    id: string,
-    class: string,
-    type: string,
-    options: any
+    id: string;
+    class: string;
+    type: string;
+    options: any;
   }
 
   interface ILockConfig {
-    id: string,
-    type: string,
-    controller: string,
-    lockId: string
+    id: string;
+    type: string;
+    controller: string;
+    lockId: string;
   }
 
   /**
@@ -379,27 +379,27 @@ declare namespace Homenet {
 
   interface IPresence {
     isPresent: boolean;
-    add(id: string, opts: IPresenceOpts)
-    set() : void
-    clear() : void
-    bump() : void
+    add(id: string, opts: IPresenceOpts): void;
+    set(): void;
+    clear(): void;
+    bump(): void;
   }
 
   interface IPresenceOpts {
-    category: string,
-    name?: string,
-    timeout?: number,
-    parent?: string
+    category: string;
+    name?: string;
+    timeout?: number;
+    parent?: string;
   }
 
   interface IPersistence {
-    set(key: string, value: any) : Promise<any>;
-    get(key: string) : Promise<any>;
+    set(key: string, value: any): Promise<any>;
+    get(key: string): Promise<any>;
   }
 
   interface IEventSource {
-    on(name: string, cb: Function) : void;
-    removeListener(name: string, cb: Function) : void;
+    on(name: string, cb: Function): void;
+    removeListener(name: string, cb: Function): void;
   }
 
   interface IEventSender {
@@ -418,21 +418,21 @@ declare namespace Homenet {
 
 
   interface ITriggerManager {
-    add(typeId:string, instanceId:string, emitter?: IEventEmitter) : ITrigger
-    getAll() : ITrigger[]
-    get(typeId: string, instanceId: string) : ITrigger
+    add(typeId:string, instanceId:string, emitter?: IEventEmitter): ITrigger
+    getAll(): ITrigger[]
+    get(typeId: string, instanceId: string): ITrigger
     trigger(typeId: string, instanceId: string, data: any)
     onTrigger(typeId: string, instanceId: string, listener: Function)
   }
 
   interface IPresenceManager extends IEventEmitter {
-    get(id): IPresence
-    getAll(): IPresence[]
-    add(id: string, opts: IPresenceOpts)
-    bump(id: string)
-    isPresent(id: string) : boolean
-    addParent(childId: string, parentId: string) : void
-    removeParent(childId: string, parentId: string) : void
+    get(id): IPresence;
+    getAll(): IPresence[];
+    add(id: string, opts: IPresenceOpts): void;
+    bump(id: string): void;
+    isPresent(id: string): boolean;
+    addParent(childId: string, parentId: string): void;
+    removeParent(childId: string, parentId: string): void;
   }
 
   interface IZone {
@@ -444,9 +444,9 @@ declare namespace Homenet {
   }
 
   interface IZoneManager {
-    getMap() : Dict<IZone>
-    getAll() : IZone[]
-    get(id: string) : IZone
+    getMap(): Dict<IZone>;
+    getAll(): IZone[];
+    get(id: string): IZone;
   }
 
   /**
@@ -467,22 +467,22 @@ declare namespace Homenet {
    */
   interface ILightsManager extends ISettableClassTypeManager<ILight> {}
   interface ILightCommander extends ICommander {
-    turnOn() : void
-    turnOff() : void
+    turnOn(): void;
+    turnOff(): void;
   }
   interface ILight extends ISwitch, ILightCommander {}
 
   interface IHvacManager extends ISettableClassTypeManager<IHvac> {}
     interface IHvacCommander extends ICommander {
-    turnOn() : void
-    turnOff() : void
+    turnOn(): void;
+    turnOff(): void;
   }
   interface IHvac extends ISwitch, IHvacCommander {}
 
   interface IPowerManager extends ISettableClassTypeManager<IPower> {}
   interface IPowerCommander extends ICommander {
-    turnOn() : void
-    turnOff() : void
+    turnOn(): void
+    turnOff(): void
   }
   interface IPower extends ISwitch, IPowerCommander {}
 
@@ -490,9 +490,9 @@ declare namespace Homenet {
 
   interface IValueStore {
     id: string
-    set(key: string, value: any) : void
-    get(key: string) : any
-    getAll() : Dict<any>
+    set(key: string, value: any): void
+    get(key: string): any
+    getAll(): Dict<any>
     waitReady(): Promise<void>
   }
 
@@ -504,8 +504,8 @@ declare namespace Homenet {
   }
 
   interface INodeREDLauncher {
-    start() : When.Promise<any>;
-    reload() : void;
+    start(): When.Promise<any>;
+    reload(): void;
   }
 
   interface IFlow {
@@ -516,9 +516,9 @@ declare namespace Homenet {
   }
 
   interface INodeREDScenes extends IEventEmitter {
-    getCurrentFlow() : IFlow;
-    saveCurrentFlow(data: IFlow) : void;
-    changeFlow(newId: string) : void;
+    getCurrentFlow(): IFlow;
+    saveCurrentFlow(data: IFlow): void;
+    changeFlow(newId: string): void;
     getCurrent(): IFlow;
   }
 
@@ -538,27 +538,27 @@ declare namespace Homenet {
     /**
      * Returns true if it is currently dark in the specified coordinates
      */
-    isDark() : boolean;
+    isDark(): boolean;
 
     /**
      * Returns true if it is currently light in the specified coordinates
      */
-    isLight() : boolean;
+    isLight(): boolean;
 
     /**
      * Returns the current light state (light/dark)
      */
-    currentLight() : string;
+    currentLight(): string;
 
     /**
      * Starts monitoring for light changes (fires events when light->dark->light)
      */
-    start() : void;
+    start(): void;
 
     /**
      * Stops monitoring for light changes
      */
-    stop() : void;
+    stop(): void;
 
     /**
      * Gets the current light state (light/dark)
@@ -569,7 +569,7 @@ declare namespace Homenet {
   interface IValueStore {}
 
   interface IInstanceLoader {
-    loadInstances(config: IConfig) : void
+    loadInstances(config: IConfig): void
   }
 
   interface IPerson extends ISwitch {
@@ -577,17 +577,17 @@ declare namespace Homenet {
     name: string;
     presence: boolean;
 
-    bump() : void
+    bump(): void;
 
     /**
      * @implements Switch#set
      */
-    set(isPresent: boolean) : void
+    set(isPresent: boolean): void;
 
     /**
      * @implements Switch#get
      */
-    get() : boolean
+    get(): boolean;
   }
 
   interface IPersonManager {
@@ -596,53 +596,53 @@ declare namespace Homenet {
   }
 
   interface IValuesManager {
-    addInstance(typeId: string, instanceId: string) : IValueStore
-    getInstance(typeId: string, instanceId: string) : IValueStore
-    set(typeId: string, instanceId: string, key: string, value: any) : void
-    get(typeId: string, instanceId: string, key: string) : IValueStore
-    waitReady(typeId: string, instanceId: string) : Promise<void>;
+    addInstance(typeId: string, instanceId: string): IValueStore;
+    getInstance(typeId: string, instanceId: string): IValueStore;
+    set(typeId: string, instanceId: string, key: string, value: any): void;
+    get(typeId: string, instanceId: string, key: string): IValueStore;
+    waitReady(typeId: string, instanceId: string): Promise<void>;
 
-      /**
+    /**
       * Adds a new instance to the manager
       * @param {string} instanceId - unique ID for this instance
       * @param {Array<string>|string} types - array of switch type IDs to be applied to this instance
       */
-      addInstance(typeId: string, instanceId: string) : IValueStore;
+    addInstance(typeId: string, instanceId: string): IValueStore;
 
-      /**
-      * Gets an instance by it's type and ID
-      * @param  {string} typeId
-      * @param  {string} instanceId
-      * @return {ValueStore}
-      */
-      getInstance(typeOrFullId: string, instanceId?: string) : IValueStore;
+    /**
+     * Gets an instance by it's type and ID
+     * @param  {string} typeId
+     * @param  {string} instanceId
+     * @return {ValueStore}
+     */
+    getInstance(typeOrFullId: string, instanceId?: string): IValueStore;
 
-      getAllInstances() : IValueStore[];
+    getAllInstances(): IValueStore[];
 
-      getInstances(type: string) : IValueStore[];
+    getInstances(type: string): IValueStore[];
 
-      /**
-      * Sets value
-      * @param  {string} instanceId - the ID of the instance to set
-      * @param  {string} typeId
-      * @param  {string} key - the key
-      * @param  {*} value  - the new value
-      */
-      set(typeId: string, instanceId: string, key: string, value: any) : void;
+    /**
+     * Sets value
+     * @param  {string} instanceId - the ID of the instance to set
+     * @param  {string} typeId
+     * @param  {string} key - the key
+     * @param  {*} value  - the new value
+     */
+    set(typeId: string, instanceId: string, key: string, value: any): void;
 
-      /**
-      * Gets value
-      * @param  {string} instanceId - the ID of the instance to run a command on
-      * @param  {string} typeId
-      * @param  {string} key - the key
-      * @return {*} the most recent value
-      */
-      get(typeId: string, instanceId: string, key: string) : any;
+    /**
+     * Gets value
+     * @param  {string} instanceId - the ID of the instance to run a command on
+     * @param  {string} typeId
+     * @param  {string} key - the key
+     * @return {*} the most recent value
+     */
+    get(typeId: string, instanceId: string, key: string): any;
   }
 
   interface INodeRed {
-    start() : void;
-    getSceneManager() : any;
+    start(): void;
+    getSceneManager(): any;
   }
 
   export interface IWebDependencies {
