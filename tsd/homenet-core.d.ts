@@ -217,7 +217,7 @@ declare module '@homenet/core' {
   }
 
   export interface IPluginLoader {
-    load(): void
+    load(): void | Promise<void>
   }
 
   /**
@@ -228,7 +228,7 @@ declare module '@homenet/core' {
   }
 
   interface IPlugins {
-    add(loader: IPluginLoader)
+    add(loader: IPluginLoader): void
     loadAll() : void
   }
 
@@ -242,22 +242,22 @@ declare module '@homenet/core' {
   }
 
   interface ILogEventHandler {
-    (log: ILogEventMessage) : void
+    (log: ILogEventMessage): void
   }
 
   interface ILogger extends ILogTarget {
     onLog(handler: ILogEventHandler) : void
-    info(args : any) : void
-    warn(args : any) : void
-    error(args : any) : void
-    debug(args : any) : void
+    info(args : any): void
+    warn(args : any): void
+    error(args : any): void
+    debug(args : any): void
   }
 
   interface ILogTarget {
-    info(args : any) : void
-    warn(args : any) : void
-    error(args : any) : void
-    debug(args : any) : void
+    info(args : any): void
+    warn(args : any): void
+    error(args : any): void
+    debug(args : any): void
   }
 
   interface ICommon {
@@ -269,11 +269,11 @@ declare module '@homenet/core' {
   }
 
   interface IAuthorizer {
-    authorize(token: string) : Q.Promise<string>;
+    authorize(token: string): Q.Promise<string>;
   }
 
   interface ILoggerFactory {
-    getLogger(name: string) : ILogger
+    getLogger(name: string): ILogger
   }
 
   interface ISwitch extends ISettable {}
@@ -282,26 +282,26 @@ declare module '@homenet/core' {
 
   interface ITrigger {
     lastTriggered: Date
-    onTrigger(listener: Function) : void
-    removeOnTriggerListener(listener: Function) : void
-    trigger(data?: any) : void
+    onTrigger(listener: Function): void
+    removeOnTriggerListener(listener: Function): void
+    trigger(data?: any): void
   }
 
   interface IClassesManager {
-    addClass<T>(classId: string, classFactory: IClassFactory<T>) : void
-    addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any) : void
-    getInstance<T>(classId: string, instanceId: InstanceOrFactory<T>) : T
-    getInstances() : any[]
-    getInstancesDetails() : any[]
-    initializeAll() : void
+    addClass<T>(classId: string, classFactory: IClassFactory<T>): void
+    addInstance<T>(classId: string, instanceId: string, typeId: string, opts: any): void
+    getInstance<T>(classId: string, instanceId: InstanceOrFactory<T>): T
+    getInstances(): any[]
+    getInstancesDetails(): any[]
+    initializeAll(): void
   }
 
   interface ISwitchManager {
-    addInstance(id: string, sw: ISwitch) : void
-    getAllInstances() : Dict<ISwitch>
+    addInstance(id: string, sw: ISwitch): void
+    getAllInstances(): Dict<ISwitch>
     getInstance(id: string): ISwitch
-    set(id: string, value: boolean|string|number) : any
-    get(id: string) : boolean|string|number
+    set(id: string, value: boolean|string|number): any
+    get(id: string): boolean|string|number
   }
 
   interface ICommandManager {
