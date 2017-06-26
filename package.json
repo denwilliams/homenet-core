@@ -25,13 +25,6 @@
     "typedoc": "typedoc --mode file --out ./docs/out/tsdoc/ --module commonjs --target ES6 --exclude node_modules/* --includeDeclarations --excludeExternals tsconfig.json",
     "typedocv": "typedoc --verbose --mode file --out ./out/tsdoc/ --module commonjs --target ES6 --exclude node_modules/* --includeDeclarations tsconfig.json"
   },
-  "node-red": {
-    "nodes": {
-      "current-scene": "node_modules/node-red-contrib-scenes/nodes/current-scene.js",
-      "scene": "node_modules/node-red-contrib-scenes/nodes/scene.js",
-      "scene-startstop": "node_modules/node-red-contrib-scenes/nodes/scene-startstop.js"
-    }
-  },
   "dependencies": {
     "@homenet/nodes": "^4.0.0-beta.9",
     "body-parser": "^1.12.0",

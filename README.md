@@ -32,7 +32,7 @@ External applications can interact and control devices via the HTTP APIs. There 
 The best way to use now is to install globally:
 
 ```
-npm install -g @homenet/core
+npm install -g @homenet/core node-red-contrib-scenes
 ```
 
 Then to run:
