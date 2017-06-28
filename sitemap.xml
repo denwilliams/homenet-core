@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,31 +13,31 @@
         
     <url>
      <loc>/basics/configuration/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/customizing/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/redis/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/requirements/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/basics/starting/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -47,13 +47,13 @@
         
     <url>
      <loc>/core/scenes/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/core/zones/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -87,43 +87,43 @@
         
     <url>
      <loc>/plugins/buttons/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/hvac/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/lights/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/locks/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/nodered/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/plugins/sensors/</loc>
-     <lastmod>2017-06-26</lastmod>
+     <lastmod>2017-06-28</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
