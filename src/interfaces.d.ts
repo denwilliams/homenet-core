@@ -309,6 +309,9 @@ declare namespace Homenet {
     dataPath?: string;
     webServerPort?: number;
     location?: IConfigCoords;
+    redis?: {
+      host: string;
+    }
   }
 
   interface InstanceConfig {

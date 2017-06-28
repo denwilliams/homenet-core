@@ -8,7 +8,7 @@ export class RedisPersistence implements Homenet.IPersistence {
   private _client: redis.RedisClient;
 
   constructor(@inject('IConfig') config: Homenet.IConfig) {
-    this._client = redis.createClient();
+    this._client = redis.createClient({ host: (config.redis && config.redis.host || undefined) });
   }
 
   get(key: string) : Promise<any> {

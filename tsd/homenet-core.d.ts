@@ -520,6 +520,9 @@ declare module '@homenet/core' {
     dataPath?: string,
     webServerPort?: number,
     location?: IConfigCoords
+    redis?: {
+      host: string;
+    }
   }
 
   interface InstanceConfig {
