@@ -1,6 +1,6 @@
 {
   "name": "@homenet/core",
-  "version": "4.0.0-beta.23",
+  "version": "4.0.0-beta.24",
   "description": "Homenet home automation - core system",
   "main": "lib/index.js",
   "author": "Den Williams",
@@ -40,7 +40,7 @@
     "lodash": "^4.12.0",
     "module-finder": "^4.0.1",
     "node-red": "^0.16.2",
-    "node-red-contrib-scenes": "^0.2.0",
+    "node-red-contrib-scenes": "^0.2.1",
     "q": "^1.4.1",
     "redis": "^2.5.3",
     "reflect-metadata": "^0.1.8",
