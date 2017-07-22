@@ -263,6 +263,16 @@ declare namespace Homenet {
     'unknown', 'locked', 'unlocked'
   }
 
+  interface IMacroCommander extends ICommander {
+    execute(): void;
+  }
+
+  interface IMacro extends IMacroCommander {}
+
+  interface IMacroManager extends IClassManager<IMacro> {
+    execute(macroId: string): void;
+  }
+
   interface IScene {
     id : string;
     name : string;
@@ -308,6 +318,7 @@ declare namespace Homenet {
     people?: IPersonConfig[];
     dataPath?: string;
     webServerPort?: number;
+    secureWebServerPort?: number;
     location?: IConfigCoords;
     redis?: {
       host: string;

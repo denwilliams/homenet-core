@@ -30,6 +30,7 @@ import { ZoneManager } from './core/zone-manager';
 import { SensorManager } from './classes/sensor-manager';
 import { HvacManager } from './classes/hvac-manager';
 import { PowerManager } from './classes/power-manager';
+import { MacroManager } from './classes/macro-manager';
 import { LightsManager } from './classes/lights-manager';
 import { ButtonManager } from './classes/button-manager';
 import { LockManager } from './classes/lock-manager';
@@ -153,12 +154,12 @@ class StatsManager implements Homenet.IStatsManager {
 
   private _bindEventBus(eventBus: Homenet.IEventBus) : void {
     eventBus.on('value.*', '*', e => {
-      console.log(e);
-      // this.gauge(e.id, e.value);
+      // console.log(e);
+      this.gauge(e.id, e.value);
     });
     eventBus.on('trigger.*', 'triggered', e => {
-      console.log(e);
-      // this.counter(e.id);
+      // console.log(e);
+      this.counter(e.id);
     });
   }
 }
@@ -200,6 +201,7 @@ export const coreModule = new ContainerModule(bind => {
   bind<Homenet.ILightsManager>('ILightsManager').to(LightsManager).inSingletonScope();
   bind<Homenet.ILockManager>('ILockManager').to(LockManager).inSingletonScope();
   bind<Homenet.IButtonManager>('IButtonManager').to(ButtonManager).inSingletonScope();
+  bind<Homenet.IMacroManager>('IMacroManager').to(MacroManager).inSingletonScope();
   bind<Homenet.IStorageManager>('IStorageManager').to(StorageManager).inSingletonScope();
   bind<Homenet.ISensorManager>('ISensorManager').to(SensorManager).inSingletonScope();
 

@@ -1,4 +1,3 @@
-import { factory } from './../api/web/v1-test/fixtures/sensors';
 import { injectable, inject } from 'inversify';
 import chalk = require('chalk');
 
