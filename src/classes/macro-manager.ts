@@ -44,7 +44,7 @@ export class MacroManager implements Homenet.IMacroManager {
 
   private addInstance(instanceId: string, typeId: string, opts: any) : Homenet.IMacro {
     this.logger.debug(`Creating ${chalk.cyan(CLASS_ID)} with ID ${chalk.green(instanceId)}`);
-    var instance: Homenet.IMacro = new Macro(instanceId, this.eventBus);
+    var instance: Homenet.IMacro = new Macro(instanceId, this.eventBus, this.logger);
     this.instances[instanceId] = instance;
     this.onAddInstance(instance, instanceId, opts);
     return instance;
