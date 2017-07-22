@@ -11,7 +11,7 @@ export class Macro {
 
   execute() {
     this.logger.info(`Running macro ${this.id}`);
-    this.eventBus.emit('macros', this.id, { timestamp: new Date() });
+    this.eventBus.emit(`macro.${this.id}`, 'executed', { timestamp: new Date() });
   }
 
   get commandMeta() {
