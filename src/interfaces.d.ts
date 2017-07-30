@@ -16,7 +16,7 @@ declare namespace Homenet {
   }
 
   export interface IPluginCtor<T extends IPluginLoader> {
-      new(...args: any[]): T;
+    new(...args: any[]): T;
   }
 
   export interface IPluginLoader {
