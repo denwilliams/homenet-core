@@ -14,8 +14,7 @@
     "listFiles": false,
     "outDir": "./lib"
   },
-  "exclude": [
-    "node_modules",
-    "typings"
+  "include": [
+    "src/index.ts"
   ]
 }
