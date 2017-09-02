@@ -23,6 +23,7 @@ function toApiInstance(src) {
     switchId: src.switchId,
     commandId: src.commandId,
     commandMeta: src.commandMeta,
-    valueId: src.valueId
+    valueId: src.valueId,
+    name: src.name
   };
 }
