@@ -9,7 +9,7 @@ const CLASS_ID = 'macro';
 
 @injectable()
 export class MacroManager implements Homenet.IMacroManager {
-  private instances: Homenet.Dict<Homenet.IBaseMacro>;
+  private instances: Homenet.Dict<Homenet.IMacro>;
 
   constructor(
       @inject('IClassesManager') private classes: Homenet.IClassesManager,
@@ -29,20 +29,20 @@ export class MacroManager implements Homenet.IMacroManager {
   }
 
   turnOn(instanceId: string) {
-    const macro = this.getInstance(instanceId) as Homenet.IMacroSwitch;
+    const macro = this.getInstance(instanceId) as Homenet.IMacro;
     if (macro) macro.turnOn();
   }
 
   turnOff(instanceId: string) {
-    const macro = this.getInstance(instanceId) as Homenet.IMacroSwitch;
+    const macro = this.getInstance(instanceId) as Homenet.IMacro;
     if (macro) macro.turnOff();
   }
 
-  getInstance(instanceId: string): Homenet.IBaseMacro {
+  getInstance(instanceId: string): Homenet.IMacro {
     return this.instances[instanceId];
   }
 
-  getAllInstances(): Homenet.Dict<Homenet.IBaseMacro> {
+  getAllInstances(): Homenet.Dict<Homenet.IMacro> {
     return this.instances;
   }
 
@@ -67,7 +67,7 @@ export class MacroManager implements Homenet.IMacroManager {
     this.commands.addInstance(fullId, instance, COMMANDS);
   }
 
-  protected onAddSwitchInstance(instance: Homenet.IMacroSwitch, instanceId: string, opts: any) : void {
+  protected onAddSwitchInstance(instance: Homenet.IMacro, instanceId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
     this.commands.addInstance(fullId, instance, COMMANDS);
   }

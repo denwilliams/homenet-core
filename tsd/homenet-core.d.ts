@@ -476,20 +476,13 @@ declare module '@homenet/core' {
 
   interface IMacroCommander extends ICommander {
     execute(): void;
-  }
-
-  interface IBaseMacro {}
-
-  interface IMacro extends IMacroCommander, IBaseMacro {}
-
-  interface IMacroSwitchCommander extends ICommander {
     turnOn(): void;
     turnOff(): void;
   }
 
-  interface IMacroSwitch extends ISwitch, IMacroSwitchCommander, IBaseMacro {}
+  interface IMacro extends IMacroCommander {}
 
-  interface IMacroManager extends IClassManager<IBaseMacro> {
+  interface IMacroManager extends IClassManager<IMacro> {
     execute(macroId: string): void;
     turnOn(macroId: string): void;
     turnOff(macroId: string): void;
