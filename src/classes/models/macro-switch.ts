@@ -35,12 +35,12 @@ export class MacroSwitch extends EventEmitter implements Homenet.IMacroSwitch {
 
   turnOn() {
     this.logger.info(`Running on macro ${this.id}`);
-    this.eventBus.emit('macros', this.id + '.on', { timestamp: new Date() });
+    this.eventBus.emit(`macro.${this.id}`, 'on', { timestamp: new Date() });
   }
 
   turnOff() {
     this.logger.info(`Running off macro ${this.id}`);
-    this.eventBus.emit('macros', this.id + '.off', { timestamp: new Date() });
+    this.eventBus.emit(`macro.${this.id}`, 'off', { timestamp: new Date() });
   }
 
   get commandMeta() {
