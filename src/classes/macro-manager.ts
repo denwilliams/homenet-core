@@ -1,9 +1,7 @@
-import { AVAILABLE_COMMANDS } from './models/lock';
 import { injectable, inject } from 'inversify';
 import chalk = require('chalk');
 
-import { Macro, AVAILABLE_COMMANDS as COMMANDS } from './models/macro';
-import { MacroSwitch, AVAILABLE_COMMANDS as SWITCH_COMMANDS } from './models/macro-switch';
+import { Macro, AVAILABLE_COMMANDS } from './models/macro';
 
 const CLASS_ID = 'macro';
 
@@ -64,11 +62,6 @@ export class MacroManager implements Homenet.IMacroManager {
 
   protected onAddInstance(instance: Homenet.IMacro, instanceId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
-    this.commands.addInstance(fullId, instance, COMMANDS);
-  }
-
-  protected onAddSwitchInstance(instance: Homenet.IMacro, instanceId: string, opts: any) : void {
-    const fullId = `${CLASS_ID}.${instanceId}`;
-    this.commands.addInstance(fullId, instance, COMMANDS);
+    this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
   }
 }
