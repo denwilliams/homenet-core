@@ -5,7 +5,7 @@ export const AVAILABLE_COMMANDS = {
   }
 };
 
-export class Macro {
+export class Macro implements Homenet.IMacro {
   constructor(public id: string, private eventBus: Homenet.IEventBus, private logger: Homenet.ILogger) {
   }
 

@@ -267,10 +267,21 @@ declare namespace Homenet {
     execute(): void;
   }
 
-  interface IMacro extends IMacroCommander {}
+  interface IBaseMacro {}
 
-  interface IMacroManager extends IClassManager<IMacro> {
+  interface IMacro extends IMacroCommander, IBaseMacro {}
+
+  interface IMacroSwitchCommander extends ICommander {
+    turnOn(): void;
+    turnOff(): void;
+  }
+
+  interface IMacroSwitch extends ISwitch, IMacroSwitchCommander, IBaseMacro {}
+
+  interface IMacroManager extends IClassManager<IBaseMacro> {
     execute(macroId: string): void;
+    turnOn(macroId: string): void;
+    turnOff(macroId: string): void;
   }
 
   interface IScene {

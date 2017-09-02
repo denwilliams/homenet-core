@@ -1,13 +1,15 @@
+import { AVAILABLE_COMMANDS } from './models/lock';
 import { injectable, inject } from 'inversify';
 import chalk = require('chalk');
 
-import { Macro, AVAILABLE_COMMANDS } from './models/macro';
+import { Macro, AVAILABLE_COMMANDS as COMMANDS } from './models/macro';
+import { MacroSwitch, AVAILABLE_COMMANDS as SWITCH_COMMANDS } from './models/macro-switch';
 
 const CLASS_ID = 'macro';
 
 @injectable()
 export class MacroManager implements Homenet.IMacroManager {
-  private instances: Homenet.Dict<Homenet.IMacro>;
+  private instances: Homenet.Dict<Homenet.IBaseMacro>;
 
   constructor(
       @inject('IClassesManager') private classes: Homenet.IClassesManager,
@@ -22,15 +24,25 @@ export class MacroManager implements Homenet.IMacroManager {
   }
 
   execute(instanceId: string) {
-    const macro = this.getInstance(instanceId);
+    const macro = this.getInstance(instanceId) as Homenet.IMacro;
     if (macro) macro.execute();
   }
 
-  getInstance(instanceId: string): Homenet.IMacro {
+  turnOn(instanceId: string) {
+    const macro = this.getInstance(instanceId) as Homenet.IMacroSwitch;
+    if (macro) macro.turnOn();
+  }
+
+  turnOff(instanceId: string) {
+    const macro = this.getInstance(instanceId) as Homenet.IMacroSwitch;
+    if (macro) macro.turnOff();
+  }
+
+  getInstance(instanceId: string): Homenet.IBaseMacro {
     return this.instances[instanceId];
   }
 
-  getAllInstances(): Homenet.Dict<Homenet.IMacro> {
+  getAllInstances(): Homenet.Dict<Homenet.IBaseMacro> {
     return this.instances;
   }
 
@@ -52,6 +64,11 @@ export class MacroManager implements Homenet.IMacroManager {
 
   protected onAddInstance(instance: Homenet.IMacro, instanceId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
-    this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
+    this.commands.addInstance(fullId, instance, COMMANDS);
+  }
+
+  protected onAddSwitchInstance(instance: Homenet.IMacroSwitch, instanceId: string, opts: any) : void {
+    const fullId = `${CLASS_ID}.${instanceId}`;
+    this.commands.addInstance(fullId, instance, COMMANDS);
   }
 }
