@@ -22,17 +22,17 @@ export class MacroManager implements Homenet.IMacroManager {
   }
 
   execute(instanceId: string) {
-    const macro = this.getInstance(instanceId) as Homenet.IMacro;
+    const macro = this.getInstance(instanceId);
     if (macro) macro.execute();
   }
 
   turnOn(instanceId: string) {
-    const macro = this.getInstance(instanceId) as Homenet.IMacro;
+    const macro = this.getInstance(instanceId);
     if (macro) macro.turnOn();
   }
 
   turnOff(instanceId: string) {
-    const macro = this.getInstance(instanceId) as Homenet.IMacro;
+    const macro = this.getInstance(instanceId);
     if (macro) macro.turnOff();
   }
 
