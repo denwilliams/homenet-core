@@ -1,4 +1,5 @@
 interface XMLHttpRequest {}
+declare interface Blob {}
 
 declare namespace Homenet {
 
