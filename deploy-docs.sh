@@ -23,7 +23,7 @@ popd
 
 echo BUILDING TYPEDOC
 
-typedoc --mode file --out ./gh-pages-docs/tsdoc/ --module commonjs --target ES6 --exclude node_modules/* --includeDeclarations --excludeExternals tsconfig.json
+typedoc --mode file --out ./gh-pages-docs/tsdoc/ --module commonjs --target ES5 --lib lib.es5.d.ts,lib.es2015.core.d.ts,lib.es2015.symbol.d.ts,lib.es2015.iterable.d.ts,lib.es2015.promise.d.ts --exclude node_modules/* --includeDeclarations --excludeExternals tsconfig.json
 
 echo PUSHING
 
