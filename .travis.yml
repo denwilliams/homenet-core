@@ -17,7 +17,8 @@ deploy:
 - provider: script
   script: bash ./deploy-docs.sh
   on:
-    branch: master
+    tags: true
+    repo: denwilliams/homenet-core
 env:
   global:
     secure: Ln6stsu6/PZYeXrqLiuazyrp9JJstMZ7r3keYQFcZ7SsS8/ji1jLFb0zyBXT1zsHSoaCOIJiaTmUXqtp8cY1aqKDkB5RfxHJtSiiRoSQaQpOVhJCNJNgMkDq23zYigJIuW1SGz2Q+6uW4GrohtMCjceieoUo7Z9PPZnCA7o+vnStGOWAcgXEoqjKvzW8KixiaDw29tBFEV1dx8tfUpSdFSeGoVRyLZil1xW1TkKzubleuazmpciKRWfJVHdX4EgYK+Q7cA1LxAsDfkf9TTBfyQUKJxDSayLh+hxClMY9pOKe6rv0x98Jn55DalaBC30/IqgL1JIGGeoczYNJp9kluCw8UL4+eFMzExK0y4w2UZUJZL/grdTtjQFAD+3mZLLn+vt1P+SZyVjRtVZJcvB3l8wKhmb7R8N0ApmElEkx9yAmQDYKFWk2ldtF8sCRRVt9IWYSX4H4xBYeQnZ/dWQSumHmeczzKGikPM9uO9oaV6JiFE8xusXzjgNY6w/Qfn8/x6yeT1uoqMEP3RqhZKtSnSlj3samc6gkPZACOza7NL78zvDO7WhzCsxK7P04JFieZvuvH81Kk2bIUaj2KheWUF/8C54vV8AgvEb6OPGn5wd3iHvXlmGNHUE6a6ts9PP0F8MNMvB7MM5usVOXMIpdaojkfdu003Wyd+c3SoiDn3k=
