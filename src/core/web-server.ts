@@ -10,7 +10,7 @@ class WebServer implements Homenet.IWebServer {
   public app: any;
 
   // private _logger: ILogger;
-  private _port: number;
+  private _port: number | undefined;
   private _config: Homenet.IConfig;
 
   constructor(

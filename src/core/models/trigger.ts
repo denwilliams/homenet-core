@@ -12,7 +12,6 @@ export class Trigger implements Homenet.ITrigger {
 
   constructor(id: string, eventEmitter: Homenet.IEventEmitter) {
     this.id = id;
-    this.lastTriggered = null;
     this._eventEmitter = eventEmitter;
   }
 
@@ -24,7 +23,7 @@ export class Trigger implements Homenet.ITrigger {
   }
 
   removeOnTriggerListener(cb: Function) : void {
-    this._eventEmitter.removeListener('trigger', cb);    
+    this._eventEmitter.removeListener('trigger', cb);
   }
 
   _emitTrigger(data?: any) : void {

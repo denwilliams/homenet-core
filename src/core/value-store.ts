@@ -21,7 +21,6 @@ export class ValueStore {
     this.guid = 'value.' + id;
     this._eventBus = eventBus;
     this._persistence = persistence;
-    this._values = null;
     this._waiting = [];
 
     persistence.get(this.guid)

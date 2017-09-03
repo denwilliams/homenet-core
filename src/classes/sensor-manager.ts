@@ -1,6 +1,5 @@
 import { injectable, inject } from 'inversify';
 import { ClassTypeManager } from '../utils/class-type-manager';
-// import { TriggerSensor } from './models/trigger-sensor';
 
 const CLASS_ID = 'sensor';
 
@@ -17,11 +16,16 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
     }
 
   protected onAddInstance(sensor: Homenet.ISensor, instanceId: string, typeId: string, opts: any) : void {
-    let sensorPresence = null;
+    let sensorPresence;
     const guid = `sensor.${instanceId}`;
+
     if (sensor.isTrigger || sensor.isToggle) {
       const zoneId = sensor.opts.zoneId || sensor.opts.zone;
-      const parent : string = zoneId ? `zone.${zoneId}` : null;
+
+      const parent = zoneId
+        ? `zone.${zoneId}`
+        : undefined;
+
       sensorPresence = this.presence.add(
         guid,
         { category: 'sensor', timeout: sensor.opts.timeout, parent, name: guid }
@@ -35,10 +39,10 @@ export class SensorManager extends ClassTypeManager<Homenet.ISensor> implements 
         trigger.trigger();
       });
       trigger.onTrigger(() => {
-        sensorPresence.bump();
+        if (sensorPresence) sensorPresence.bump();
       });
     }
-    if (sensor.isToggle) {
+    if (sensor.isToggle && sensorPresence) {
       // allow toggle
       sensor.on('active', isActive => {
         if (isActive) sensorPresence.set();

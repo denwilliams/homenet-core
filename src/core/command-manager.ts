@@ -57,10 +57,10 @@ export class CommandManager implements Homenet.ICommandManager {
     this._logger.debug(`Running command on instance ${id} - cmd: ${command}`);
 
     var instance: Homenet.ICommander = this._instances[id];
-    if (!instance) return null;
+    if (!instance) return Promise.resolve();
 
     var cmdFn: Function = instance[command];
-    if (!cmdFn) return null;
+    if (!cmdFn) return Promise.resolve();
 
     var result = cmdFn.apply(instance, args);
     this._eventBus.emit(`command.${id}`, command, args);

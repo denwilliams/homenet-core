@@ -6,7 +6,7 @@
   "author": "Den Williams",
   "license": "MIT",
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "bin": {
     "homenet4": "bin/homenet4"

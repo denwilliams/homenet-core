@@ -37,7 +37,7 @@ export class StateManager implements Homenet.IStateManager {
       var type = this.getType(typeId);
       if (!type.setCurrent) {
         this.logger.warn('Could not set state for type ' + typeId + ' - no setCurrent method defined');
-        return;
+        return '';
       }
       var result = type.setCurrent(state);
       if (type.emitOnSet) {

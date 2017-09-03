@@ -54,7 +54,7 @@ export abstract class ClassTypeManager<T> implements Homenet.IClassTypeManager<T
    * @param  {string} instanceId
    * @return {*} the instance
    */
-  getInstance(instanceId: string) : T {
+  getInstance(instanceId: string) : T | null {
     const instance = this.instances[instanceId];
     if (instance) return instance;
     this.logger.warn('Cannot find instance ' + instanceId);

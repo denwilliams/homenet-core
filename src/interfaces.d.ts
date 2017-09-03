@@ -1,3 +1,5 @@
+interface XMLHttpRequest {}
+
 declare namespace Homenet {
 
   export interface IServiceContext {
@@ -140,7 +142,7 @@ declare namespace Homenet {
   }
 
   interface IClassManager<T> {
-    getInstance(instanceId: string): T;
+    getInstance(instanceId: string): T | null;
     getAllInstances(): Dict<T>;
   }
 
@@ -456,8 +458,8 @@ declare namespace Homenet {
   interface IZone {
     id: string;
     name: string;
-    parent: IZone;
-    parentId: string;
+    parent?: IZone;
+    parentId?: string;
     children: IZone[];
   }
 

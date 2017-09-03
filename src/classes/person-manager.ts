@@ -46,7 +46,10 @@ export class PersonManager implements Homenet.IPersonManager {
   }
 
   private _load(config: Homenet.IConfig) : void {
-    config.people.forEach((person: Homenet.IPersonConfig) => {
+    const people = config.people;
+    if (!people) return;
+
+    people.forEach((person: Homenet.IPersonConfig) => {
       this.add(person.id, person.name, -1);
     });
   }

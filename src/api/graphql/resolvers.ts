@@ -38,6 +38,7 @@ const Query = {
   },
   config(_, args, ctx) {
     const config: Homenet.IConfig = ctx.config;
+    if (!config.location) return null;
     return {
       coords: {
         lat: config.location.latitude,
@@ -127,7 +128,7 @@ const Switch = {
 const Values = {
   items(values: Homenet.IValueStore) {
     const itemsMap = values.getAll();
-    const items = [];
+    const items: any[] = [];
     for (const key in itemsMap) {
       const val = itemsMap[key];
       items.push({

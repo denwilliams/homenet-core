@@ -39,8 +39,8 @@ export class SceneManager implements Homenet.ISceneManager {
   }
 
   private _getScene(id: string) : Homenet.IScene {
-    if (!id) return null;
-    return {id, name: id};
+    if (!id) return { id: 'unknown', name: 'Unknown' };
+    return { id, name: id };
   }
 
   get current() : Homenet.IScene {

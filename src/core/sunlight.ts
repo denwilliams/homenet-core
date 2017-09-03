@@ -19,8 +19,8 @@ const STATE_TYPE = 'sunlight';
 export class Sunlight implements Homenet.ISunlight {
 
   private _logger: Homenet.ILogger;
-  private _latitude: number;
-  private _longitude: number;
+  private _latitude: number | undefined;
+  private _longitude: number | undefined;
   private _state: boolean;
   private _events: EventEmitter;
 

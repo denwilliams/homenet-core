@@ -21,7 +21,8 @@ export class LockManager extends SettableClassTypeManager<Homenet.ILock> impleme
   }
 
   setLock(lockId: string, value: boolean) : void {
-    this.getInstance(lockId).set(value);
+    const instance = this.getInstance(lockId);
+    if (instance) instance.set(value);
   }
 
   protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILock {

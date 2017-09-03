@@ -58,11 +58,12 @@ export class PresenceManager implements Homenet.IPresenceManager {
    * @param {integer} [opts.timeout] - timeout in milliseconds before will become not present after a `bump()`
    * @param {string} [opts.category] - category id this belongs to
    */
-  add(id: string, opts: any) {
+  add(id: string, opts: any): Homenet.IPresence {
     var parts = id.split('.');
     if (parts.length !== 2) {
-      this._logger.error('Invalid presence ID - must be in the format type.instance');
-      return;
+      const message = 'Invalid presence ID - must be in the format type.instance';
+      this._logger.error(message);
+      throw new Error(message);
     }
     this._logger.debug('Adding presence item of type ' + parts[0] + ' with instance ID ' + parts[1]);
     var p: PresenceState;
@@ -140,7 +141,7 @@ export class PresenceManager implements Homenet.IPresenceManager {
    * @return {Array<module:presence.PresenceState>} all available presence state items
    */
   getAll() {
-    var arr = [];
+    var arr: any[] = [];
     for (var i in this._items) {
       arr.push(this._items[i]);
     }
