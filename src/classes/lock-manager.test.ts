@@ -37,6 +37,7 @@ test('can lock with commands', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const lock1 = locks.getInstance('one');
   const commandManager: Homenet.ICommandManager = t.context.kernel.get('ICommandManager');
+  if (!lock1) throw Error('lock1 not found');
   t.is(lock1.get(), false);
 
   // ACT
@@ -53,6 +54,7 @@ test('can unlock with commands', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const lock1 = locks.getInstance('one');
   const commandManager: Homenet.ICommandManager = t.context.kernel.get('ICommandManager');
+  if (!lock1) throw Error('lock1 not found');
   lock1.set(true);
   t.is(lock1.get(), true);
 
@@ -70,6 +72,7 @@ test('can lock with switch', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const lock1 = locks.getInstance('one');
   const switchManager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
+  if (!lock1) throw Error('lock1 not found');
   t.is(lock1.get(), false);
 
   // ACT
@@ -85,6 +88,7 @@ test('can unlock with switch', async (t) => {
   const instanceLoader: Homenet.IInstanceLoader = t.context.instanceLoader;
   instanceLoader.loadInstances(t.context.config);
   const lock1 = locks.getInstance('one');
+  if (!lock1) throw Error('lock1 not found');
   lock1.set(true);
   const switchManager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
   t.is(lock1.get(), true);

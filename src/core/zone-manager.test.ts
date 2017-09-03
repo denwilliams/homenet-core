@@ -7,13 +7,11 @@ const config: Homenet.IConfig = {
     {
       id: 'simple',
       name: 'Simple',
-      parent: null,
       timeout: 0
     },
     {
       id: 'parent',
       name: 'Parent',
-      parent: null,
       timeout: 0
     },
     {
@@ -25,13 +23,11 @@ const config: Homenet.IConfig = {
     {
       id: 'simple-timeout',
       name: 'Simple Timeout',
-      parent: null,
       timeout: 60000
     },
     {
       id: 'parent-timeout',
       name: 'Parent Timeout',
-      parent: null,
       timeout: 0
     },
     {

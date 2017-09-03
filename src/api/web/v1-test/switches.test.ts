@@ -57,6 +57,7 @@ test('PUT /switches/:id sets a single switch', async (t) => {
   const request = supertest(app);
   const lights: Homenet.ILightsManager = t.context.lights;
   const light1 = lights.getInstance('one');
+  if (!light1) throw Error('light1 not found');
 
   // ACT
   const result: any = await request.put('/v1/switches/light.one')

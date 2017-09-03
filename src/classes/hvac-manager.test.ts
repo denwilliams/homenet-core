@@ -38,6 +38,7 @@ test('can turn on with commands', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const hvac1 = hvacManager.getInstance('one');
   const commandManager: Homenet.ICommandManager = t.context.kernel.get('ICommandManager');
+  if (!hvac1) throw Error('hvac1 not found');
   t.is(hvac1.get(), 'unknown');
 
   // ACT
@@ -54,6 +55,7 @@ test('can turn off with commands', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const hvac1 = hvacManager.getInstance('one');
   const commandManager: Homenet.ICommandManager = t.context.kernel.get('ICommandManager');
+  if (!hvac1) throw Error('hvac1 not found');
   t.is(hvac1.get(), 'unknown');
 
   // ACT
@@ -70,6 +72,7 @@ test('can turn on with switch', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const hvac1 = hvacManager.getInstance('one');
   const switchManaager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
+  if (!hvac1) throw Error('hvac1 not found');
   t.is(hvac1.get(), 'unknown');
 
   // ACT
@@ -86,6 +89,7 @@ test('can turn off with switch', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const hvac1 = hvacManager.getInstance('one');
   const switchManaager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
+  if (!hvac1) throw Error('hvac1 not found');
   t.is(hvac1.get(), 'unknown');
 
   // ACT

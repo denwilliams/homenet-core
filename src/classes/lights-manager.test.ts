@@ -37,6 +37,7 @@ test('can turn on with commands', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const light1 = lights.getInstance('one');
   const commandManager: Homenet.ICommandManager = t.context.kernel.get('ICommandManager');
+  if (!light1) throw Error('light1 not found');
   t.is(light1.get(), 'unknown');
 
   // ACT
@@ -53,6 +54,7 @@ test('can turn off with commands', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const light1 = lights.getInstance('one');
   const commandManager: Homenet.ICommandManager = t.context.kernel.get('ICommandManager');
+  if (!light1) throw Error('light1 not found');
   t.is(light1.get(), 'unknown');
 
   // ACT
@@ -69,6 +71,7 @@ test('can turn on with switch', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const light1 = lights.getInstance('one');
   const switchManaager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
+  if (!light1) throw Error('light1 not found');
   t.is(light1.get(), 'unknown');
 
   // ACT
@@ -85,6 +88,7 @@ test('can turn off with switch', async (t) => {
   instanceLoader.loadInstances(t.context.config);
   const light1 = lights.getInstance('one');
   const switchManaager: Homenet.ISwitchManager = t.context.kernel.get('ISwitchManager');
+  if (!light1) throw Error('light1 not found');
   t.is(light1.get(), 'unknown');
 
   // ACT
