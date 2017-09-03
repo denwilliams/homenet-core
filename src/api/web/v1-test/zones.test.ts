@@ -35,7 +35,7 @@ test('/zones returns an array of objects with id and ??', async (t) => {
   t.is(result.body.length, 6);
   t.is(result.body[0].id, 'simple');
   t.is(result.body[0].name, 'Simple');
-  t.is(result.body[0].parent, null);
+  t.is(result.body[0].parent, undefined);
 });
 
 test('/zones/:id returns a single zone', async (t) => {
@@ -49,5 +49,5 @@ test('/zones/:id returns a single zone', async (t) => {
   // ASSERT
   t.is(result.body.id, 'simple');
   t.is(result.body.name, 'Simple');
-  t.is(result.body.parent, null);
+  t.is(result.body.parent, undefined);
 });

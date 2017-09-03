@@ -87,7 +87,7 @@ declare namespace Homenet {
   interface ICommander {}
 
   interface ITrigger {
-    lastTriggered: Date
+    lastTriggered: Date | null;
     onTrigger(listener: Function): void;
     removeOnTriggerListener(listener: Function): void;
     trigger(data?: any): void;
