@@ -25,7 +25,7 @@ export class Macro extends EventEmitter implements Homenet.IMacro {
 
   constructor(public id: string, private eventBus: Homenet.IEventBus, private logger: Homenet.ILogger, private options: any) {
     super();
-    this.expose = options.any || false;
+    this.expose = options.expose || false;
     this.name = options.name || id;
   }
 
