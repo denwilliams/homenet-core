@@ -7,11 +7,26 @@ export const AVAILABLE_COMMANDS = {
   }
 };
 
+export const AVAILABLE_SWITCH_COMMANDS = {
+  'turnOn': {
+      "title": "Turn On",
+      "comment": "Turns on the macro switch"
+  },
+  'turnOff': {
+      "title": "Turn Off",
+      "comment": "Turns off the macro switch"
+  }
+};
+
 export class Macro extends EventEmitter implements Homenet.IMacro {
   private lastValue: boolean = false;
+  private expose: boolean = false;
+  private name: string;
 
-  constructor(public id: string, private eventBus: Homenet.IEventBus, private logger: Homenet.ILogger) {
+  constructor(public id: string, private eventBus: Homenet.IEventBus, private logger: Homenet.ILogger, private options: any) {
     super();
+    this.expose = options.any || false;
+    this.name = options.name || id;
   }
 
   set(boolValue: boolean) {
@@ -45,6 +60,9 @@ export class Macro extends EventEmitter implements Homenet.IMacro {
   }
 
   get commandMeta() {
+    if (this.options.switch) {
+      return AVAILABLE_SWITCH_COMMANDS;
+    }
     return AVAILABLE_COMMANDS;
   }
 
@@ -53,6 +71,8 @@ export class Macro extends EventEmitter implements Homenet.IMacro {
   }
 
   get switchId() {
-    return this.id;
+    if (this.options.switch) {
+      return this.id;
+    }
   }
 }
