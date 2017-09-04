@@ -24,6 +24,7 @@ function toApiInstance(src) {
     commandId: src.commandId,
     commandMeta: src.commandMeta,
     valueId: src.valueId,
-    name: src.name
+    name: src.name,
+    expose: src.expose
   };
 }
