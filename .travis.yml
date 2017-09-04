@@ -1,11 +1,19 @@
 language: node_js
 node_js:
-- '6'
+  - '6'
+cache:
+  directories:
+    - "node_modules"
 before_install:
-- rm -rf lib/
-- npm install
-- npm install -g typescript@2.5.2
-- tsc
+  - rm -rf lib/
+  - npm install
+  - npm install -g typescript@2.5.2
+  - tsc
+before_deploy:
+  - rm -rf lib/
+  - npm install
+  - npm install -g typescript@2.5.2
+  - tsc
 deploy:
 - provider: npm
   email: work@denwilliams.net
