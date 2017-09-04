@@ -272,7 +272,7 @@ declare namespace Homenet {
     execute(): void;
   }
 
-  interface IMacro extends IMacroCommander {}
+  interface IMacro extends ISwitch, IMacroCommander {}
 
   interface IMacroManager extends IClassManager<IMacro> {
     execute(macroId: string): void;

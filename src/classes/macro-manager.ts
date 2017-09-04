@@ -12,6 +12,7 @@ export class MacroManager implements Homenet.IMacroManager {
   constructor(
       @inject('IClassesManager') private classes: Homenet.IClassesManager,
       @inject('ICommandManager') private commands: Homenet.ICommandManager,
+      @inject('ISwitchManager') private switches: Homenet.ISwitchManager,
       @inject('IEventBus') private eventBus: Homenet.IEventBus,
       @inject('IConfig') private config: Homenet.IConfig,
       @inject('ILogger') private logger: Homenet.ILogger
@@ -62,6 +63,10 @@ export class MacroManager implements Homenet.IMacroManager {
 
   protected onAddInstance(instance: Homenet.IMacro, instanceId: string, opts: any) : void {
     const fullId = `${CLASS_ID}.${instanceId}`;
-    this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
+    if (opts.switch) {
+      this.switches.addInstance(fullId, instance);
+    } else {
+      this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
+    }
   }
 }
