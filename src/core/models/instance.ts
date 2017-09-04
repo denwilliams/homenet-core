@@ -12,6 +12,14 @@ export class Instance {
     this.key = `${classId}.${id}`;
   }
 
+  get expose() {
+    return this.instance.expose;
+  }
+
+  get name() {
+    return this.instance.name;
+  }
+
   get switchId() {
     return this.instance.switchId;
   }

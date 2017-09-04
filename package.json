@@ -2,7 +2,7 @@
   "name": "@homenet/core",
   "version": "4.0.0-beta.37",
   "description": "Homenet home automation - core system",
-  "main": "lib/index.js",
+  "main": "lib/main.js",
   "author": "Den Williams",
   "license": "MIT",
   "engines": {
