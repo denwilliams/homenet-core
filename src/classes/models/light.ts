@@ -10,7 +10,12 @@ export const AVAILABLE_COMMANDS = {
 };
 
 export class Light implements Homenet.ILight {
-  constructor(public id: string, private settable: Homenet.ISettable) {
+  public expose: boolean;
+  public name: string;
+
+  constructor(public id: string, private settable: Homenet.ISettable, opts : any) {
+    this.expose = opts.expose || false;
+    this.name = opts.name || id;
   }
 
   set(value) {
@@ -41,12 +46,12 @@ export class Light implements Homenet.ILight {
     return AVAILABLE_COMMANDS;
   }
 
-  get commandId() {
-    return this.id;
+  get commandId(): string {
+    return 'light.' + this.id;
   }
 
-  get switchId() {
-    return this.id;
+  get switchId(): string {
+    return 'light.' + this.id;
   }
 
   // get valueId() {

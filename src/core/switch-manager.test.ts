@@ -5,6 +5,13 @@ import * as sinon from 'sinon';
 
 class TestSwitch extends EventEmitter implements Homenet.ISwitch {
   private _state: any;
+  public switchId: string;
+
+  constructor(id: string) {
+    super();
+    this.switchId = id;
+  }
+
   get() : any {
     return this._state;
   }
@@ -15,9 +22,9 @@ class TestSwitch extends EventEmitter implements Homenet.ISwitch {
 
 test.beforeEach(t => {
   const kernel = createKernel();
-  const testSwitch = new TestSwitch();
+  const testSwitch = new TestSwitch('test.one');
   const switchManager = kernel.get<Homenet.ISwitchManager>('ISwitchManager');
-  switchManager.addInstance('test.one', new TestSwitch());
+  switchManager.addInstance(testSwitch.switchId, testSwitch);
 
   t.context.kernel = kernel;
   t.context.switchManager = switchManager;
@@ -28,8 +35,8 @@ test('#set calls #set on the typed switch', (t) => {
   // ARRANGE
   const val = 'ajdnfsdjlsda';
   const switches: Homenet.ISwitchManager = t.context.switchManager;
-  const testSwitch = new TestSwitch();
-  switches.addInstance('test.two', testSwitch);
+  const testSwitch = new TestSwitch('test.two');
+  switches.addInstance(testSwitch.switchId, testSwitch);
 
   // ACT
   switches.set('test.two', val);
@@ -42,12 +49,12 @@ test('#get calls #get on the typed switch', (t) => {
   // ARRANGE
   const val = 'oijioshd';
   const switches: Homenet.ISwitchManager = t.context.switchManager;
-  const testSwitch: Homenet.ISwitch = new TestSwitch();
-  switches.addInstance('test.two', testSwitch);
+  const testSwitch: Homenet.ISwitch = new TestSwitch('test.three');
+  switches.addInstance(testSwitch.switchId, testSwitch);
   testSwitch.set(val);
 
   // ACT
-  const result = switches.get('test.two');
+  const result = switches.get('test.three');
 
   // ASSERT
   t.is(result, val);

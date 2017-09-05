@@ -66,13 +66,11 @@ export class Macro extends EventEmitter implements Homenet.IMacro {
     return AVAILABLE_COMMANDS;
   }
 
-  get commandId() {
-    return this.id;
+  get commandId(): string {
+    return 'macro.' + this.id;
   }
 
-  get switchId() {
-    if (this.options.switch) {
-      return this.id;
-    }
+  get switchId(): string {
+    return 'macro.' + this.id;
   }
 }

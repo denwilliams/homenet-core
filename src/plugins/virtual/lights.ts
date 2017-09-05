@@ -39,6 +39,14 @@ class VirtualLight extends BaseSwitch<string> implements Homenet.ILight {
   turnOff() : void {
     this.set('off');
   }
+
+  get commandId(): string {
+    return 'light.' + this.id;
+  }
+
+  get switchId(): string {
+    return 'light.' + this.id;
+  }
 }
 
 export = factory;

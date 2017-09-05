@@ -23,14 +23,12 @@ export class HvacManager extends SettableClassTypeManager<Homenet.IHvac> impleme
     if (!eventBus) throw new Error('eventBus cannot be null');
   }
 
-  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.IHvac {
-    return new Hvac(id, settable);
+  protected mapSettable(id: string, settable: Homenet.ISettable, opts: any): Homenet.IHvac {
+    return new Hvac(id, settable, opts);
   }
 
   protected onAddInstance(hvac: Homenet.IHvac, instanceId: string, typeId: string, opts: any) : void {
-    const fullId = `${CLASS_ID}.${instanceId}`;
-    this.switches.addInstance(fullId, hvac);
-    this.commands.addInstance(fullId, hvac, AVAILABLE_COMMANDS);
+    this.switches.addInstance(hvac.switchId, hvac);
+    this.commands.addInstance(hvac.commandId, hvac, AVAILABLE_COMMANDS);
   }
 }
-

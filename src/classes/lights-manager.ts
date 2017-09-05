@@ -25,14 +25,13 @@ export class LightsManager extends SettableClassTypeManager<Homenet.ILight> impl
     if (!eventBus) throw new Error('eventBus cannot be null');
   }
 
-  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILight {
-    return new Light(id, settable);
+  protected mapSettable(id: string, settable: Homenet.ISettable, opts : any): Homenet.ILight {
+    return new Light(id, settable, opts);
   }
 
   protected onAddInstance(light: Homenet.ILight, instanceId: string, typeId: string, opts: any) : void {
-    const fullId = `${CLASS_ID}.${instanceId}`;
-    this.switches.addInstance(fullId, light);
-    this.commands.addInstance(fullId, light, AVAILABLE_COMMANDS);
+    this.switches.addInstance(light.switchId, light);
+    this.commands.addInstance(light.commandId, light, AVAILABLE_COMMANDS);
   }
 }
 

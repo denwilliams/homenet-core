@@ -48,4 +48,12 @@ export class Person extends EventEmitter implements Homenet.IPerson {
   get() : boolean {
     return this._presence.isPresent;
   }
+
+  get switchId(): string {
+    return 'person.' + this.id;
+  }
+
+  get commandId(): string {
+    return 'person.' + this.id;
+  }
 }

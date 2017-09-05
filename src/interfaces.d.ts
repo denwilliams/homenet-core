@@ -82,9 +82,13 @@ declare namespace Homenet {
     getLogger(name: string): ILogger;
   }
 
-  interface ISwitch extends ISettable {}
+  interface ISwitch extends ISettable {
+    switchId: string;
+  }
 
-  interface ICommander {}
+  interface ICommander {
+    commandId: string;
+  }
 
   interface ITrigger {
     lastTriggered: Date | null;

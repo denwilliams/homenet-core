@@ -62,11 +62,10 @@ export class MacroManager implements Homenet.IMacroManager {
   }
 
   protected onAddInstance(instance: Homenet.IMacro, instanceId: string, opts: any) : void {
-    const fullId = `${CLASS_ID}.${instanceId}`;
     if (opts.switch) {
-      this.switches.addInstance(fullId, instance);
+      this.switches.addInstance(instance.switchId, instance);
     } else {
-      this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
+      this.commands.addInstance(instance.commandId, instance, AVAILABLE_COMMANDS);
     }
   }
 }

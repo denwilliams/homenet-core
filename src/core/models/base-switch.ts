@@ -20,6 +20,14 @@ abstract class BaseSwitch<T> extends EventEmitter implements Homenet.ISwitch {
     this._value = value;
     this.emit('updated', value);
   }
+
+  get commandId(): string {
+    return 'light.' + this._id;
+  }
+
+  get switchId(): string {
+    return 'light.' + this._id;
+  }
 }
 
 export = BaseSwitch;

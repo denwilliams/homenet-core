@@ -10,9 +10,9 @@ export abstract class SettableClassTypeManager<T> extends ClassTypeManager<T> {
     this.types[typeId] = (id : string, opts : any) : T => {
       const fullId = `${this.classId}.${id}`;
       const settable: Homenet.ISettable = factory(id, opts);
-      return this.mapSettable(fullId, settable);
+      return this.mapSettable(fullId, settable, opts);
     };
   }
 
-  protected abstract mapSettable(id: string, settable: Homenet.ISettable): T;
+  protected abstract mapSettable(id: string, settable: Homenet.ISettable, opts : any): T;
 }

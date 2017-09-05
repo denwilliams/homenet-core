@@ -25,13 +25,12 @@ export class LockManager extends SettableClassTypeManager<Homenet.ILock> impleme
     if (instance) instance.set(value);
   }
 
-  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.ILock {
-    return new Lock(id, settable);
+  protected mapSettable(id: string, settable: Homenet.ISettable, opts: any): Homenet.ILock {
+    return new Lock(id, settable, opts);
   }
 
   protected onAddInstance(instance: Homenet.ILock, instanceId: string, typeId: string, opts: any) : void {
-    const fullId = `${CLASS_ID}.${instanceId}`;
-    this.switches.addInstance(fullId, instance);
-    this.commands.addInstance(fullId, instance, AVAILABLE_COMMANDS);
+    this.switches.addInstance(instance.switchId, instance);
+    this.commands.addInstance(instance.commandId, instance, AVAILABLE_COMMANDS);
   }
 }

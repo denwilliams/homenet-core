@@ -23,14 +23,13 @@ export class PowerManager extends SettableClassTypeManager<Homenet.IPower> imple
     if (!eventBus) throw new Error('eventBus cannot be null');
   }
 
-  protected mapSettable(id: string, settable: Homenet.ISettable): Homenet.IPower {
-    return new Power(id, settable);
+  protected mapSettable(id: string, settable: Homenet.ISettable, opts: any): Homenet.IPower {
+    return new Power(id, settable, opts);
   }
 
   protected onAddInstance(power: Homenet.IPower, instanceId: string, typeId: string, opts: any) : void {
-    const fullId = `${CLASS_ID}.${instanceId}`;
-    this.switches.addInstance(fullId, power);
-    this.commands.addInstance(fullId, power, AVAILABLE_COMMANDS);
+    this.switches.addInstance(power.switchId, power);
+    this.commands.addInstance(power.commandId, power, AVAILABLE_COMMANDS);
   }
 }
 

@@ -69,8 +69,8 @@ export class PersonManager implements Homenet.IPersonManager {
   }
 
   onAddPerson(person: Person): void {
-    this._switches.addInstance(`person.${person.id}`, person);
-    this._commands.addInstance(`person.${person.id}`, person, AVAILABLE_COMMANDS);
+    this._switches.addInstance(person.switchId, person);
+    this._commands.addInstance(person.commandId, person, AVAILABLE_COMMANDS);
   }
 
   get(id): Person {
